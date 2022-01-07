@@ -1,4 +1,6 @@
+#include <iostream>
 #include "header.h"
+using namespace std;
 
 int main(){
     
@@ -43,7 +45,7 @@ void deplacement_perso(Player *player){
     // demander le déplacement
     char input;
     cin >> input;
-    system("clear");
+    clear();
 
     
     // déplacement selon l'input et selon la position
@@ -68,9 +70,6 @@ void deplacement_perso(Player *player){
 
 void updateMap(char map[], Player player)
 {
-//player.posx
-//player.posy
-system("clear");
 
     for (int j=0; j<height; j++)
         {
