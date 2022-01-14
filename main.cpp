@@ -58,7 +58,7 @@ int main()
         }
 
 
-        deplacement_perso(&player, input);
+        deplacement_perso(&player, input, map);
         updateMap(map, player);
         affiche_menu(player);
     }

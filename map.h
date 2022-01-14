@@ -6,11 +6,11 @@
 using namespace std;
 
 // dimensions de la map
-const int width = 10;
-const int height = 10;
+const int width = 40;
+const int height = 30;
 
 
 void afficheMap (char map[width*height]);
 void updateMap(char map[width*height], Player player);
 void remplissageMap(char map[width*height]);
-void deplacement_perso(Player *player, char input);
+void deplacement_perso(Player *player, char input, char map[]);
