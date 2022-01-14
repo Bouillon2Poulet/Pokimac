@@ -51,8 +51,6 @@ struct Inventaire{
     int nb_trucopif;
 };
 
-
-
 struct Player{
     int posx;
     int posy;
@@ -63,6 +61,11 @@ struct Player{
     Pokemon ekip[6];
 };
 
+
+
+
+extern Pokemon listePkm []; //Déclaration de la liste
+extern char map[];
 //Liste des pokémons
 extern Pokemon salameche;  // Salamèche
 extern Pokemon bulbizarre;   //Bulbizarre
@@ -74,14 +77,9 @@ extern Pokemon carapuce;   //Bulbizarre
 // le prototypage
 void copyPokemon(Pokemon source, Pokemon *destination);
 void init_pokemons(Pokemon listePkm[]);
-void intro (Player *player,string *suivant);
-void choix_starter(Player *player, string *suivant, Pokemon listePkm[]);
-void intro2(Player *player, string *suivant);
 
-void deplacement_perso(Player *player, char input);
+
+
 void initPlayer (Player *player, int posx, int posy);
 
-void affiche_menu(const Player player);
-void init_inv(Inventaire inv);
-void affiche_inventaire(Inventaire inv);
 

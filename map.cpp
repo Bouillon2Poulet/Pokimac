@@ -63,3 +63,52 @@ void afficheMap (char map[width*height]){
         cout << endl;
     }
 }
+
+void deplacement_perso(Player *player, char input){
+    // demander le déplacement
+    //if (input == 'p') return input; // on arrête de joueur à la map en appuyant sur P
+
+
+    // déplacement selon l'input et selon la position
+
+    switch (input){
+        case 'z':
+            if (player->posy >0) 
+            {
+                player->posxAv = player->posx;
+                player->posyAv = player->posy;
+                player->posy --;
+            }
+        break;
+
+        case 'q':
+            if (player->posx >0) 
+            {
+                
+                player->posxAv = player->posx;
+                player->posyAv = player->posy;
+                player->posx --;
+            }
+        break;
+
+        case 's':
+            if (player->posy <height-1) 
+            {
+                player->posxAv = player->posx;
+                player->posyAv = player->posy;
+                player->posy ++;
+            }
+        break;
+
+        case 'd':
+            if (player->posx <width-1) 
+            {
+                player->posxAv = player->posx;
+                player->posyAv = player->posy;
+                player->posx ++;
+            }
+        break;
+    }
+    //return ' '; // renvoie espace si le joueur joue
+}
+
