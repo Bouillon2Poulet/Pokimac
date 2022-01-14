@@ -13,3 +13,4 @@ const int height = 10;
 void afficheMap (char map[width*height]);
 void updateMap(char map[], Player player);
 void remplissageMap(char map[]);
+void deplacement_perso(Player *player, char input);
