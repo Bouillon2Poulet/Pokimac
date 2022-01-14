@@ -31,7 +31,7 @@ struct Pokemon{
     int pv;
     int dmg;
     int def;
-    char cara;
+    string cara;
 };
 
 extern Pokemon listePkm []; //Déclaration de la liste
@@ -50,7 +50,6 @@ struct Inventaire{
     int nb_popo2;
     int nb_trucopif;
 };
-
 struct Player{
     int posx;
     int posy;
@@ -81,5 +80,6 @@ void init_pokemons(Pokemon listePkm[]);
 
 
 void initPlayer (Player *player, int posx, int posy);
+
 
 

@@ -24,6 +24,7 @@ int main()
     player.posxAv =5;
     player.posyAv = 5;
     init_inv(player.inv);
+    initEkip(&player);
 
     
 
@@ -50,11 +51,22 @@ int main()
         char input;
         cin >> input;
         clear();
-        if (input=='1') { // on entre dans l'inventaire;
-            affiche_inventaire(player.inv);
-            cout << "Appuyez sur ECHAP pour revenir sur la map" << endl;
-            cin >> suivant;
-            clear();
+        switch (input) {
+            case '1':
+                affiche_inventaire(player.inv);
+                cout << "Appuyez sur ECHAP pour revenir sur la map" << endl;
+                cin >> suivant;
+                clear();
+                break;
+
+            case '2':
+                affichePokemon(player);
+                    cout << "Appuyez sur ECHAP pour revenir sur la map" << endl;
+                    cin >> suivant;
+                    clear();
+                    break;
+            default: cout << "XXXXXX";break; // on entre dans l'inventaire;
+           
         }
 
 
