@@ -20,11 +20,19 @@ using namespace std;
             }
         }*/
 #endif
-///////
 
-// dimmensions de la map
+///////
+struct Pokemon{
+    string nom;
+    string type;
+    int pv;
+    int dmg;
+    int def;
+};
+// dimensions de la map
 const int width = 10;
 const int height = 10;
+extern Pokemon listePkm [40]; //Déclaration de la liste
 
 struct Inventaire{
     int nb_potions;
@@ -33,13 +41,7 @@ struct Inventaire{
     int nb_trucopif;
 };
 
-struct Pokemon{
-    string nom;
-    string type;
-    int pv;
-    int dmg;
-    int def;
-};
+
 
 struct Player{
     int posx;
@@ -50,10 +52,10 @@ struct Player{
 };
 
 //Liste des pokémons
-Pokemon listePkm [2]; //Déclaration de la liste
-
 extern Pokemon salameche;  // Salamèche
 extern Pokemon bulbizarre;   //Bulbizarre
+extern Pokemon carapuce;   //Bulbizarre
+
 
 
 

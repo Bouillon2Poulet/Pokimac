@@ -3,16 +3,18 @@
 using namespace std;
 
 Pokemon salameche;
+Pokemon bulbizarre;
+Pokemon carapuce;
+Pokemon listePkm [40];
 
 int main()
 {
     string suivant;
-
     Player player; // Initialise les coordonnées du joueur et son inventaire
     player.posx = 5;
     player.posy = 5;
     init_inv(player.inv);
-    Pokemon listePkm [2];
+
     init_pokemons(listePkm); //Initialise les pokémons
 
     /////////////////////////LE DEBUT DU JEU ////////////////////////////////
@@ -41,7 +43,7 @@ int main()
         clear();
         if (input=='1') { // on entre dans l'inventaire;
             affiche_inventaire(player.inv);
-            cout << "Appuiez sur ECHAP pour revenir sur la map" << endl;
+            cout << "Appuyez sur ECHAP pour revenir sur la map" << endl;
             cin >> suivant;
             clear();
         }
@@ -92,12 +94,21 @@ void init_pokemons(Pokemon listePkm[])
     salameche.def = 60;
     listePkm[0] = salameche;
 
-    bulbizarre.nom = "Bulbizarre";
+    bulbizarre.nom = "Bulbizarre"; // A Changer
     bulbizarre.type = "Plante";
-    bulbizarre.pv = 39;
-    bulbizarre.dmg = 60;
-    bulbizarre.def = 60;
-    listePkm[0] = bulbizarre;
+    bulbizarre.pv = 45;
+    bulbizarre.dmg = 49;
+    bulbizarre.def = 49;
+    listePkm[1] = bulbizarre;
+
+    carapuce.nom = "Carapuce"; // A Changer
+    carapuce.type = "Eau";
+    carapuce.pv = 44;
+    carapuce.dmg = 48;
+    carapuce.def = 65;
+    listePkm[2] = carapuce;
+
+
 }
 
 void copyPokemon(Pokemon source, Pokemon *destination) //Copie un pokémon source vers un pokémon cible pour résoudre le problème des strings qui se copient mal
