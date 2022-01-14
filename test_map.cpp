@@ -31,7 +31,6 @@ int main()
 
     // remplissage de la map
     for (int i=0; i<width*height;i++){
-        cout << i << endl;
         if (i == 25) {
             map[i] = '2';
         }
@@ -89,7 +88,7 @@ void intro (Player *player, string *suivant)
 
 void intro2(Player *player, string *suivant)
 {
-    cout << "INTRO 2";
+    cout << "INTRO 2\n";
 }
 
 void init_pokemons(Pokemon listePkm[])
@@ -101,7 +100,6 @@ void init_pokemons(Pokemon listePkm[])
     salameche.def = 60;
     listePkm[0] = salameche;
 
-<<<<<<< Updated upstream
     bulbizarre.nom = "Bulbizarre"; // A Changer
     bulbizarre.type = "Plante";
     bulbizarre.pv = 45;
@@ -115,16 +113,6 @@ void init_pokemons(Pokemon listePkm[])
     carapuce.dmg = 48;
     carapuce.def = 65;
     listePkm[2] = carapuce;
-
-
-=======
-    /*bulbizarre.nom = "Bulbizarre";
-    bulbizarre.type = "Plante";
-    bulbizarre.pv = 39;
-    bulbizarre.dmg = 60;
-    bulbizarre.def = 60;
-    listePkm[0] = bulbizarre;*/
->>>>>>> Stashed changes
 }
 
 void copyPokemon(Pokemon source, Pokemon *destination) //Copie un pokémon source vers un pokémon cible pour résoudre le problème des strings qui se copient mal
