@@ -40,7 +40,6 @@ struct Pokemon{
     int dmg;
     int def;
 };
-
 struct Player{
     int posx;
     int posy;
@@ -69,5 +68,6 @@ void init_pokemons(Pokemon listePkm[]);
 
 void deplacement_perso(Player *player, char input);
 void initPlayer (Player *player, int posx, int posy);
+
 
 
