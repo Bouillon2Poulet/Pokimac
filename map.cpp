@@ -2,13 +2,12 @@
 #include "map.h"
 using namespace std;
 
-char map [width*height];  
+char map [width*height];
     // remplissage de la map
-void remplissageMap(char map[])
+void remplissageMap(char map[width*height])
 {   
     for (int i=0; i<width*height;i++)
     {
-        cout << i << endl;
         if (i == 25) 
         {
             map[i] = '2';
@@ -17,11 +16,12 @@ void remplissageMap(char map[])
         { 
             map[i] = '8';
         }
+        cout << "map -> " << map[i] << endl;
     }
 }
 
 
-void updateMap(char map[], Player player)
+void updateMap(char map[width*height], Player player)
 {
     int nb_aff_ligne = 0;
     for (int j=0; j<height; j++)
@@ -30,13 +30,24 @@ void updateMap(char map[], Player player)
             {
                 if (h==player.posx && j==player.posy)
                 {
-                    cout << 1;
+                    cout << white << 1;
+                    nb_aff_ligne ++;
+                    h++;
+                }
+
+                if (h==player.posxAv && j==player.posyAv)
+                {
+                    
+                    if (player.ekip[0].type == "Plante") cout << green << player.ekip[0].cara << white;
+                    if (player.ekip[0].type == "Feu") cout << red << player.ekip[0].cara << white;
+                    if (player.ekip[0].type == "Eau") cout << blue << player.ekip[0].cara<< white;
+
                     nb_aff_ligne ++;
                     h++;
                 }
                 nb_aff_ligne ++;
                 if (nb_aff_ligne<=width){
-                    cout << map[h+width*j];
+                    cout << white<< map[h+width*j];
                 }
             }
         cout << endl;

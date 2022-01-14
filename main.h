@@ -31,10 +31,16 @@ struct Pokemon{
     int pv;
     int dmg;
     int def;
+    char cara;
 };
 
 extern Pokemon listePkm []; //Déclaration de la liste
 extern char map[];
+
+const string red = "\033[31m";
+const string green = "\033[32m";
+const string blue = "\033[34m";
+const string white = "\033[0m";
 
 
 
@@ -50,6 +56,8 @@ struct Inventaire{
 struct Player{
     int posx;
     int posy;
+    int posxAv;
+    int posyAv;
     string pseudo;
     Inventaire inv;
     Pokemon ekip[6];

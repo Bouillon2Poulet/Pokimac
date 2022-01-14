@@ -9,12 +9,15 @@ using namespace std;
 int main()
 {
     init_pokemons(listePkm); //Initialise les pokémons
+    
     remplissageMap(map);
     
     string suivant;
     Player player; // Initialise les coordonnées du joueur et son inventaire
     player.posx = 5;
     player.posy = 5;
+    player.posxAv =5;
+    player.posyAv = 5;
     init_inv(player.inv);
 
     
@@ -24,12 +27,13 @@ int main()
     intro(&player, &suivant);
     choix_starter(&player, &suivant, listePkm);
     intro2(&player, &suivant);
+    
 
 
     //////////////// LA MAP + DEPLACEMENT PERSO //////////////////////////
 
     //déf de la map
-    char map [width*height];
+    
 
 
     // affichage de la map
@@ -92,9 +96,9 @@ void choix_starter (Player *player, string *suivant, Pokemon listePkm[])
 {
     clear();
     cout << "Choix du Pokemon :" << endl;
-    cout << "\033[31m 1 - Salamèche\033[0m\n";
-    cout << "\033[32m 2 - Bulbizarre\033[0m\n";
-    cout << "\033[34m 3 - Carapuce\033[0m\n";
+    cout << red << "1 - Salamèche" << white << endl;
+    cout << green << "2 - Bulbizarre" << white << endl;
+    cout << blue << " 3 - Carapuce" << white << endl;
     int choix;
     cin >> choix;
     switch (choix)
@@ -114,6 +118,7 @@ void choix_starter (Player *player, string *suivant, Pokemon listePkm[])
         default: cout << "Veuillez entrer un chiffre entre 1 et 3" << endl;
         *suivant = getchar();
         choix_starter(player,suivant,listePkm);
+
     }
 }
 
@@ -126,21 +131,43 @@ void deplacement_perso(Player *player, char input){
 
 
     // déplacement selon l'input et selon la position
+
     switch (input){
         case 'z':
-            if (player->posy >0) player->posy --;
+            if (player->posy >0) 
+            {
+                player->posxAv = player->posx;
+                player->posyAv = player->posy;
+                player->posy --;
+            }
         break;
 
         case 'q':
-            if (player->posx >0) player->posx --;
+            if (player->posx >0) 
+            {
+                
+                player->posxAv = player->posx;
+                player->posyAv = player->posy;
+                player->posx --;
+            }
         break;
 
         case 's':
-            if (player->posy <height-1) player->posy ++;
+            if (player->posy <height-1) 
+            {
+                player->posxAv = player->posx;
+                player->posyAv = player->posy;
+                player->posy ++;
+            }
         break;
 
         case 'd':
-            if (player->posx <width-1) player->posx ++;
+            if (player->posx <width-1) 
+            {
+                player->posxAv = player->posx;
+                player->posyAv = player->posy;
+                player->posx ++;
+            }
         break;
     }
     //return ' '; // renvoie espace si le joueur joue
