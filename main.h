@@ -34,6 +34,19 @@ struct Pokemon{
     string cara;
 };
 
+struct PkmSauvage{
+    string nom;
+    string type;
+    int pv;
+    int dmg;
+    int def;
+    string cara;
+    int posx;
+    int posy;
+};
+
+
+
 extern Pokemon listePkm []; //Déclaration de la liste
 extern char map[];
 
@@ -69,6 +82,9 @@ extern char map[];
 extern Pokemon salameche;  // Salamèche
 extern Pokemon bulbizarre;   //Bulbizarre
 extern Pokemon carapuce;   //Bulbizarre
+extern PkmSauvage pokemonSauvage1; //Pokémon Sauvage
+
+extern Pokemon listPokemon[]; //Liste des Pokemons
 
 
 

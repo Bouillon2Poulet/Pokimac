@@ -33,6 +33,7 @@ int main()
     intro(&player, &suivant);
     choix_starter(&player, &suivant, listePkm);
     intro2(&player, &suivant);
+    initPokemonSauvage (listePkm, &pokemonSauvage1);
     
 
 

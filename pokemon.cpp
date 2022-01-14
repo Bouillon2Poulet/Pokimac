@@ -6,6 +6,7 @@ Pokemon salameche;
 Pokemon bulbizarre;
 Pokemon carapuce;
 Pokemon listePkm [40];
+PkmSauvage pokemonSauvage1;
 
 
 
@@ -34,8 +35,6 @@ void init_pokemons(Pokemon listePkm[])
     carapuce.def = 65;
     carapuce.cara = blue + '%'+ white;
     listePkm[2] = carapuce;
-
-
 }
 
 
@@ -47,4 +46,20 @@ void copyPokemon(Pokemon source, Pokemon *destination) //Copie un pokémon sourc
     destination->dmg=source.dmg;
     destination->def=source.def;
     destination->cara=source.cara;
+}
+
+
+void initPokemonSauvage (Pokemon listePkm[], PkmSauvage *pokemonSauvage){
+    int aleatoire = rand() % 2; //insérer nombre de pokemon au total)
+    Pokemon pokeTemp;
+    copyPokemon (listePkm[aleatoire],&pokeTemp);
+    pokemonSauvage->nom=pokeTemp.nom;
+    pokemonSauvage->type=pokeTemp.type;
+    pokemonSauvage->pv=pokeTemp.pv;
+    pokemonSauvage->dmg=pokeTemp.dmg;
+    pokemonSauvage->def=pokeTemp.def;
+    pokemonSauvage->cara=pokeTemp.cara;
+    pokemonSauvage->posx=rand() % 20 + 10;
+    pokemonSauvage->posy=rand() % 20 + 10;
+    cout << pokemonSauvage->nom << endl << pokemonSauvage->pv << endl << pokemonSauvage->cara << endl << "posx : x" << pokemonSauvage->posx << "posx : y" << pokemonSauvage->posy;
 }
