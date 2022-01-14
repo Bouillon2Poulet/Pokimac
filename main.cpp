@@ -24,12 +24,13 @@ int main()
     intro(&player, &suivant);
     choix_starter(&player, &suivant, listePkm);
     intro2(&player, &suivant);
-/////////////////// LA MAP + DEPLACEMENT PERSO //////////////////////////
+
+
+    //////////////// LA MAP + DEPLACEMENT PERSO //////////////////////////
 
     //déf de la map
     char map [width*height];
 
-    // remplissage de la map
 
     // affichage de la map
     afficheMap (map);
@@ -81,7 +82,7 @@ void intro (Player *player, string *suivant)
 
 void intro2(Player *player, string *suivant)
 {
-    cout << "INTRO 2";
+    cout << "INTRO 2\n";
 }
 
 
