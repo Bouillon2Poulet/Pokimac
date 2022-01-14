@@ -1,21 +1,23 @@
 #include <iostream>
-#include "header.h"
+#include "main.h"
+#include "map.h"
+
 using namespace std;
 
-Pokemon salameche;
-Pokemon bulbizarre;
-Pokemon carapuce;
-Pokemon listePkm [40];
+
 
 int main()
 {
+    init_pokemons(listePkm); //Initialise les pokémons
+    remplissageMap(map);
+    
     string suivant;
     Player player; // Initialise les coordonnées du joueur et son inventaire
     player.posx = 5;
     player.posy = 5;
     init_inv(player.inv);
 
-    init_pokemons(listePkm); //Initialise les pokémons
+    
 
     /////////////////////////LE DEBUT DU JEU ////////////////////////////////
 
@@ -28,17 +30,9 @@ int main()
     char map [width*height];
 
     // remplissage de la map
-    for (int i=0; i<width*height;i++){
-        cout << i << endl;
-        if (i == 25) {
-            map[i] = '2';
-        }
-        else{ map[i] = '8';}
-
-    }
 
     // affichage de la map
-    affiche_map (map);
+    afficheMap (map);
 
 
     // test du déplacement
@@ -90,49 +84,7 @@ void intro2(Player *player, string *suivant)
     cout << "INTRO 2";
 }
 
-void init_pokemons(Pokemon listePkm[])
-{
-    salameche.nom = "Salameche";
-    salameche.type = "Feu";
-    salameche.pv = 39;
-    salameche.dmg = 60;
-    salameche.def = 60;
-    listePkm[0] = salameche;
 
-<<<<<<< Updated upstream
-    bulbizarre.nom = "Bulbizarre"; // A Changer
-    bulbizarre.type = "Plante";
-    bulbizarre.pv = 45;
-    bulbizarre.dmg = 49;
-    bulbizarre.def = 49;
-    listePkm[1] = bulbizarre;
-
-    carapuce.nom = "Carapuce"; // A Changer
-    carapuce.type = "Eau";
-    carapuce.pv = 44;
-    carapuce.dmg = 48;
-    carapuce.def = 65;
-    listePkm[2] = carapuce;
-
-
-=======
-    /*bulbizarre.nom = "Bulbizarre";
-    bulbizarre.type = "Plante";
-    bulbizarre.pv = 39;
-    bulbizarre.dmg = 60;
-    bulbizarre.def = 60;
-    listePkm[0] = bulbizarre;*/
->>>>>>> Stashed changes
-}
-
-void copyPokemon(Pokemon source, Pokemon *destination) //Copie un pokémon source vers un pokémon cible pour résoudre le problème des strings qui se copient mal
-{
-    destination->nom=source.nom;
-    destination->type=source.type;
-    destination->pv=source.pv;
-    destination->dmg=source.dmg;
-    destination->def=source.def;
-}
 
 
 void choix_starter (Player *player, string *suivant, Pokemon listePkm[])
@@ -166,14 +118,6 @@ void choix_starter (Player *player, string *suivant, Pokemon listePkm[])
 
 
 
-void affiche_map (char map[width*height]){
-    for (int k=0; k<height; k++){
-        for (int i = 0; i < width; i++){
-            cout << map[i+height*k];
-        }
-        cout << endl;
-    }
-}
 
 void deplacement_perso(Player *player, char input){
     // demander le déplacement
@@ -201,28 +145,6 @@ void deplacement_perso(Player *player, char input){
     //return ' '; // renvoie espace si le joueur joue
 }
 
-void updateMap(char map[], Player player)
-{
-    int nb_aff_ligne = 0;
-    for (int j=0; j<height; j++)
-        {
-            for (int h=0; h<width; h++)
-            {
-                if (h==player.posx && j==player.posy)
-                {
-                    cout << 1;
-                    nb_aff_ligne ++;
-                    h++;
-                }
-                nb_aff_ligne ++;
-                if (nb_aff_ligne<=width){
-                    cout << map[h+width*j];
-                }
-            }
-        cout << endl;
-        nb_aff_ligne =0;
-        }
-}
 
 
 void affiche_menu(const Player player){
@@ -247,4 +169,3 @@ void affiche_inventaire(Inventaire inv){
     cout << "ton nombre de trucopif est : " << inv.nb_trucopif << endl << endl << endl;
 }
 
-//void affiche_pokemon ()

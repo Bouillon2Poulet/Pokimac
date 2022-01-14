@@ -1,3 +1,6 @@
+#pragma once // magique ça permet de ne pas faire de redef
+// remplace ifndef
+
 #include <iostream>
 using namespace std;
 
@@ -29,11 +32,9 @@ struct Pokemon{
     int dmg;
     int def;
 };
-// dimensions de la map
-const int width = 10;
-const int height = 10;
-extern Pokemon listePkm [40]; //Déclaration de la liste
 
+extern Pokemon listePkm []; //Déclaration de la liste
+extern char map[];
 
 
 
@@ -69,10 +70,9 @@ void intro (Player *player,string *suivant);
 void choix_starter(Player *player, string *suivant, Pokemon listePkm[]);
 void intro2(Player *player, string *suivant);
 
-void affiche_map (char map[width*height]);
 void deplacement_perso(Player *player, char input);
 void initPlayer (Player *player, int posx, int posy);
-void updateMap(char map[], Player player);
+
 void affiche_menu(const Player player);
 void init_inv(Inventaire inv);
 void affiche_inventaire(Inventaire inv);
