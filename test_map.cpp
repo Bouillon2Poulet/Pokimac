@@ -31,7 +31,12 @@ int main()
 
     // remplissage de la map
     for (int i=0; i<width*height;i++){
-        map[i] = '0';
+        cout << i << endl;
+        if (i == 25) {
+            map[i] = '2';
+        }
+        else{ map[i] = '8';}
+
     }
 
     // affichage de la map
@@ -96,6 +101,7 @@ void init_pokemons(Pokemon listePkm[])
     salameche.def = 60;
     listePkm[0] = salameche;
 
+<<<<<<< Updated upstream
     bulbizarre.nom = "Bulbizarre"; // A Changer
     bulbizarre.type = "Plante";
     bulbizarre.pv = 45;
@@ -111,6 +117,14 @@ void init_pokemons(Pokemon listePkm[])
     listePkm[2] = carapuce;
 
 
+=======
+    /*bulbizarre.nom = "Bulbizarre";
+    bulbizarre.type = "Plante";
+    bulbizarre.pv = 39;
+    bulbizarre.dmg = 60;
+    bulbizarre.def = 60;
+    listePkm[0] = bulbizarre;*/
+>>>>>>> Stashed changes
 }
 
 void copyPokemon(Pokemon source, Pokemon *destination) //Copie un pokémon source vers un pokémon cible pour résoudre le problème des strings qui se copient mal
@@ -157,7 +171,7 @@ void choix_starter (Player *player, string *suivant, Pokemon listePkm[])
 void affiche_map (char map[width*height]){
     for (int k=0; k<height; k++){
         for (int i = 0; i < width; i++){
-            cout << map[i];
+            cout << map[i+height*k];
         }
         cout << endl;
     }
@@ -204,10 +218,9 @@ void updateMap(char map[], Player player)
                 }
                 nb_aff_ligne ++;
                 if (nb_aff_ligne<=width){
-                    cout << map[h];
+                    cout << map[h+width*j];
                 }
             }
-        cout << "        " << nb_aff_ligne;
         cout << endl;
         nb_aff_ligne =0;
         }

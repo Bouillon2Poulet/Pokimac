@@ -34,6 +34,9 @@ const int width = 10;
 const int height = 10;
 extern Pokemon listePkm [40]; //Déclaration de la liste
 
+
+
+
 struct Inventaire{
     int nb_potions;
     int nb_pokeball;
