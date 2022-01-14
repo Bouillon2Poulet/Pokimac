@@ -16,6 +16,12 @@ void init_inv(Inventaire inv){
     inv.nb_trucopif = 0;
 }
 
+void initEkip(Player *player){
+    for (int i=0; i<6; i++)
+    {
+        player->ekip[i].nom="XOX";
+    }
+}
 
 void affiche_inventaire(Inventaire inv){
     cout << "- INVENTAIRE -" << endl<<endl;
@@ -26,11 +32,18 @@ void affiche_inventaire(Inventaire inv){
 }
 
 
-void affichePokemon (Player player[]){
+void affichePokemon (Player player){
     cout << "- EKIP -" << endl << endl;
-    for (int i=0; i<6;i++)
+    int compteur=0;
+    for (;player.ekip[compteur].nom!="XOX";compteur++)
     {
-        cout << "Pokemon 1" << ekip[i].cara<<" -> " << player->ekip[i].nom;
+        cout << compteur+1 << "-> " << player.ekip[compteur].cara<<" " << player.ekip[compteur].nom << " " << player.ekip[compteur].cara <<endl;
+    }
+    int difference = 5-compteur;
+    while (difference!=0)
+    {
+        cout << endl;
+        difference--;
     }
 }
 

@@ -24,7 +24,25 @@ using namespace std;
         }*/
 #endif
 
-// Structures
+///////
+struct Pokemon{
+    string nom;
+    string type;
+    int pv;
+    int dmg;
+    int def;
+    string cara;
+};
+
+extern Pokemon listePkm []; //Déclaration de la liste
+extern char map[];
+
+const string red = "\033[31m";
+const string green = "\033[32m";
+const string blue = "\033[34m";
+const string white = "\033[0m";
+
+
 
 struct Inventaire{
     int nb_potions;
@@ -32,17 +50,11 @@ struct Inventaire{
     int nb_popo2;
     int nb_trucopif;
 };
-
-struct Pokemon{
-    string nom;
-    string type;
-    int pv;
-    int dmg;
-    int def;
-};
 struct Player{
     int posx;
     int posy;
+    int posxAv;
+    int posyAv;
     string pseudo;
     Inventaire inv;
     Pokemon ekip[6];
@@ -66,7 +78,7 @@ void copyPokemon(Pokemon source, Pokemon *destination);
 void init_pokemons(Pokemon listePkm[]);
 
 
-void deplacement_perso(Player *player, char input);
+
 void initPlayer (Player *player, int posx, int posy);
 
 

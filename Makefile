@@ -3,4 +3,3 @@ pokimac: main.o menu.o intro.o map.o pokemon.o
 
 %.o: %.cpp %.h
 	g++ -o build/$@ -c $< -Wall
-

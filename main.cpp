@@ -14,13 +14,17 @@ int main()
     //Declarations
 
     init_pokemons(listePkm); //Initialise les pokémons
+    
     remplissageMap(map);
     
     string suivant;
     Player player; // Initialise les coordonnées du joueur et son inventaire
     player.posx = 5;
     player.posy = 5;
+    player.posxAv =5;
+    player.posyAv = 5;
     init_inv(player.inv);
+    initEkip(&player);
 
     
 
@@ -29,12 +33,13 @@ int main()
     intro(&player, &suivant);
     choix_starter(&player, &suivant, listePkm);
     intro2(&player, &suivant);
+    
 
 
     //////////////// LA MAP + DEPLACEMENT PERSO //////////////////////////
 
     //déf de la map
-    char map [width*height];
+    
 
 
     // affichage de la map
@@ -46,11 +51,22 @@ int main()
         char input;
         cin >> input;
         clear();
-        if (input=='1') { // on entre dans l'inventaire;
-            affiche_inventaire(player.inv);
-            cout << "Appuyez sur ECHAP pour revenir sur la map" << endl;
-            cin >> suivant;
-            clear();
+        switch (input) {
+            case '1':
+                affiche_inventaire(player.inv);
+                cout << "Appuyez sur ECHAP pour revenir sur la map" << endl;
+                cin >> suivant;
+                clear();
+                break;
+
+            case '2':
+                affichePokemon(player);
+                    cout << "Appuyez sur ECHAP pour revenir sur la map" << endl;
+                    cin >> suivant;
+                    clear();
+                    break;
+            default: cout << "XXXXXX";break; // on entre dans l'inventaire;
+           
         }
 
 
@@ -60,4 +76,6 @@ int main()
     }
     return 0;
 }
+
+
 

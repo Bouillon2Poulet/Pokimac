@@ -16,6 +16,7 @@ void init_pokemons(Pokemon listePkm[])
     salameche.pv = 39;
     salameche.dmg = 60;
     salameche.def = 60;
+    salameche.cara = red + '*' + white;
     listePkm[0] = salameche;
 
     bulbizarre.nom = "Bulbizarre"; // A Changer
@@ -23,6 +24,7 @@ void init_pokemons(Pokemon listePkm[])
     bulbizarre.pv = 45;
     bulbizarre.dmg = 49;
     bulbizarre.def = 49;
+    bulbizarre.cara = green + '&' + white;
     listePkm[1] = bulbizarre;
 
     carapuce.nom = "Carapuce"; // A Changer
@@ -30,6 +32,7 @@ void init_pokemons(Pokemon listePkm[])
     carapuce.pv = 44;
     carapuce.dmg = 48;
     carapuce.def = 65;
+    carapuce.cara = blue + '%'+ white;
     listePkm[2] = carapuce;
 
 
@@ -43,4 +46,5 @@ void copyPokemon(Pokemon source, Pokemon *destination) //Copie un pokémon sourc
     destination->pv=source.pv;
     destination->dmg=source.dmg;
     destination->def=source.def;
+    destination->cara=source.cara;
 }
