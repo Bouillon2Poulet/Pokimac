@@ -22,7 +22,9 @@ int main()
     intro(&player, &suivant);
     choix_starter(&player, &suivant, listePkm);
     intro2(&player, &suivant);
-/////////////////// LA MAP + DEPLACEMENT PERSO //////////////////////////
+
+
+    //////////////// LA MAP + DEPLACEMENT PERSO //////////////////////////
 
     //déf de la map
     char map [width*height];
