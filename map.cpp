@@ -21,7 +21,7 @@ void remplissageMap(char map[width*height])
 }
 
 
-void updateMap(char map[width*height], Player player)
+void updateMap(char map[width*height], Player player, PkmSauvage pokemonSauvage)
 {
     int nb_aff_ligne = 0;
     int diff = player.posx-player.posxAv;
@@ -30,19 +30,28 @@ void updateMap(char map[width*height], Player player)
         {
             for (int h=0; h<width; h++)
             {
-                if (h==player.posx && j==player.posy)
+                if (h==player.posx && j==player.posy) // Affichage joueur
                 {
                     cout << white << 1;
                     nb_aff_ligne ++;
                     h++;
                 }
 
-                if ((h==player.posxAv && j==player.posyAv))
+                if ((h==player.posxAv && j==player.posyAv)) // Affichage Pokémon qui suit 
                 {
                     
-                    if (player.ekip[0].type == "Plante") cout << green << player.ekip[0].cara << white;
+                    /*if (player.ekip[0].type == "Plante") cout << green << player.ekip[0].cara << white;
                     if (player.ekip[0].type == "Feu") cout << red << player.ekip[0].cara << white;
                     if (player.ekip[0].type == "Eau") cout << blue << player.ekip[0].cara<< white;
+                    h++;*/
+                    cout << player.ekip[0].cara;
+                    nb_aff_ligne ++;
+                    
+                }
+
+                if (h==pokemonSauvage.posx && j==pokemonSauvage.posy) // Affichage Pokémon sauvage
+                {
+                    cout << pokemonSauvage.cara;;
                     nb_aff_ligne ++;
                     h++;
                 }
@@ -87,7 +96,7 @@ void deplacement_perso(Player *player, char input, char map[]){
         break;
 
         case 'q':
-            if ((player->posx >0) && (map[(player->posy)*width+(player->posx)-1] != '#')) 
+            if ((player->posx >0) && (map[(player->posy)*width+(player->posx)-1]!='#')) 
             {
                 
                 player->posxAv = player->posx;
@@ -97,7 +106,7 @@ void deplacement_perso(Player *player, char input, char map[]){
         break;
 
         case 's':
-            if ((player->posy <height-1) && (map[(player->posx)+((player->posy)+1)*width]!= '#')) 
+            if ((player->posy <height-1) && (map[(player->posx)+((player->posy)+1)*width]!='#')) 
             {
                 player->posxAv = player->posx;
                 player->posyAv = player->posy;
@@ -106,7 +115,7 @@ void deplacement_perso(Player *player, char input, char map[]){
         break;
 
         case 'd':
-            if ((player->posx <width-1) && (map[(player->posy)*width+(player->posx)+1] != '#'))
+            if ((player->posx <width-1) && (map[(player->posy)*width+(player->posx)+1]!='#'))
             {
                 player->posxAv = player->posx;
                 player->posyAv = player->posy;

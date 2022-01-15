@@ -66,13 +66,12 @@ int main()
                     cin >> suivant;
                     clear();
                     break;
-            default: cout << "XXXXXX";break; // on entre dans l'inventaire;
            
         }
 
 
         deplacement_perso(&player, input, map);
-        updateMap(map, player);
+        updateMap(map, player, pokemonSauvage1);
         affiche_menu(player);
     }
     return 0;

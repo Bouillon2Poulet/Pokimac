@@ -61,5 +61,5 @@ void initPokemonSauvage (Pokemon listePkm[], PkmSauvage *pokemonSauvage){
     pokemonSauvage->cara=pokeTemp.cara;
     pokemonSauvage->posx=rand() % 20 + 10;
     pokemonSauvage->posy=rand() % 20 + 10;
-    cout << pokemonSauvage->nom << endl << pokemonSauvage->pv << endl << pokemonSauvage->cara << endl << "posx : x" << pokemonSauvage->posx << "posx : y" << pokemonSauvage->posy;
+    cout << pokemonSauvage->nom << endl << pokemonSauvage->pv << endl << pokemonSauvage->cara << endl << "posx : x" << pokemonSauvage->posx << "posx : y" << pokemonSauvage->posy << endl << endl;
 }
