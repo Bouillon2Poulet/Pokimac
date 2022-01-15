@@ -9,14 +9,7 @@ void initPlayer (Player *player, int posx, int posy){
     player->posyAv = posy;
 }
 
-void affiche_menu(const Player player){
-    cout << endl << "----------" << endl << endl;
-    cout << "1 : Inventaire" << endl;
-    cout << "2 : Pokémons" << endl;
-    cout << "3 : "<< player.pseudo << endl;
-}
-
-void init_inv(Inventaire inv){
+void initInventaire(Inventaire inv){
     inv.nb_pokeball = 0;
     inv.nb_popo2 = 0;
     inv.nb_potions = 0;
@@ -30,7 +23,14 @@ void initEkip(Player *player){
     }
 }
 
-void affiche_inventaire(Inventaire inv){
+void afficheMenu(const Player player){
+    cout << endl << "----------" << endl << endl;
+    cout << "1 : Inventaire" << endl;
+    cout << "2 : Pokémons" << endl;
+    cout << "3 : "<< player.pseudo << endl;
+}
+
+void afficheInventaire(Inventaire inv){
     cout << "- INVENTAIRE -" << endl<<endl;
     cout << "mmmmmh yeah !! " << endl;
     cout << "ton nombre de pokeballs est : " << inv.nb_pokeball << endl;
@@ -38,8 +38,7 @@ void affiche_inventaire(Inventaire inv){
     cout << "ton nombre de trucopif est : " << inv.nb_trucopif << endl << endl << endl;
 }
 
-
-void affichePokemon (Player player){
+void afficheEkip(Player player){
     cout << "- EKIP -" << endl << endl;
     int compteur=0;
     for (;player.ekip[compteur].nom!="XOX";compteur++)

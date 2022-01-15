@@ -7,7 +7,7 @@ Pokemon bulbizarre;
 Pokemon carapuce;
 Pokemon listePkm [40];
 
-void init_pokemons(Pokemon listePkm[])
+void initListePokemon(Pokemon listePkm[])
 {
     salameche.nom = "Salameche";
     salameche.type = "Feu";

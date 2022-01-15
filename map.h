@@ -13,4 +13,5 @@ const int height = 30;
 void updateMap(char map[width*height], Player player, PkmSauvage pokemonSauvage);
 void initMap(char map[width*height]);
 void deplacement_perso(Player *player, char input, char map[]);
+void onMap (Player player, PkmSauvage pokemonSauvage1);
 

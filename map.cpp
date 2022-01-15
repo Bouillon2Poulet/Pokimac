@@ -1,5 +1,8 @@
 #include <iostream>
+#include <conio.h>
+
 #include "map.h"
+#include "menu.h"
 using namespace std;
 
 char map [width*height];
@@ -61,54 +64,89 @@ void updateMap(char map[width*height], Player player, PkmSauvage pokemonSauvage)
 }
 
 
-void deplacement_perso(Player *player, char input, char map[]){
+void deplacement_perso(Player *player, string input, char map[]){
     // demander le déplacement
     //if (input == 'p') return input; // on arrête de joueur à la map en appuyant sur P
 
 
     // déplacement selon l'input et selon la position
 
-    switch (input){
-        case 'z':
-            if ((player->posy >0) && (map[(player->posx)+((player->posy)-1)*width]!='#')) 
-            {
-                //MAJ de l'ancienne position
-                player->posxAv = player->posx;
-                player->posyAv = player->posy;
-                
-                // MAj de la nouvelle position
-                player->posy --;
-            }
-        break;
-
-        case 'q':
-            if ((player->posx >0) && (map[(player->posy)*width+(player->posx)-1]!='#')) 
-            {
-                
-                player->posxAv = player->posx;
-                player->posyAv = player->posy;
-                player->posx --;
-            }
-        break;
-
-        case 's':
-            if ((player->posy <height-1) && (map[(player->posx)+((player->posy)+1)*width]!='#')) 
-            {
-                player->posxAv = player->posx;
-                player->posyAv = player->posy;
-                player->posy ++;
-            }
-        break;
-
-        case 'd':
-            if ((player->posx <width-1) && (map[(player->posy)*width+(player->posx)+1]!='#'))
-            {
-                player->posxAv = player->posx;
-                player->posyAv = player->posy;
-                player->posx ++;
-            }
-        break;
+    if (input=="z")
+    {
+        if ((player->posy >0) && (map[(player->posx)+((player->posy)-1)*width]!='#')) 
+        {
+            //MAJ de l'ancienne position
+            player->posxAv = player->posx;
+                player->posyAv = player->posy;                
+            // MAj de la nouvelle position
+            player->posy --;
+        }
     }
-    //return ' '; // renvoie espace si le joueur joue
+
+    if (input=="q")
+    {
+        if ((player->posx >0) && (map[(player->posy)*width+(player->posx)-1]!='#')) 
+        {
+            //MAJ de l'ancienne position
+            player->posxAv = player->posx;
+            player->posyAv = player->posy;
+            player->posx --;
+        }
+    }
+
+    if (input=="s")
+    {
+        if ((player->posy <height-1) && (map[(player->posx)+((player->posy)+1)*width]!='#')) 
+        {
+            player->posxAv = player->posx;
+            player->posyAv = player->posy;
+            player->posy ++;
+        }
+    }
+    if (input=="d")
+    {
+        if ((player->posx <width-1) && (map[(player->posy)*width+(player->posx)+1]!='#'))
+        {
+            player->posxAv = player->posx;
+            player->posyAv = player->posy;
+            player->posx ++;
+        }
+    }
+    
 }
 
+void onMap ( Player player, PkmSauvage pokemonSauvage1)
+{
+    updateMap(map, player, pokemonSauvage1);
+            while(true)
+            {
+            string input;
+                input = _getch(); //getch prend direct l'input sans attendre de enter
+                clear();
+                if (input == "1")
+                {
+                    afficheInventaire(player.inv);
+                    cout << "Appuyez sur X pour revenir sur la map" << endl;
+                    input = _getch();
+                    while (input=="x"&& input=="X")
+                    {
+                        clear();
+                        updateMap(map, player, pokemonSauvage1);
+                    }
+                }
+                if (input == "2")
+                {   
+                    afficheEkip(player);
+                    cout << "Appuyez sur X pour revenir sur la map" << endl;
+                    input = _getch();
+                    while (input=="x"&& input=="X")
+                        {
+                            clear();
+                            updateMap(map, player, pokemonSauvage1);
+                        }
+                }
+                deplacement_perso(&player, input, map);
+                updateMap(map, player, pokemonSauvage1);
+                afficheMenu(player);
+            }
+} 
