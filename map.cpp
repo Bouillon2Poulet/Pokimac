@@ -4,7 +4,7 @@ using namespace std;
 
 char map [width*height];
     // remplissage de la map
-void remplissageMap(char map[width*height])
+void initMap(char map[width*height])
 {   
     for (int i=0; i<width*height;i++)
     {
@@ -39,14 +39,8 @@ void updateMap(char map[width*height], Player player, PkmSauvage pokemonSauvage)
 
                 if ((h==player.posxAv && j==player.posyAv)) // Affichage Pokémon qui suit 
                 {
-                    
-                    /*if (player.ekip[0].type == "Plante") cout << green << player.ekip[0].cara << white;
-                    if (player.ekip[0].type == "Feu") cout << red << player.ekip[0].cara << white;
-                    if (player.ekip[0].type == "Eau") cout << blue << player.ekip[0].cara<< white;
-                    h++;*/
                     cout << player.ekip[0].cara;
                     nb_aff_ligne ++;
-                    
                 }
 
                 if (h==pokemonSauvage.posx && j==pokemonSauvage.posy) // Affichage Pokémon sauvage
@@ -66,14 +60,6 @@ void updateMap(char map[width*height], Player player, PkmSauvage pokemonSauvage)
         }
 }
 
-void afficheMap (char map[width*height]){
-    for (int k=0; k<height; k++){
-        for (int i = 0; i < width; i++){
-            cout << map[i+height*k];
-        }
-        cout << endl;
-    }
-}
 
 void deplacement_perso(Player *player, char input, char map[]){
     // demander le déplacement

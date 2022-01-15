@@ -1,4 +1,5 @@
 #include <iostream>
+#include <conio.h>
 #include "main.h"
 #include "map.h"
 #include "pokemon.h"
@@ -12,19 +13,21 @@ int main()
 {
 
     //Declarations
+    //Joueur et Pokémon Sauvage 
 
+    Player player;
+    PkmSauvage pokemonSauvage1;
+
+    //Initialisations
+    initPlayer (&player, 20, 20);
     init_pokemons(listePkm); //Initialise les pokémons
-    
-    remplissageMap(map);
-    
-    string suivant;
-    Player player; // Initialise les coordonnées du joueur et son inventaire
-    player.posx = 5;
-    player.posy = 5;
-    player.posxAv =5;
-    player.posyAv = 5;
     init_inv(player.inv);
     initEkip(&player);
+    initPokemonSauvage (listePkm, &pokemonSauvage1);
+    initMap(map);
+    
+    
+    string suivant;
 
     
 
@@ -33,24 +36,12 @@ int main()
     intro(&player, &suivant);
     choix_starter(&player, &suivant, listePkm);
     intro2(&player, &suivant);
-    initPokemonSauvage (listePkm, &pokemonSauvage1);
-    
-
-
-    //////////////// LA MAP + DEPLACEMENT PERSO //////////////////////////
-
-    //déf de la map
-    
-
-
-    // affichage de la map
-    afficheMap (map);
 
 
     // test du déplacement
     while(true){
         char input;
-        cin >> input;
+        input = _getch(); //getch prend direct l'input sans attendre de enter
         clear();
         switch (input) {
             case '1':

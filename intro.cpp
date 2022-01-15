@@ -36,15 +36,12 @@ void choix_starter (Player *player, string *suivant, Pokemon listePkm[])
     switch (choix)
     {
         case 1: copyPokemon(listePkm[0],&player->ekip[0]);
-        cout << "pkm = " << player->ekip[0].nom << endl;
         break;
 
         case 2: copyPokemon(listePkm[1],&player->ekip[0]);
-        cout << "pkm = " << player->ekip[0].nom << endl;
         break;
 
         case 3: copyPokemon(listePkm[2],&player->ekip[0]);
-        cout << "pkm = " << player->ekip[0].nom << endl;
         break;
 
         default: cout << "Veuillez entrer un chiffre entre 1 et 3" << endl;
@@ -56,5 +53,5 @@ void choix_starter (Player *player, string *suivant, Pokemon listePkm[])
 
 void intro2(Player *player, string *suivant)
 {
-    cout << "INTRO 2\n";
+    cout << "Bonne chance avec ton " << player->ekip[0].nom << "dans le monde des Pokémon !";
 }

@@ -2,6 +2,13 @@
 #include "menu.h"
 using namespace std;
 
+void initPlayer (Player *player, int posx, int posy){
+    player->posx = posx;
+    player->posy = posy;
+    player->posxAv =posx;
+    player->posyAv = posy;
+}
+
 void affiche_menu(const Player player){
     cout << endl << "----------" << endl << endl;
     cout << "1 : Inventaire" << endl;
