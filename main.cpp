@@ -74,24 +74,18 @@ int main()
 }
 
 void remplissageMap(char map[width*height]){
-    ifstream monFlux("/home/debeaune/Documents/IMAC/PROG/pokimac/Pokimac/map.txt"); // récup du fichier dans monFlux
+    ifstream monFlux("./map.txt"); // récup du fichier dans monFlux
     if(monFlux) // vérification que le fichier soit bien lu
     {
-        printf("caractere par caractere\n");
         int i = 0;
-        //monFlux.clear();
-        //monFlux.seekg(0, ios::beg);
         char c;
-        while(monFlux.get(c))
+        
+        while(monFlux.get(c)) // tant qu'il y a des caractères on les met dans la map
         {
-            //cout<<c;
-            //if (c== '\n') cout << endl;
-            
-            if (c!= '\n') {
+            if (c!= '\n') { // saut le saut de ligne
                 map[i] = c;
                 i++;
-            }
-            
+            }   
         }
         cout << endl;
     }
