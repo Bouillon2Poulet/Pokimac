@@ -5,6 +5,7 @@ using namespace std;
 
 void intro (Player *player)
 {
+    clear();
     char input;
     cout << "Bienvenue dans le monde des Pokemons..." << endl << endl;
     cout << "...Appuyez sur A pour commencer l'aventure"<< endl;
@@ -15,65 +16,66 @@ void intro (Player *player)
         cout << "Comment t'appelles-tu ?" << endl;
         cin >> player->pseudo; // Pseudo
         clear();
-        cout << "OK " << player->pseudo << " tu te crois capable de pouvoir être le meilleur dresseur" << endl;
-        cout << " d'animaux de combats que l'on nomme POKEMON ?" << endl;
-        cout << "si oui appuie sur A avec vigueur !!!!"<< endl;
+        cout << "OK " << player->pseudo << " tu te crois capable de pouvoir être le meilleur dresseur de Pokemon ?" << endl << endl;
+
+        cout << "...Appuyez sur A si vous vous sentez prêt"<< endl;
         input = getch();
         if (input == 'a')
         {
-            clear();
             choixStarter(player, listePkm);
         }
     }   
 }
 
-
+////
 
 void choixStarter (Player *player, Pokemon listePkm[])
 {
-    int input;
+    char a='&';
+    int b;
+    switch (descriptionStarter(a,listePkm))
     {
-        clear();
-        cout << "Choix du Pokemon :" << endl;
-        cout << "\033[31m 1 - Salamèche\033[0m\n";
-        cout << "\033[32m 2 - Bulbizarre\033[0m\n";
-        cout << "\033[34m 3 - Carapuce\033[0m\n";
-        cin>>input;
-        while (descriptionStarter(input,listePkm)!=1)
-        {
-            choixStarter(player, listePkm);
+        case '1': b=1;break;
+        case '2': b=2;break;
+        case '3': b=3;break;
+    }
+    copyPokemon(listePkm[b-1],&player->ekip[0]);
+    clear();
+    cout << "Bonne chance avec ton " << player->ekip[0].name << " dans le monde des Pokémon !\n\n\n\n Appuyez sur A pour continuer";
+    string inputStr;
+    while (inputStr!="a")
+    {
+        inputStr = getch();
+    }
+}
+
+char descriptionStarter(char a, Pokemon listePkm[]){
+    clear();
+    cout << "Choix du Pokemon :" << endl;
+    cout << "\033[31m 1 - Salameche\033[0m\n";
+    cout << "\033[32m 2 - Bulbizarre\033[0m\n";
+    cout << "\033[34m 3 - Carapuce\033[0m\n";
+
+
+    cout << "a = " << a << endl;
+        switch (a){
+            case '1': cout << "\n Pokémon Salamandre\nType Feu "<<listePkm[0].cara<<endl; break;
+            case '2': cout << "\n Pokémon de merde\nType Plante "<<listePkm[1].cara<<endl; break;
+            case '3': cout << "\n Pokémon tortue\nType Eau "<<listePkm[2].cara<<endl; break;
+            default : cout <<"XXX"; break;
         }
-            copyPokemon(listePkm[input-1],&player->ekip[0]);
-            clear();
-            cout << "Bonne chance avec ton " << player->ekip[0].name << " dans le monde des Pokémon !\n\n\n\n Appuyez sur A pour continuer";
-            string input;
-            while (input!="a")
-            {
-                input = getch();
-            }
-    }
+        cout << endl << endl << endl;
+        cout << "Appuyez sur A pour confirmer"<<endl;
+        cout << "Appuyez sur B pour retour"<<endl;
+        char b;
+        b=getch();   
+        if (b=='a')
+        {
+            return a;
+        }
+        else
+        {
+            descriptionStarter(b,listePkm);
+        }
 }
 
-bool descriptionStarter(int input, Pokemon listePkm[]){
-    starterText(input);
-    cout << "Appuyez sur a pour confirmer";
-    string reponse;
-    cin >> reponse;
-    if (reponse=="a")
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-void starterText (int input){
-    input--;
-    switch (input){
-        case 0: cout << "\n Pokémon Salamandre\nType Feu "<<listePkm[0].cara<<endl; break;
-        case 1: cout << "\n Pokémon de merde\nType Plante "<<listePkm[1].cara<<endl; break;
-        case 2: cout << "\n Pokémon tortue\nType Eau "<<listePkm[2].cara<<endl; break;
-    }
-}
