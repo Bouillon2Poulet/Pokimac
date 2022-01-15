@@ -1,10 +1,14 @@
 #include <iostream>
-#include <conio.h>
+#include <stdio.h>
+//#include <curses.h> ---> pb dans la mise en lien
 #include "main.h"
 #include "map.h"
 #include "pokemon.h"
 #include "intro.h"
 #include "menu.h"
+
+ 
+#include <fstream>
 
 using namespace std;
 
@@ -12,6 +16,7 @@ using namespace std;
 int main()
 {
 
+    remplissageMap(map);
     //Declarations
     //Joueur et Pokémon Sauvage 
 
@@ -24,7 +29,7 @@ int main()
     init_inv(player.inv);
     initEkip(&player);
     initPokemonSauvage (listePkm, &pokemonSauvage1);
-    initMap(map);
+    //initMap(map);
     
     
     string suivant;
@@ -41,21 +46,21 @@ int main()
     // test du déplacement
     while(true){
         char input;
-        input = _getch(); //getch prend direct l'input sans attendre de enter
-        clear();
+        input = getch(); //getch prend direct l'input sans attendre de enter
+        wclear();
         switch (input) {
             case '1':
                 affiche_inventaire(player.inv);
                 cout << "Appuyez sur ECHAP pour revenir sur la map" << endl;
                 cin >> suivant;
-                clear();
+                wclear();
                 break;
 
             case '2':
                 affichePokemon(player);
                     cout << "Appuyez sur ECHAP pour revenir sur la map" << endl;
                     cin >> suivant;
-                    clear();
+                    wclear();
                     break;
            
         }
@@ -68,5 +73,29 @@ int main()
     return 0;
 }
 
+void remplissageMap(char map[width*height]){
+    ifstream monFlux("/home/debeaune/Documents/IMAC/PROG/pokimac/Pokimac/map.txt"); // récup du fichier dans monFlux
+    if(monFlux) // vérification que le fichier soit bien lu
+    {
+        printf("caractere par caractere\n");
+        int i = 0;
+        //monFlux.clear();
+        //monFlux.seekg(0, ios::beg);
+        char c;
+        while(monFlux.get(c))
+        {
+            //cout<<c;
+            //if (c== '\n') cout << endl;
+            
+            if (c!= '\n') {
+                map[i] = c;
+                i++;
+            }
+            
+        }
+        cout << endl;
+    }
+    else cout << "erreur avec le fichier" <<  endl;
+}
 
 

@@ -5,9 +5,7 @@
 #include "main.h"
 using namespace std;
 
-// dimensions de la map
-const int width = 40;
-const int height = 30;
+
 
 
 void updateMap(char map[width*height], Player player, PkmSauvage pokemonSauvage);

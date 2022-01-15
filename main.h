@@ -6,9 +6,11 @@ using namespace std;
 
 //Vérification de l'OS pour le clear
 #ifdef WIN32
-        #define clear() system("cls")
+    #define wclear() system("cls")
+    //#define getch() getch()
 #else
-    #define clear() system("clear")
+    #define wclear() system("clear")
+    #define getch() getchar()
 
         #ifndef NBLIGCLS
             #define NBLIGCLS 30
@@ -23,6 +25,11 @@ using namespace std;
             }
         }*/
 #endif
+
+
+// dimensions de la map
+const int width = 40;
+const int height = 30;
 
 ///////
 struct Pokemon{
@@ -94,6 +101,8 @@ extern Pokemon listPokemon[]; //Liste des Pokemons
 // le prototypage
 void copyPokemon(Pokemon source, Pokemon *destination);
 void init_pokemons(Pokemon listePkm[]);
+void remplissageMap(char map[width*height]);
+
 
 
 

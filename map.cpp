@@ -112,3 +112,4 @@ void deplacement_perso(Player *player, char input, char map[]){
     //return ' '; // renvoie espace si le joueur joue
 }
 
+

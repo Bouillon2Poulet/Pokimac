@@ -7,11 +7,11 @@ void intro (Player *player, string *suivant)
     cout << "Bienvenue dans le monde des Pokemons..." << endl << endl;
     cout << "...Appuyez sur entrer pour commencer l'aventure"<< endl;
     *suivant = getchar();
-    clear();
+    wclear();
 
     cout << "Comment t'appelles-tu ?" << endl;
     cin >> player->pseudo; // Pseudo
-    clear();
+    wclear();
 
     getchar(); // Vider le tampon du premier getchar()
 
@@ -19,14 +19,14 @@ void intro (Player *player, string *suivant)
     cout << " d'animaux de combats que l'on nomme POKEMON ?" << endl;
     cout << "si oui appuie sur entrer avec vigueur !!!!"<< endl;
     *suivant = getchar();
-    clear();
+    wclear();
 }
 
 
 
 void choix_starter (Player *player, string *suivant, Pokemon listePkm[])
 {
-    clear();
+    wclear();
     cout << "Choix du Pokemon :" << endl;
     cout << "\033[31m 1 - Salamèche\033[0m\n";
     cout << "\033[32m 2 - Bulbizarre\033[0m\n";
