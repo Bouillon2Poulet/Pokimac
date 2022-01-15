@@ -26,7 +26,7 @@ using namespace std;
 
 ///////
 struct Pokemon{
-    string nom;
+    string name;
     string type;
     int pv;
     int dmg;

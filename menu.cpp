@@ -19,7 +19,7 @@ void initInventaire(Inventaire inv){
 void initEkip(Player *player){
     for (int i=0; i<6; i++)
     {
-        player->ekip[i].nom="XOX";
+        player->ekip[i].name="XOX";
     }
 }
 
@@ -38,18 +38,31 @@ void afficheInventaire(Inventaire inv){
     cout << "ton nombre de trucopif est : " << inv.nb_trucopif << endl << endl << endl;
 }
 
+int compteEkip(Player player){
+    int compteur=0;
+    while (player.ekip[compteur].name!="XOX")
+    {
+        compteur++;
+    }
+    return compteur;
+}
+
 void afficheEkip(Player player){
     cout << "- EKIP -" << endl << endl;
-    int compteur=0;
-    for (;player.ekip[compteur].nom!="XOX";compteur++)
+    for (int i=0;i<compteEkip(player);i++)
     {
-        cout << compteur+1 << "-> " << player.ekip[compteur].cara<<" " << player.ekip[compteur].nom << " " << player.ekip[compteur].cara <<endl;
+        cout<<i+1<<" - " <<  player.ekip[1].name << " " << player.ekip[1].cara << endl; 
     }
-    int difference = 5-compteur;
-    while (difference!=0)
+
+}
+void affichePlayer(Player player){
+    clear();
+    cout << "Dresseur.e > " << player.pseudo << endl;
+    cout << "-----"<<endl;
+    cout << "Nombre de Pokemon > "<< compteEkip(player) << endl;
+    for (int i = 0;i<compteEkip(player);i++)
     {
-        cout << endl;
-        difference--;
+        cout << player.ekip[i].cara << " ";
     }
 }
 

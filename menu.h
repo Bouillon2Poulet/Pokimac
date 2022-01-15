@@ -11,3 +11,6 @@ void initEkip(Player *player);
 void afficheMenu(const Player player);
 void afficheInventaire(Inventaire inv);
 void afficheEkip(Player player);
+void affichePlayer(Player player);
+
+int compteEkip(Player player);

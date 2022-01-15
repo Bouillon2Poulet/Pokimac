@@ -9,7 +9,7 @@ Pokemon listePkm [40];
 
 void initListePokemon(Pokemon listePkm[])
 {
-    salameche.nom = "Salameche";
+    salameche.name = "Salameche";
     salameche.type = "Feu";
     salameche.pv = 39;
     salameche.dmg = 60;
@@ -17,7 +17,7 @@ void initListePokemon(Pokemon listePkm[])
     salameche.cara = red + '*' + white;
     listePkm[0] = salameche;
 
-    bulbizarre.nom = "Bulbizarre"; // A Changer
+    bulbizarre.name = "Bulbizarre"; // A Changer
     bulbizarre.type = "Plante";
     bulbizarre.pv = 45;
     bulbizarre.dmg = 49;
@@ -25,7 +25,7 @@ void initListePokemon(Pokemon listePkm[])
     bulbizarre.cara = green + '&' + white;
     listePkm[1] = bulbizarre;
 
-    carapuce.nom = "Carapuce"; // A Changer
+    carapuce.name = "Carapuce"; // A Changer
     carapuce.type = "Eau";
     carapuce.pv = 44;
     carapuce.dmg = 48;
@@ -37,7 +37,7 @@ void initListePokemon(Pokemon listePkm[])
 
 void copyPokemon(Pokemon source, Pokemon *destination) //Copie un pokémon source vers un pokémon cible pour résoudre le problème des strings qui se copient mal
 {
-    destination->nom=source.nom;
+    destination->name=source.name;
     destination->type=source.type;
     destination->pv=source.pv;
     destination->dmg=source.dmg;
@@ -50,7 +50,7 @@ void initPokemonSauvage (Pokemon listePkm[], PkmSauvage *pokemonSauvage){
     int aleatoire = rand() % 2; //insérer nombre de pokemon au total)
     Pokemon pokeTemp;
     copyPokemon (listePkm[aleatoire],&pokeTemp);
-    pokemonSauvage->nom=pokeTemp.nom;
+    pokemonSauvage->nom=pokeTemp.name;
     pokemonSauvage->type=pokeTemp.type;
     pokemonSauvage->pv=pokeTemp.pv;
     pokemonSauvage->dmg=pokeTemp.dmg;

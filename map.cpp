@@ -145,6 +145,17 @@ void onMap ( Player player, PkmSauvage pokemonSauvage1)
                             updateMap(map, player, pokemonSauvage1);
                         }
                 }
+                if (input == "3")
+                {   
+                    affichePlayer(player);
+                    cout << "\n\n\nAppuyez sur X pour revenir sur la map" << endl;
+                    input = _getch();
+                    while (input=="x"&& input=="X")
+                        {
+                            clear();
+                            updateMap(map, player, pokemonSauvage1);
+                        }
+                }
                 deplacement_perso(&player, input, map);
                 updateMap(map, player, pokemonSauvage1);
                 afficheMenu(player);
