@@ -9,14 +9,7 @@ void initPlayer (Player *player, int posx, int posy){
     player->posyAv = posy;
 }
 
-void affiche_menu(const Player player){
-    cout << endl << "----------" << endl << endl;
-    cout << "1 : Inventaire" << endl;
-    cout << "2 : Pokémons" << endl;
-    cout << "3 : "<< player.pseudo << endl;
-}
-
-void init_inv(Inventaire inv){
+void initInventaire(Inventaire inv){
     inv.nb_pokeball = 0;
     inv.nb_popo2 = 0;
     inv.nb_potions = 0;
@@ -26,11 +19,18 @@ void init_inv(Inventaire inv){
 void initEkip(Player *player){
     for (int i=0; i<6; i++)
     {
-        player->ekip[i].nom="XOX";
+        player->ekip[i].name="XOX";
     }
 }
 
-void affiche_inventaire(Inventaire inv){
+void afficheMenu(const Player player){
+    cout << endl << "----------" << endl << endl;
+    cout << "1 : Inventaire" << endl;
+    cout << "2 : Pokémons" << endl;
+    cout << "3 : "<< player.pseudo << endl;
+}
+
+void afficheInventaire(Inventaire inv){
     cout << "- INVENTAIRE -" << endl<<endl;
     cout << "mmmmmh yeah !! " << endl;
     cout << "ton nombre de pokeballs est : " << inv.nb_pokeball << endl;
@@ -38,19 +38,31 @@ void affiche_inventaire(Inventaire inv){
     cout << "ton nombre de trucopif est : " << inv.nb_trucopif << endl << endl << endl;
 }
 
-
-void affichePokemon (Player player){
-    cout << "- EKIP -" << endl << endl;
+int compteEkip(Player player){
     int compteur=0;
-    for (;player.ekip[compteur].nom!="XOX";compteur++)
+    while (player.ekip[compteur].name!="XOX")
     {
-        cout << compteur+1 << "-> " << player.ekip[compteur].cara<<" " << player.ekip[compteur].nom << " " << player.ekip[compteur].cara <<endl;
+        compteur++;
     }
-    int difference = 5-compteur;
-    while (difference!=0)
+    return compteur;
+}
+
+void afficheEkip(Player player){
+    cout << "- EKIP -" << endl << endl;
+    for (int i=0;i<compteEkip(player);i++)
     {
-        cout << endl;
-        difference--;
+        cout<<i+1<<" - " <<  player.ekip[1].name << " " << player.ekip[1].cara << endl; 
+    }
+
+}
+void affichePlayer(Player player){
+    wclear();
+    cout << "Dresseur.e > " << player.pseudo << endl;
+    cout << "-----"<<endl;
+    cout << "Nombre de Pokemon > "<< compteEkip(player) << endl;
+    for (int i = 0;i<compteEkip(player);i++)
+    {
+        cout << player.ekip[i].cara << " ";
     }
 }
 

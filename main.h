@@ -7,6 +7,7 @@ using namespace std;
 //Vérification de l'OS pour le clear
 #ifdef WIN32
     #define wclear() system("cls")
+    #include <conio.h>
     //#define getch() getch()
 #else
     #define wclear() system("clear")
@@ -33,7 +34,7 @@ const int height = 30;
 
 ///////
 struct Pokemon{
-    string nom;
+    string name;
     string type;
     int pv;
     int dmg;
@@ -61,6 +62,10 @@ const string red = "\033[31m";
 const string green = "\033[32m";
 const string blue = "\033[34m";
 const string white = "\033[0m";
+const string grey = "\033[90m";
+const string mangenta = "\033[35m";
+const string yellow = "\033[33m";
+const string cyan = "\033[36m";
 
 
 
