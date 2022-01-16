@@ -1,34 +1,17 @@
 #include <iostream>
-#include <conio.h>
-
 #include "map.h"
 #include "menu.h"
 using namespace std;
 
 char map [width*height];
-    // remplissage de la map
-void initMap(char map[width*height])
-{   
-    for (int i=0; i<width*height;i++)
-    {
-        if (i <2*width || i%width <2 || i%width >=width-2 || i >width*(height-2))
-        {
-            map[i] = '#';
-        }
-        else
-        { 
-            map[i] = ' ';
-        }
-        if (i == 90) map[i] = '#';
-    }
-}
 
 
 void updateMap(char map[width*height], Player player, PkmSauvage pokemonSauvage)
 {
     int nb_aff_ligne = 0;
-    int diff = player.posx-player.posxAv;
-    diff = diff*diff;
+    bool aff_car = true;
+
+
     for (int j=0; j<height; j++)
         {
             for (int h=0; h<width; h++)
@@ -44,6 +27,7 @@ void updateMap(char map[width*height], Player player, PkmSauvage pokemonSauvage)
                 {
                     cout << player.ekip[0].cara;
                     nb_aff_ligne ++;
+                    aff_car = false;
                 }
 
                 if (h==pokemonSauvage.posx && j==pokemonSauvage.posy) // Affichage Pokémon sauvage
@@ -53,111 +37,134 @@ void updateMap(char map[width*height], Player player, PkmSauvage pokemonSauvage)
                     h++;
                 }
                 
-                if (nb_aff_ligne<=width-1){
-                    cout << white<< map[h+width*j];
+                if (nb_aff_ligne<=width-1 && aff_car){
+                    afficheCouleur(map[h+width*j]);
                     nb_aff_ligne ++;
                 }
+                aff_car = true;
             }
-        cout << "           nb_aff -> " << nb_aff_ligne <<  " // diff -> " << diff << endl;
+        cout << "           nb_aff -> " << nb_aff_ligne << endl;
         nb_aff_ligne =0;
         }
+        cout << white << endl; // reset de la couleur
 }
 
 
-void deplacement_perso(Player *player, string input, char map[]){
-    // demander le déplacement
-    //if (input == 'p') return input; // on arrête de joueur à la map en appuyant sur P
-
-
-    // déplacement selon l'input et selon la position
-
-    if (input=="z")
+void deplacement_perso(Player *player, char input, char map[]){
+    switch (input)
     {
-        if ((player->posy >0) && (map[(player->posx)+((player->posy)-1)*width]!='#')) 
+        case 'z':
+        if ((player->posy >0) && (map[(player->posx)+((player->posy)-1)*width]==' ')) 
         {
             //MAJ de l'ancienne position
             player->posxAv = player->posx;
-                player->posyAv = player->posy;                
+            player->posyAv = player->posy;                
             // MAj de la nouvelle position
             player->posy --;
         }
-    }
+        break;
 
-    if (input=="q")
-    {
-        if ((player->posx >0) && (map[(player->posy)*width+(player->posx)-1]!='#')) 
+        case 'q':
+        if ((player->posx >0) && (map[(player->posy)*width+(player->posx)-1]==' ')) 
         {
             //MAJ de l'ancienne position
             player->posxAv = player->posx;
             player->posyAv = player->posy;
             player->posx --;
         }
-    }
-
-    if (input=="s")
-    {
-        if ((player->posy <height-1) && (map[(player->posx)+((player->posy)+1)*width]!='#')) 
+        break;
+    
+        case 's':
+        if ((player->posy <height-1) && (map[(player->posx)+((player->posy)+1)*width]==' ')) 
         {
             player->posxAv = player->posx;
             player->posyAv = player->posy;
             player->posy ++;
         }
-    }
-    if (input=="d")
-    {
-        if ((player->posx <width-1) && (map[(player->posy)*width+(player->posx)+1]!='#'))
+        break;
+
+        case 'd':
+        if ((player->posx <width-1) && (map[(player->posy)*width+(player->posx)+1]==' '))
         {
             player->posxAv = player->posx;
             player->posyAv = player->posy;
             player->posx ++;
         }
+        break;
     }
     
 }
 
-void onMap ( Player player, PkmSauvage pokemonSauvage1)
-{
+void onMap ( Player player, PkmSauvage pokemonSauvage1, char map[]){
     updateMap(map, player, pokemonSauvage1);
-            while(true)
-            {
-            string input;
-                input = _getch(); //getch prend direct l'input sans attendre de enter
-                clear();
-                if (input == "1")
-                {
-                    afficheInventaire(player.inv);
-                    cout << "Appuyez sur X pour revenir sur la map" << endl;
-                    input = _getch();
-                    while (input=="x"&& input=="X")
-                    {
-                        clear();
-                        updateMap(map, player, pokemonSauvage1);
-                    }
-                }
-                if (input == "2")
-                {   
-                    afficheEkip(player);
-                    cout << "Appuyez sur X pour revenir sur la map" << endl;
-                    input = _getch();
-                    while (input=="x"&& input=="X")
-                        {
-                            clear();
-                            updateMap(map, player, pokemonSauvage1);
-                        }
-                }
-                if (input == "3")
-                {   
-                    affichePlayer(player);
-                    cout << "\n\n\nAppuyez sur X pour revenir sur la map" << endl;
-                    input = _getch();
-                    while (input=="x"&& input=="X")
-                        {
-                            clear();
-                            updateMap(map, player, pokemonSauvage1);
-                        }
-                }
-                deplacement_perso(&player, input, map);
-                updateMap(map, player, pokemonSauvage1);
-                afficheMenu(player);
-            }
-} 
+    afficheMenu(player);
+    char input='s';
+    char reponse='x';
+    input =getch();
+
+    if (input=='z'||input=='q'||input=='s'||input=='d')
+    {
+        wclear();
+        deplacement_perso(&player, input, map);
+        onMap(player,pokemonSauvage1,map);
+    }
+
+    switch (input)
+    {
+        case '1':
+        wclear();
+        afficheInventaire(player.inv);
+        cout << "Appuyez sur X pour revenir sur la map" << endl;
+        if  (checkInput(reponse)==1)
+        {
+            wclear();
+            onMap(player,pokemonSauvage1,map);
+        }
+        break;
+
+        case '2':
+        wclear();
+        afficheEkip(player);
+        cout << "Appuyez sur X pour revenir sur la map" << endl;
+        if  (checkInput(reponse)==1)
+        {
+            wclear();
+            onMap(player,pokemonSauvage1,map);
+        }
+        break;
+        
+        case '3':
+        wclear();
+        affichePlayer(player);
+        cout << "\n\n\nAppuyez sur X pour revenir sur la map" << endl;
+        if  (checkInput(reponse)==1)
+        {
+            wclear();
+            onMap(player,pokemonSauvage1,map);
+        }
+        break;
+    }
+}
+
+
+void afficheCouleur( char c){
+    switch (c){
+
+        case '#':
+            cout << blue << "#";
+        break;        
+        
+        case '-':
+        case '|':
+        case '~':
+            cout << grey << c;
+        break;
+
+        case '@':
+            cout << yellow << "@";
+        break;
+
+        default:
+            cout << white << c;
+    }
+}

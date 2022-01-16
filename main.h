@@ -6,9 +6,12 @@ using namespace std;
 
 //Vérification de l'OS pour le clear
 #ifdef WIN32
-        #define clear() system("cls")
+    #define wclear() system("cls")
+    #include <conio.h>
+    //#define getch() getch()
 #else
-    #define clear() system("clear")
+    #define wclear() system("clear")
+    #define getch() getchar()
 
         #ifndef NBLIGCLS
             #define NBLIGCLS 30
@@ -23,6 +26,11 @@ using namespace std;
             }
         }*/
 #endif
+
+
+// dimensions de la map
+const int width = 40; 
+const int height = 30;
 
 ///////
 struct Pokemon{
@@ -54,6 +62,10 @@ const string red = "\033[31m";
 const string green = "\033[32m";
 const string blue = "\033[34m";
 const string white = "\033[0m";
+const string grey = "\033[90m";
+const string mangenta = "\033[35m";
+const string yellow = "\033[33m";
+const string cyan = "\033[36m";
 
 
 
@@ -94,6 +106,9 @@ extern Pokemon listPokemon[]; //Liste des Pokemons
 // le prototypage
 void copyPokemon(Pokemon source, Pokemon *destination);
 void init_pokemons(Pokemon listePkm[]);
+void remplissageMap(char map[width*height]);
+bool checkInput(char reponse);
+
 
 
 

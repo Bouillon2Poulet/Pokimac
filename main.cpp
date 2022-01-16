@@ -1,9 +1,13 @@
 #include <iostream>
+#include <stdio.h>
 #include "main.h"
 #include "map.h"
 #include "pokemon.h"
 #include "intro.h"
 #include "menu.h"
+
+ 
+#include <fstream>
 
 using namespace std;
 
@@ -11,6 +15,7 @@ using namespace std;
 int main()
 {
 
+    remplissageMap(map);
     //Declarations
     //Joueur et Pokémon Sauvage
     Player player;
@@ -22,18 +27,47 @@ int main()
     initInventaire(player.inv);
     initEkip(&player);
     initPokemonSauvage (listePkm, &pokemonSauvage1);
-    initMap(map);
+    //initMap(map);
     
 
     //Intro 
     intro(&player);
-
-
-    // test du déplacement
-    clear();
-    onMap (player, pokemonSauvage1);
+    wclear();
+    onMap (player, pokemonSauvage1, map);
     return 0;
+
+}
+
+void remplissageMap(char map[width*height]){
+    ifstream monFlux("./map.txt"); // récup du fichier dans monFlux
+    if(monFlux) // vérification que le fichier soit bien lu
+    {
+        int i = 0;
+        char c;
+        
+        while(monFlux.get(c)) // tant qu'il y a des caractères on les met dans la map
+        {
+            if (c!= '\n') { // saut le saut de ligne
+                map[i] = c;
+                i++;
+            }   
+        }
+        cout << endl;
+    }
+    else cout << "erreur avec le fichier" <<  endl;
 }
 
 
 
+bool checkInput(char reponse){
+    char input;
+    input = getch();
+    if (reponse ==input)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}

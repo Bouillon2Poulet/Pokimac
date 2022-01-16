@@ -56,7 +56,7 @@ void afficheEkip(Player player){
 
 }
 void affichePlayer(Player player){
-    clear();
+    wclear();
     cout << "Dresseur.e > " << player.pseudo << endl;
     cout << "-----"<<endl;
     cout << "Nombre de Pokemon > "<< compteEkip(player) << endl;
