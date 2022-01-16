@@ -3,19 +3,19 @@
 #include "menu.h"
 using namespace std;
 
-char map [width*height];
 
-
-void updateMap(char map[width*height], Player player, PkmSauvage pokemonSauvage)
+void updateMap(Map map, Player player, PkmSauvage pokemonSauvage)
 {
+    cout << map.height << endl;
+    cout << map.width << endl;
     int nb_aff_ligne = 0;
     bool aff_car = true;
 
-
-    for (int j=0; j<height; j++)
+    for (int j=0; j<map.height; j++)
         {
-            for (int h=0; h<width; h++)
+            for (int h=0; h<map.width; h++)
             {
+
                 if (h==player.posx && j==player.posy) // Affichage joueur
                 {
                     cout << white << 1;
@@ -37,8 +37,8 @@ void updateMap(char map[width*height], Player player, PkmSauvage pokemonSauvage)
                     h++;
                 }
                 
-                if (nb_aff_ligne<=width-1 && aff_car){
-                    afficheCouleur(map[h+width*j]);
+                if (nb_aff_ligne<=map.width-1 && aff_car){
+                    cout << map.Lmap.at(h+map.width*j);
                     nb_aff_ligne ++;
                 }
                 aff_car = true;
@@ -50,7 +50,7 @@ void updateMap(char map[width*height], Player player, PkmSauvage pokemonSauvage)
 }
 
 
-void deplacement_perso(Player *player, string input, char map[]){
+void deplacement_perso(Player *player, string input, Map map){
     // demander le déplacement
     //if (input == 'p') return input; // on arrête de joueur à la map en appuyant sur P
 
@@ -59,7 +59,7 @@ void deplacement_perso(Player *player, string input, char map[]){
 
     if (input=="z")
     {
-        if ((player->posy >0) && (map[(player->posx)+((player->posy)-1)*width]==' ')) 
+        if ((player->posy >0) && (map.Lmap.at((player->posx)+((player->posy)-1)*map.width)==' ')) 
         {
             //MAJ de l'ancienne position
             player->posxAv = player->posx;
@@ -71,7 +71,7 @@ void deplacement_perso(Player *player, string input, char map[]){
 
     if (input=="q")
     {
-        if ((player->posx >0) && (map[(player->posy)*width+(player->posx)-1]==' ')) 
+        if ((player->posx >0) && (map.Lmap.at((player->posy)*map.width+(player->posx)-1)==' ')) 
         {
             //MAJ de l'ancienne position
             player->posxAv = player->posx;
@@ -82,7 +82,7 @@ void deplacement_perso(Player *player, string input, char map[]){
 
     if (input=="s")
     {
-        if ((player->posy <height-1) && (map[(player->posx)+((player->posy)+1)*width]==' ')) 
+        if ((player->posy <map.height-1) && (map.Lmap.at((player->posx)+((player->posy)+1)*map.width)==' ')) 
         {
             player->posxAv = player->posx;
             player->posyAv = player->posy;
@@ -91,7 +91,7 @@ void deplacement_perso(Player *player, string input, char map[]){
     }
     if (input=="d")
     {
-        if ((player->posx <width-1) && (map[(player->posy)*width+(player->posx)+1]==' '))
+        if ((player->posx <map.width-1) && (map.Lmap.at((player->posy)*map.width+(player->posx)+1)==' '))
         {
             player->posxAv = player->posx;
             player->posyAv = player->posy;
@@ -101,7 +101,7 @@ void deplacement_perso(Player *player, string input, char map[]){
     
 }
 
-void onMap ( Player player, PkmSauvage pokemonSauvage1)
+void onMap (Player player, PkmSauvage pokemonSauvage1, Map map)
 {
     updateMap(map, player, pokemonSauvage1);
             while(true)

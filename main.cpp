@@ -14,8 +14,24 @@ using namespace std;
 
 int main()
 {
+    // remplissage des maps
+    Map* map = remplissageMap("./map.txt");
+    map->mapRight = "map2.txt";
 
-    remplissageMap(map);
+    Map* map2 = remplissageMap("./map.txt");
+    map->mapLeft = "map.txt";
+    
+    Map* mapJeu = map;
+    cout << "aaaaaaaaaaaaa" << mapJeu->width << endl;
+    cout << "H" << mapJeu->height<< endl;
+    
+    // juste le teste d'affichage
+    for (int i=0; i<mapJeu->height;i++){
+        for (int j=0; j<mapJeu->width;j++){
+            if(j+mapJeu->width*i<mapJeu->Lmap.size()) cout << mapJeu->Lmap.at(j+mapJeu->width*i);
+        }
+        cout << endl;
+    }
     //Declarations
     //Joueur et Pokémon Sauvage
     Player player;
@@ -33,28 +49,50 @@ int main()
     //Intro 
     intro(&player);
     wclear();
-    onMap (player, pokemonSauvage1);
+    onMap (player, pokemonSauvage1, *mapJeu);
     return 0;
 
 }
 
-void remplissageMap(char map[width*height]){
+ Map* remplissageMap(string adresseMap){
     ifstream monFlux("./map.txt"); // récup du fichier dans monFlux
+    Map* interMap = new Map;
+    vector<char> inverse;
     if(monFlux) // vérification que le fichier soit bien lu
     {
-        int i = 0;
+        int width = 0;
+        bool ligne = false;
+        
+        int height = 1;
         char c;
         
-        while(monFlux.get(c)) // tant qu'il y a des caractères on les met dans la map
-        {
-            if (c!= '\n') { // saut le saut de ligne
-                map[i] = c;
-                i++;
-            }   
+        while(monFlux.get(c)) // tant qu'il y a des caractères on les met dans la map 
+        { // une première fois pour def la taille de la map
+            
+            if (c!='\n') inverse.push_back(c);
+
+            if (c!= '\n' && ligne == false) { // saut le saut de ligne
+                width++;
+            }
+            else  
+            {
+                ligne = true;
+            }
+
+            if (c== '\n') height++;
         }
+
+        // remise de la map dans le bon sens
+        for (int i =0; i<inverse.size(); i++){
+            interMap->Lmap.push_back(inverse.at(i));
+        }
+        
+        interMap->width = width;
+        interMap->height = height;        
         cout << endl;
-    }
+        }
     else cout << "erreur avec le fichier" <<  endl;
+    return interMap;
 }
 
 

@@ -2,6 +2,7 @@
 // remplace ifndef
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 //Vérification de l'OS pour le clear
@@ -29,8 +30,8 @@ using namespace std;
 
 
 // dimensions de la map
-const int width = 40; 
-const int height = 30;
+extern int width; 
+extern int height;
 
 ///////
 struct Pokemon{
@@ -56,7 +57,7 @@ struct PkmSauvage{
 
 
 extern Pokemon listePkm []; //Déclaration de la liste
-extern char map[];
+//extern char map[];
 
 const string red = "\033[31m";
 const string green = "\033[32m";
@@ -76,6 +77,16 @@ struct Inventaire{
     int nb_trucopif;
 };
 
+struct Map{
+    int width;
+    int height;
+    vector<char> Lmap;
+    string mapUp;
+    string mapLeft;
+    string mapRight;
+    string mapDown;
+};
+
 struct Player{
     int posx;
     int posy;
@@ -87,11 +98,8 @@ struct Player{
 };
 
 
-
-
-
 extern Pokemon listePkm []; //Déclaration de la liste
-extern char map[];
+//extern char map[];
 //Liste des pokémons
 extern Pokemon salameche;  // Salamèche
 extern Pokemon bulbizarre;   //Bulbizarre
@@ -106,7 +114,7 @@ extern Pokemon listPokemon[]; //Liste des Pokemons
 // le prototypage
 void copyPokemon(Pokemon source, Pokemon *destination);
 void init_pokemons(Pokemon listePkm[]);
-void remplissageMap(char map[width*height]);
+Map* remplissageMap(string adresseMap);
 
 
 
