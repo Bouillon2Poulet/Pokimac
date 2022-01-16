@@ -201,16 +201,63 @@ void checkIfTooClose(Player *player,PkmSauvage pokemonSauvage1){
 
 void combat(Player *player, PkmSauvage *pokemonSauvage){
     wclear();
-    cout << "COMBAT" << endl << "---" << endl;
-    cout << "Ton Pokemon :\n" << player->ekip[0].cara<<" "<< player->ekip[0].name << endl << "PV:" << player->ekip[0].pv;
-    cout << "Pokemon Sauvage :\n" << pokemonSauvage->cara<<" "<< pokemonSauvage->name << endl << "PV:" << pokemonSauvage->pv<<endl;
-    cout << "Pour sortir appuyer sur a";
+    bool combatContinue = 1;
+    while (combatContinue == 1)
+    {
+        cout << "COMBAT" << endl << "---" << endl;
+        cout << "Ton Pokemon :\n" << player->ekip[0].cara<<" "<< player->ekip[0].name << endl << "PV:" << player->ekip[0].pv;
+        cout << "Pokemon Sauvage :\n" << pokemonSauvage->cara<<" "<< pokemonSauvage->name << endl << "PV:" << pokemonSauvage->pv<<endl;
+        cout << "Pour sortir appuyer sur a"<<endl;
+        char reponse ='a';
+        if (checkInput(reponse)==1)
+        {
+            combatContinue=0;
+        }
+        if (player->ekip[0].pv==0)
+        {
+            combatContinue=0;
+        }
+        if (pokemonSauvage->pv==0)
+        {
+            combatContinue=0;
+        }
+    }
+    if (combatContinue==0)
+        {
+                wclear();
+                return;
+        }
+        else
+        {
+            wclear();
+            combat(player,pokemonSauvage);    
+        }
+
+        
+    
     char reponse ='a';
     if (checkInput(reponse)==1)
+    {
+        combatContinue=0;
+    }
+    if (player->ekip[0].pv==0)
+    {
+        combatContinue=0;
+    }
+    if (pokemonSauvage->pv==0)
+    {
+        combatContinue=0;
+    }
+
+    if (combatContinue==0)
         {
             wclear();
             return;
         }
-    combat(player,pokemonSauvage);
+    else
+    {
+        wclear();
+        combat(player,pokemonSauvage);    
+    }
     
 }
