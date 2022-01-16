@@ -5,6 +5,7 @@ using namespace std;
 void initPlayer (Player *player, int posx, int posy){
     player->posx = posx;
     player->posy = posy;
+    player->tooClose=0;
     player->posxAv =posx;
     player->posyAv = posy;
 }

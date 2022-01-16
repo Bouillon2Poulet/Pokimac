@@ -1,7 +1,6 @@
-
+#pragma once
 #include <iostream>
 #include "main.h"
-using namespace std;
 
 void initListePokemon(Pokemon listePkm[]);
 void initPokemonSauvage (Pokemon listePkm[], PkmSauvage *pokemonSauvage);

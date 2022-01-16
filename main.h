@@ -43,7 +43,7 @@ struct Pokemon{
 };
 
 struct PkmSauvage{
-    string nom;
+    string name;
     string type;
     int pv;
     int dmg;
@@ -81,6 +81,7 @@ struct Player{
     int posy;
     int posxAv;
     int posyAv;
+    bool tooClose;
     string pseudo;
     Inventaire inv;
     Pokemon ekip[6];

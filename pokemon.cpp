@@ -50,7 +50,7 @@ void initPokemonSauvage (Pokemon listePkm[], PkmSauvage *pokemonSauvage){
     int aleatoire = rand() % 2; //insérer nombre de pokemon au total)
     Pokemon pokeTemp;
     copyPokemon (listePkm[aleatoire],&pokeTemp);
-    pokemonSauvage->nom=pokeTemp.name;
+    pokemonSauvage->name=pokeTemp.name;
     pokemonSauvage->type=pokeTemp.type;
     pokemonSauvage->pv=pokeTemp.pv;
     pokemonSauvage->dmg=pokeTemp.dmg;

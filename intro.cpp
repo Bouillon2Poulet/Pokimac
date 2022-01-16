@@ -70,9 +70,6 @@ char descriptionStarter(char choix, Pokemon listePkm[]){
     {
         return choix;   
     }
-    else
-    {
-        descriptionStarter(a,listePkm);
-    }
+    descriptionStarter(a,listePkm);
 }
 

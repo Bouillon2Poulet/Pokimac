@@ -32,7 +32,7 @@ void updateMap(char map[width*height], Player player, PkmSauvage pokemonSauvage)
 
                 if (h==pokemonSauvage.posx && j==pokemonSauvage.posy) // Affichage Pokémon sauvage
                 {
-                    cout << pokemonSauvage.cara;;
+                    cout << pokemonSauvage.cara;
                     nb_aff_ligne ++;
                     h++;
                 }
@@ -106,9 +106,17 @@ void onMap ( Player player, PkmSauvage pokemonSauvage1, char map[]){
     {
         wclear();
         deplacement_perso(&player, input, map);
-        onMap(player,pokemonSauvage1,map);
+        checkIfTooClose(&player,pokemonSauvage1);
+        if (player.tooClose==1)
+        {
+            combat(&player,&pokemonSauvage1);
+            onMap(player,pokemonSauvage1,map);
+        }
+        else
+        {
+           onMap(player,pokemonSauvage1,map); 
+        }
     }
-
     switch (input)
     {
         case '1':
@@ -167,4 +175,42 @@ void afficheCouleur( char c){
         default:
             cout << white << c;
     }
+}
+
+void checkIfTooClose(Player *player,PkmSauvage pokemonSauvage1){
+    bool tooCloseX=false;
+    bool tooCloseY=false;
+    if (player->posx>=pokemonSauvage1.posx-1 && player->posx<=pokemonSauvage1.posx+1)
+    {
+        tooCloseX=true;
+    }
+
+    if (player->posy>=pokemonSauvage1.posy-1 && player->posy<=pokemonSauvage1.posy+1)
+    {
+        tooCloseY=true;
+    }
+    if (tooCloseX==true && tooCloseY==true)
+    {
+        player->tooClose=1;
+    }
+    else
+    {
+        player->tooClose=0;
+    }
+}
+
+void combat(Player *player, PkmSauvage *pokemonSauvage){
+    wclear();
+    cout << "COMBAT" << endl << "---" << endl;
+    cout << "Ton Pokemon :\n" << player->ekip[0].cara<<" "<< player->ekip[0].name << endl << "PV:" << player->ekip[0].pv;
+    cout << "Pokemon Sauvage :\n" << pokemonSauvage->cara<<" "<< pokemonSauvage->name << endl << "PV:" << pokemonSauvage->pv<<endl;
+    cout << "Pour sortir appuyer sur a";
+    char reponse ='a';
+    if (checkInput(reponse)==1)
+        {
+            wclear();
+            return;
+        }
+    combat(player,pokemonSauvage);
+    
 }
