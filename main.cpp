@@ -89,7 +89,7 @@ int main()
 
 
 
-bool checkInput(char reponse){
+/*bool checkInput(char reponse){
     char input;
     input = getChar();
     if (reponse ==input)
@@ -100,4 +100,4 @@ bool checkInput(char reponse){
     {
         return 0;
     }
-}
+}*/

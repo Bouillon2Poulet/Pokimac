@@ -47,10 +47,10 @@ void choixStarter (Player *player, Pokemon listePkm[])
     copyPokemon(listePkm[b-1],&player->ekip[0]);
     wclear();
     cout << "Bonne chance avec ton " << player->ekip[0].name << " dans le monde des Pokémon !\n\n\n\n Appuyez sur A pour continuer";
-    char reponse = 'a';
-    while(checkInput(reponse)!=1)
+    //char reponse = 'a';
+    if(getChar()=='a')
     {
-        checkInput(reponse);
+        return;
     }
 }
 
