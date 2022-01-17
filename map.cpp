@@ -231,20 +231,23 @@ void combat(Player *player, PkmSauvage *pokemonSauvage){
 
     if (combatContinue == 1)
     {
-        cout << endl << endl << endl;
-        cout << "       COMBAT" << endl << "---" << endl;
-        cout << "       "<<player->ekip[0].cara<<" "<< player->ekip[0].name << "       " << pokemonSauvage->cara<<" "<< pokemonSauvage->name << endl;
-        cout << "       "<<"PV:" << player->ekip[0].pv << "       PV:" << pokemonSauvage->pv<<endl;
-        cout << "Pour attaquer appuyer sur 1"<<endl;
-        cout << "Pour sortir appuyer sur a"<<endl;
+        afficheCombat(player, pokemonSauvage);
+     
+        cout << "1 - Attaque         2 - Sac" << endl;
+        cout << "3 - Pokemon         4 - Fuite" << endl;
+
         switch (getChar())
         {
             case '1' :
-                cout << "ATTAQUE" << endl;
+                wclear();
+                afficheCombat(player,pokemonSauvage);
                 attaque(player, pokemonSauvage);
                 break;
             
-            case 'a' :
+            case '2' :
+                afficheInventaire(player->inv);
+                break;
+            case '4' :
                 combatContinue=0;
                 break;
         }
@@ -278,17 +281,43 @@ void combat(Player *player, PkmSauvage *pokemonSauvage){
 
 void attaque (Player *player, PkmSauvage *pokemonSauvage)
 {
-    wclear();
-    cout << player->ekip[0].name << " attaque le " << pokemonSauvage->name << " sauvage"<< endl;
-    cout << "PV du " << pokemonSauvage->name << "(avant attaque) : " << pokemonSauvage->pv << endl<<endl;
-    cout << "Attaque : 10" << endl;
-    pokemonSauvage->pv = pokemonSauvage->pv-10;
-    cout << "PV du " << pokemonSauvage->name << "(apres attaque) : " << pokemonSauvage->pv << endl<<endl;
-    cout << "Pour sortir appuyer sur a"<<endl;
-    //char sortie = 'a';
-    while (getChar()!='a')
+    cout << "1 - " <<  player->ekip[0].attaque[0].bash << player->ekip[0].attaque[0].name << endl;
+    cout << "Puissance " << player->ekip[0].attaque[0].puissance<< endl;
+    cout << endl;
+
+    cout << "2 - " << player->ekip[0].attaque[1].bash <<  player->ekip[0].attaque[1].name << endl;
+    cout << "Puissance " << player->ekip[0].attaque[1].puissance<< endl;
+    cout << endl;
+    char input = getChar();
+    int i;
+    switch (input)
     {
-        getChar();
-    }
-    cout << "sortie " << endl;
+        case '1' : i=0; break;
+        case '2' : i=1; break;
+        case '3' : i=2; break;
+        case '4' : i=3; break;
+    }   
+    cout << player->ekip[0].name << " utilise " << player->ekip[0].attaque[i].name << " de puissance " << player->ekip[0].attaque[1].puissance;
+    pokemonSauvage->pv = pokemonSauvage->pv-player->ekip[0].attaque[i].puissance;
+    getChar();
+}
+
+void afficheCombat (Player *player, PkmSauvage *pokemonSauvage)
+{
+        cout << "------"<<endl;
+        cout << "COMBAT" << endl;
+        cout << "------"<<endl;
+        cout << endl << endl;
+
+        cout << "                         " << pokemonSauvage->name << endl;
+        cout << "                         PV:" << pokemonSauvage->pv << endl;
+        cout << endl << endl;
+        cout << "                             " << pokemonSauvage->cara << endl;
+        cout << endl << endl<<endl;
+        
+        cout << player->ekip[0].name << endl;
+        cout << "PV: " << player->ekip[0].pv << endl;
+        cout << endl << endl;
+        cout << "    " << player->ekip[0].cara<<endl;
+        cout << endl << endl;
 }

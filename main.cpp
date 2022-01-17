@@ -35,19 +35,25 @@ int main()
     //Joueur et Pokémon Sauvage
     Player player;
     PkmSauvage pokemonSauvage1;
+    Pokemon listePokemon[40];
+    Attaque listeAttaque[40];
 
     //Initialisations
+    initListeAttaque (listeAttaque);
     initPlayer (&player, 20, 20);
-    initListePokemon(listePkm); //Initialise les pokémons
+    initListePokemon(listePokemon,listeAttaque); //Initialise les pokémons
     initInventaire(player.inv);
     initEkip(&player);
-    initPokemonSauvage (listePkm, &pokemonSauvage1);
+    initPokemonSauvage (listePokemon, &pokemonSauvage1);
     //initMap(map);
     
 
     //Intro 
-    intro(&player);
+    intro(&player,listePokemon);
     wclear();
+    cout << "Liste attaque[0] " << listeAttaque[0].name << endl;
+    cout << "Starter attaque[0] " << player.ekip[0].attaque[0].name << endl;
+    cout << "Starter attaque[1] " << player.ekip[0].attaque[1].name << endl;
     onMap (player, pokemonSauvage1, &mapx, &mapy, mapwidth, listeMap);
     return 0;
 

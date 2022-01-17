@@ -48,6 +48,14 @@ extern int width;
 extern int height;
 
 ///////
+struct Attaque {
+    string name;
+    string type;
+    string cara;
+    int puissance;
+    string bash;
+};
+
 struct Pokemon{
     string name;
     string type;
@@ -55,6 +63,8 @@ struct Pokemon{
     int dmg;
     int def;
     string cara;
+    string bashCouleur;
+    Attaque attaque[3];
 };
 
 struct PkmSauvage{
@@ -70,6 +80,7 @@ struct PkmSauvage{
 
 
 
+
 extern Pokemon listePkm []; //Déclaration de la liste
 //extern char map[];
 
@@ -81,6 +92,11 @@ const string grey = "\033[90m";
 const string mangenta = "\033[35m";
 const string yellow = "\033[33m";
 const string cyan = "\033[36m";
+
+const string caraFeu = red + '*' + white;
+const string caraNormal = white + '#' + white;
+const string caraPlante = green + '&' + white;
+const string caraEau = blue + '%'+ white;
 
 
 
@@ -119,16 +135,7 @@ struct Player{
 };
 
 
-extern Pokemon listePkm []; //Déclaration de la liste
-//extern char map[];
-//Liste des pokémons
-extern Pokemon salameche;  // Salamèche
-extern Pokemon bulbizarre;   //Bulbizarre
-extern Pokemon carapuce;   //Bulbizarre
-
-
-extern Pokemon listPokemon[]; //Liste des Pokemons
-
+extern Attaque listeAttaque[]; //Liste des attaques
 
 
 
