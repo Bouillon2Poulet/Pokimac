@@ -21,7 +21,7 @@ void intro (Player *player)
         reponse = 'a';
 
         input = getch();
-        if(input='a')
+        if(input=='a')
         {
             choixStarter(player, listePkm);
         }
