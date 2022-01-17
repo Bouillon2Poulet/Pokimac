@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "main.h"
+#include "combat.h"
 #include "map.h"
 #include "pokemon.h"
 #include "intro.h"
@@ -15,6 +16,7 @@ using namespace std;
 
 int main()
 {
+
     // remplissage des maps
     Map* map = remplissageMap("./map.txt");
     map->mapRight = "map2.txt";
@@ -23,7 +25,6 @@ int main()
     map->mapLeft = "map.txt";
     
     Map* mapJeu = map;
-
     //Declarations
     //Joueur et Pokémon Sauvage
     Player player;
@@ -33,13 +34,17 @@ int main()
 
     //Initialisations
     initListeAttaque (listeAttaque);
+    cout <<"OK1" << endl;
     initPlayer (&player, 20, 20);
+    cout <<"OK2" << endl;
     initListePokemon(listePokemon,listeAttaque); //Initialise les pokémons
+    cout <<"OK3" << endl;
     initInventaire(player.inv);
+    cout <<"OK4" << endl;
     initEkip(&player);
-    initPokemonSauvage (listePokemon, &pokemonSauvage1);
-    //initMap(map);
-    
+    cout <<"OK5" << endl;
+    initPokemonSauvage (listePokemon, &pokemonSauvage1, *mapJeu);
+
 
     //Intro 
     intro(&player,listePokemon);

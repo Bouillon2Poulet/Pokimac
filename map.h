@@ -13,8 +13,3 @@ void deplacement_perso(Player *player, char input, Map map);
 void onMap (Player player, PkmSauvage pokemonSauvage1, Map map);
 void afficheCouleur(char c);
 void checkIfTooClose(Player *player, PkmSauvage pokemonSauvage1);
-
-//Combat
-void combat(Player *player, PkmSauvage *pokemonSauvage);
-void attaque (Player *player, PkmSauvage *pokemonSauvage);
-void afficheCombat (Player *player, PkmSauvage *pokemonSauvage);

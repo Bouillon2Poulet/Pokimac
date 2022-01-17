@@ -64,7 +64,7 @@ struct Pokemon{
     int def;
     string cara;
     string bashCouleur;
-    Attaque attaque[3];
+    Attaque attaque[4];
 };
 
 struct PkmSauvage{
@@ -76,6 +76,7 @@ struct PkmSauvage{
     string cara;
     int posx;
     int posy;
+    Attaque attaque[4];
 };
 
 
