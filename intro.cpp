@@ -2,7 +2,7 @@
 #include "intro.h"
 using namespace std;
 
-void intro (Player *player)
+void intro (Player *player, Pokemon listePkm[])
 {
     wclear();
     //char input;
