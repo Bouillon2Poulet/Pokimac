@@ -8,8 +8,8 @@ void intro (Player *player)
     //char input;
     cout << "Bienvenue dans le monde des Pokemons..." << endl << endl;
     cout << "...Appuyez sur A pour commencer l'aventure"<< endl;
-    char input = getch();
-    if(input=='a')
+    //char input = getch();
+    if(getChar()=='a')
     {
         wclear();
         cout << "Comment t'appelles-tu ?" << endl;
@@ -19,8 +19,8 @@ void intro (Player *player)
 
         cout << "...Appuyez sur A si vous vous sentez prêt"<< endl;
 
-        input = getch();
-        if(input=='a')
+        //input = getChar();
+        if(getChar()=='a')
         {
             choixStarter(player, listePkm);
         }
@@ -42,10 +42,10 @@ void choixStarter (Player *player, Pokemon listePkm[])
     copyPokemon(listePkm[b-1],&player->ekip[0]);
     wclear();
     cout << "Bonne chance avec ton " << player->ekip[0].name << " dans le monde des Pokémon !\n\n\n\n Appuyez sur A pour continuer";
-    char reponse = 'a';
-    while(checkInput(reponse)!=1)
+    //char reponse = 'a';
+    if(getChar()=='a')
     {
-        checkInput(reponse);
+        return;
     }
 }
 

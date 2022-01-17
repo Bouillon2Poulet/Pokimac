@@ -129,7 +129,7 @@ extern Pokemon listPokemon[]; //Liste des Pokemons
 // le prototypage
 void copyPokemon(Pokemon source, Pokemon *destination);
 void init_pokemons(Pokemon listePkm[]);
-bool checkInput(char reponse);
+//bool checkInput(char reponse);
 Map* remplissageMap(string adresseMap);
 
 

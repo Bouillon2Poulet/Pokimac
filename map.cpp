@@ -97,9 +97,8 @@ void onMap (Player player, PkmSauvage pokemonSauvage1, Map map)
 {
     updateMap(map, player, pokemonSauvage1);
     afficheMenu(player);
-    char input='s';
-    char reponse='x';
-    input =getChar();
+    char input;
+    input = getChar();
 
     if (input=='z'||input=='q'||input=='s'||input=='d')
     {
@@ -122,7 +121,7 @@ void onMap (Player player, PkmSauvage pokemonSauvage1, Map map)
         wclear();
         afficheInventaire(player.inv);
         cout << "Appuyez sur X pour revenir sur la map" << endl;
-        if  (checkInput(reponse)==1)
+        if  (getChar()=='x')
         {
             wclear();
             onMap(player,pokemonSauvage1,map);
@@ -133,7 +132,7 @@ void onMap (Player player, PkmSauvage pokemonSauvage1, Map map)
         wclear();
         afficheEkip(player);
         cout << "Appuyez sur X pour revenir sur la map" << endl;
-        if  (checkInput(reponse)==1)
+        if  (getChar()=='x')
         {
             wclear();
             onMap(player,pokemonSauvage1,map);
@@ -144,7 +143,7 @@ void onMap (Player player, PkmSauvage pokemonSauvage1, Map map)
         wclear();
         affichePlayer(player);
         cout << "\n\n\nAppuyez sur X pour revenir sur la map" << endl;
-        if  (checkInput(reponse)==1)
+        if  (getChar()=='x')
         {
             wclear();
             onMap(player,pokemonSauvage1,map);
@@ -219,8 +218,7 @@ void combat(Player *player, PkmSauvage *pokemonSauvage){
         cout << "       "<<"PV:" << player->ekip[0].pv << "       PV:" << pokemonSauvage->pv<<endl;
         cout << "Pour attaquer appuyer sur 1"<<endl;
         cout << "Pour sortir appuyer sur a"<<endl;
-        char input = getChar();
-        switch (input)
+        switch (getChar())
         {
             case '1' :
                 cout << "ATTAQUE" << endl;
