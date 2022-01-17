@@ -2,35 +2,50 @@
 // remplace ifndef
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 //Vérification de l'OS pour le clear
 #ifdef WIN32
     #define wclear() system("cls")
     #include <conio.h>
-    //#define getch() getch()
+
 #else
+	#include <termios.h>
+    #include <unistd.h>
+	#include <sys/ioctl.h>
+	#include <sys/socket.h>
     #define wclear() system("clear")
-    #define getch() getchar()
 
         #ifndef NBLIGCLS
             #define NBLIGCLS 30
         #endif
-
-        /*id clear()
-        {
-            int i;
-            for(i = 0; i < NBLIGCLS; i++)
-            {
-                printf("\n");
-            }
-        }*/
 #endif
 
 
+
+
+///////////////////// test du nouveau getch
+static char getch(void) {
+#if defined(_WIN32) || defined(_WIN64)
+		return _getch();
+#else
+		struct termios oldt, newt;
+		int ch;
+		tcgetattr(STDIN_FILENO, &oldt); /* grab old terminal i/o settings */
+		newt = oldt; /* make new settings same as old settings */
+		newt.c_lflag &= ~(ICANON | ECHO); /* disable buffered i/o and set no echo mode */
+		tcsetattr(STDIN_FILENO, TCSANOW, &newt); /* use these new terminal i/o settings now */
+		ch = getchar();
+		tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+		return (char) ch;
+#endif
+	}
+
+
 // dimensions de la map
-const int width = 40; 
-const int height = 30;
+extern int width; 
+extern int height;
 
 ///////
 struct Pokemon{
@@ -56,7 +71,7 @@ struct PkmSauvage{
 
 
 extern Pokemon listePkm []; //Déclaration de la liste
-extern char map[];
+//extern char map[];
 
 const string red = "\033[31m";
 const string green = "\033[32m";
@@ -76,6 +91,16 @@ struct Inventaire{
     int nb_trucopif;
 };
 
+struct Map{
+    int width;
+    int height;
+    vector<char> Lmap;
+    string mapUp;
+    string mapLeft;
+    string mapRight;
+    string mapDown;
+};
+
 struct Player{
     int posx;
     int posy;
@@ -88,11 +113,8 @@ struct Player{
 };
 
 
-
-
-
 extern Pokemon listePkm []; //Déclaration de la liste
-extern char map[];
+//extern char map[];
 //Liste des pokémons
 extern Pokemon salameche;  // Salamèche
 extern Pokemon bulbizarre;   //Bulbizarre
@@ -107,8 +129,8 @@ extern Pokemon listPokemon[]; //Liste des Pokemons
 // le prototypage
 void copyPokemon(Pokemon source, Pokemon *destination);
 void init_pokemons(Pokemon listePkm[]);
-void remplissageMap(char map[width*height]);
 bool checkInput(char reponse);
+Map* remplissageMap(string adresseMap);
 
 
 

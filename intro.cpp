@@ -18,8 +18,9 @@ void intro (Player *player)
         cout << "OK " << player->pseudo << " tu te crois capable de pouvoir être le meilleur dresseur de Pokemon ?" << endl << endl;
 
         cout << "...Appuyez sur A si vous vous sentez prêt"<< endl;
+        reponse = 'a';
 
-        if(checkInput(reponse)==1)
+        if(checkInput(reponse)==0)
         {
             choixStarter(player, listePkm);
         }
