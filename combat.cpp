@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 #include "combat.h"
 #include "menu.h"
 using namespace std;
@@ -27,8 +29,16 @@ void combat(Player *player, PkmSauvage *pokemonSauvage){
 
         if (canAttack==0)
         {
-            cout << pokemonSauvage->name << " utilise " << pokemonSauvage->attaque[0].name << endl;
-            player->ekip[0].pv=player->ekip[0].pv - pokemonSauvage->attaque[0].puissance;
+            int aleatoire = 3;
+            while (pokemonSauvage->attaque[aleatoire].name=="xxx")
+            {
+                srand (time(NULL)); // initialisation de la graine
+                aleatoire = rand() % 4;  // entre 0 et 3 attaques
+            }
+            srand (time(NULL)); // initialisation de la graine
+            aleatoire = rand() % 4; 
+            cout << pokemonSauvage->name << " utilise " << pokemonSauvage->attaque[aleatoire].bash << pokemonSauvage->attaque[aleatoire].name << endl;
+            player->ekip[0].pv=player->ekip[0].pv - pokemonSauvage->attaque[aleatoire].puissance;
             canAttack=1;           
             getChar();
             combat(player,pokemonSauvage);

@@ -1,7 +1,8 @@
 #include <iostream>
 #include <stdlib.h>
-#include "pokemon.h"
 #include <time.h>
+#include "pokemon.h"
+
 
 using namespace std;
 
@@ -67,14 +68,8 @@ void copyPokemon(Pokemon source, Pokemon *destination) //Copie un pokémon sourc
 void initPokemonSauvage (Pokemon listePkm[], PkmSauvage *pokemonSauvage, Map map){
     
     int aleatoire;
-    for (int i =0;i<20;i++)
-    {
     srand (time(NULL)); // initialisation de la graine
-    aleatoire = rand() % 3;
-    cout << aleatoire <<endl;
-    }
-    getChar();
-    
+    aleatoire = rand() % 3; 
     Pokemon pokeTemp;
     copyPokemon (listePkm[aleatoire],&pokeTemp);
     pokemonSauvage->name=pokeTemp.name;
@@ -109,8 +104,7 @@ void initAttaque(Attaque attaque[]){
         attaque[i].type = "xxx";
         attaque[i].cara = "xxx";
         attaque[i].puissance = -1;
-        attaque[i].bash = "XXX";
-        cout << "atk" << i << " : " << attaque[i].name <<endl ;    
+        attaque[i].bash = "XXX";    
     }
 
 }

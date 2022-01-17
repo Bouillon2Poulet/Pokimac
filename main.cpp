@@ -41,16 +41,11 @@ int main()
 
     //Initialisations
     initListeAttaque (listeAttaque);
-    cout <<"OK1" << endl;
     initPlayer (&player, 20, 20);
-    cout <<"OK2" << endl;
     initListePokemon(listePokemon,listeAttaque); //Initialise les pokémons
-    cout <<"OK3" << endl;
     initInventaire(player.inv);
-    cout <<"OK4" << endl;
     initEkip(&player);
-    cout <<"OK5" << endl;
-    initPokemonSauvage (listePokemon, &pokemonSauvage1, *mapJeu);
+    initPokemonSauvage (listePokemon, &pokemonSauvage1, *map);
 
 
     //Intro 
