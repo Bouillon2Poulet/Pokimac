@@ -91,7 +91,7 @@ int main()
 
 bool checkInput(char reponse){
     char input;
-    input = getch();
+    input = getChar();
     if (reponse ==input)
     {
         return 1;

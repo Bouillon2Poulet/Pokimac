@@ -9,7 +9,7 @@ void intro (Player *player)
     cout << "Bienvenue dans le monde des Pokemons..." << endl << endl;
     cout << "...Appuyez sur A pour commencer l'aventure"<< endl;
     char input = getch();
-    if(input='a')
+    if(input=='a')
     {
         wclear();
         cout << "Comment t'appelles-tu ?" << endl;
@@ -18,7 +18,6 @@ void intro (Player *player)
         cout << "OK " << player->pseudo << " tu te crois capable de pouvoir être le meilleur dresseur de Pokemon ?" << endl << endl;
 
         cout << "...Appuyez sur A si vous vous sentez prêt"<< endl;
-        reponse = 'a';
 
         input = getch();
         if(input=='a')

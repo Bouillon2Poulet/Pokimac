@@ -26,9 +26,9 @@ using namespace std;
 
 
 ///////////////////// test du nouveau getch
-static char getch(void) {
+static char getChar() {
 #if defined(_WIN32) || defined(_WIN64)
-		return _getch();
+		return getch();
 #else
 		struct termios oldt, newt;
 		int ch;
