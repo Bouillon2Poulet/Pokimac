@@ -8,9 +8,9 @@ using namespace std;
 
 
 
-void updateMap(char map[width*height], Player player, PkmSauvage pokemonSauvage);
-void deplacement_perso(Player *player, char map[]);
-void onMap ( Player player, PkmSauvage pokemonSauvage1, char map[]);
+void updateMap(Map map, Player player, PkmSauvage pokemonSauvage);
+void deplacement_perso(Player *player, char input, Map map);
+void onMap (Player player, PkmSauvage pokemonSauvage1, Map map);
 void afficheCouleur(char c);
 void checkIfTooClose(Player *player, PkmSauvage pokemonSauvage1);
 
