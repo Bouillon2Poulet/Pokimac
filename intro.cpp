@@ -8,8 +8,8 @@ void intro (Player *player)
     //char input;
     cout << "Bienvenue dans le monde des Pokemons..." << endl << endl;
     cout << "...Appuyez sur A pour commencer l'aventure"<< endl;
-    char reponse = 'a';
-    if(checkInput(reponse)==1)
+    char input = getch();
+    if(input='a')
     {
         wclear();
         cout << "Comment t'appelles-tu ?" << endl;
@@ -19,7 +19,8 @@ void intro (Player *player)
 
         cout << "...Appuyez sur A si vous vous sentez prêt"<< endl;
 
-        if(checkInput(reponse)==1)
+        input = getch();
+        if(input='a')
         {
             choixStarter(player, listePkm);
         }

@@ -202,30 +202,43 @@ void checkIfTooClose(Player *player,PkmSauvage pokemonSauvage1){
 void combat(Player *player, PkmSauvage *pokemonSauvage){
     wclear();
     bool combatContinue = 1;
-    while (combatContinue == 1)
+
+    if (player->ekip[0].pv<=0) //Si les PV de l'un des pokémons tombe à zéro le combat s'arrête
     {
-        cout << "COMBAT" << endl << "---" << endl;
-        cout << "Ton Pokemon :\n" << player->ekip[0].cara<<" "<< player->ekip[0].name << endl << "PV:" << player->ekip[0].pv;
-        cout << "Pokemon Sauvage :\n" << pokemonSauvage->cara<<" "<< pokemonSauvage->name << endl << "PV:" << pokemonSauvage->pv<<endl;
-        cout << "Pour sortir appuyer sur a"<<endl;
-        char reponse ='a';
-        if (checkInput(reponse)==1)
-        {
-            combatContinue=0;
-        }
-        if (player->ekip[0].pv==0)
-        {
-            combatContinue=0;
-        }
-        if (pokemonSauvage->pv==0)
-        {
-            combatContinue=0;
-        }
+        combatContinue=0;
     }
+    if (pokemonSauvage->pv<=0)
+    {
+        combatContinue=0;
+    }
+
+    if (combatContinue == 1)
+    {
+        cout << endl << endl << endl;
+        cout << "       COMBAT" << endl << "---" << endl;
+        cout << "       "<<player->ekip[0].cara<<" "<< player->ekip[0].name << "       " << pokemonSauvage->cara<<" "<< pokemonSauvage->name << endl;
+        cout << "       "<<"PV:" << player->ekip[0].pv << "       PV:" << pokemonSauvage->pv<<endl;
+        cout << "Pour attaquer appuyer sur 1"<<endl;
+        cout << "Pour sortir appuyer sur a"<<endl;
+        char input = getch();
+        switch (input)
+        {
+            case '1' :
+                cout << "ATTAQUE" << endl;
+                attaque(player, pokemonSauvage);
+                break;
+            
+            case 'a' :
+                combatContinue=0;
+                break;
+        }
+
+    }
+
     if (combatContinue==0)
         {
-                wclear();
-                return;
+            wclear();
+            return;
         }
         else
         {
@@ -233,21 +246,6 @@ void combat(Player *player, PkmSauvage *pokemonSauvage){
             combat(player,pokemonSauvage);    
         }
 
-        
-    
-    char reponse ='a';
-    if (checkInput(reponse)==1)
-    {
-        combatContinue=0;
-    }
-    if (player->ekip[0].pv==0)
-    {
-        combatContinue=0;
-    }
-    if (pokemonSauvage->pv==0)
-    {
-        combatContinue=0;
-    }
 
     if (combatContinue==0)
         {
@@ -260,4 +258,21 @@ void combat(Player *player, PkmSauvage *pokemonSauvage){
         combat(player,pokemonSauvage);    
     }
     
+}
+
+void attaque (Player *player, PkmSauvage *pokemonSauvage)
+{
+    wclear();
+    cout << player->ekip[0].name << " attaque le " << pokemonSauvage->name << " sauvage"<< endl;
+    cout << "PV du " << pokemonSauvage->name << "(avant attaque) : " << pokemonSauvage->pv << endl<<endl;
+    cout << "Attaque : 10" << endl;
+    pokemonSauvage->pv = pokemonSauvage->pv-10;
+    cout << "PV du " << pokemonSauvage->name << "(apres attaque) : " << pokemonSauvage->pv << endl<<endl;
+    cout << "Pour sortir appuyer sur a"<<endl;
+    //char sortie = 'a';
+    while (getch()!='a')
+    {
+        getch();
+    }
+    cout << "sortie " << endl;
 }
