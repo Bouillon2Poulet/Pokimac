@@ -95,10 +95,16 @@ struct Map{
     int width;
     int height;
     vector<char> Lmap;
-    string mapUp;
-    string mapLeft;
-    string mapRight;
-    string mapDown;
+    string adresse;
+};
+
+
+struct orgaMap{
+    int center;
+    int left;
+    int right;
+    int up;
+    int down;
 };
 
 struct Player{

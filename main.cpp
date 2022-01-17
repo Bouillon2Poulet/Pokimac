@@ -17,12 +17,19 @@ int main()
 {
     // remplissage des maps
     Map* map = remplissageMap("./map.txt");
-    map->mapRight = "map2.txt";
+    Map* map2 = remplissageMap("./map2.txt");
+    Map* map3 = remplissageMap("./map3.txt");
 
-    Map* map2 = remplissageMap("./map.txt");
-    map->mapLeft = "map.txt";
-    
-    Map* mapJeu = map;
+
+    Map* listeMap[3] = {map,map2,map3};
+    int mapwidth = 3;
+    int mapx = 0;
+    int mapy = 0;
+
+    // initialisation de la map sur laquelle on joue
+    /*Map* mapJeu = new Map;
+    remplaceMap(mapJeu,1,listeMap);*/
+
 
     //Declarations
     //Joueur et Pokémon Sauvage
@@ -41,13 +48,13 @@ int main()
     //Intro 
     intro(&player);
     wclear();
-    onMap (player, pokemonSauvage1, *mapJeu);
+    onMap (player, pokemonSauvage1, &mapx, &mapy, mapwidth, listeMap);
     return 0;
 
 }
 
  Map* remplissageMap(string adresseMap){
-    ifstream monFlux("./map.txt"); // récup du fichier dans monFlux
+    ifstream monFlux(adresseMap); // récup du fichier dans monFlux
     Map* interMap = new Map;
     vector<char> inverse;
     if(monFlux) // vérification que le fichier soit bien lu
@@ -80,24 +87,11 @@ int main()
         }
         
         interMap->width = width;
-        interMap->height = height;        
+        interMap->height = height;
+        interMap->adresse= adresseMap;
         cout << endl;
         }
     else cout << "erreur avec le fichier" <<  endl;
     return interMap;
 }
 
-
-
-/*bool checkInput(char reponse){
-    char input;
-    input = getChar();
-    if (reponse ==input)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}*/
