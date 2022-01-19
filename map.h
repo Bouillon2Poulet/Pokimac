@@ -11,4 +11,6 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy , int ma
 void onMap (Player player, Pokemon pokemonSauvage1, int* mapx, int* mapy, int mapwidth, Map* listeMap[]);
 void remplaceMap(Map* mapAv, int nbNext, int mapwidth, Map* listeMap[]);
 void afficheCouleur(char c);
-void checkIfTooClose(Player *player, Pokemon pokemonSauvage1);
+void checkIfTooClose(Player *player, PkmSauvage pokemonSauvage1);
+bool peutBouger(char charMap);
+

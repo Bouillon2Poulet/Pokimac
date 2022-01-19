@@ -1,5 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
+#include "pokemon.h"
+#include "map.h"
 #include <time.h>
 #include "pokemon.h"
 
@@ -21,7 +23,7 @@ void initPokemonSauvage (Pokemon listePkm[], Pokemon *pokemonSauvage, Map map){
     while (map.Lmap.at(posx+map.width*posy) != ' '){ 
         srand (time(NULL)); // initialisation de la graine
         posx = rand() %map.width;
-        srand (time(NULL)); // initialisation de la graine
+        //srand (time(NULL)); // initialisation de la graine
         posy = rand() %map.height;
     }
 */
