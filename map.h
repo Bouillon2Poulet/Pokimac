@@ -15,3 +15,4 @@ void onMap (Player player, PkmSauvage pokemonSauvage1, int* mapx, int* mapy, int
 void remplaceMap(Map* mapAv, int nbNext, int mapwidth, Map* listeMap[]);
 void afficheCouleur(char c);
 void checkIfTooClose(Player *player, PkmSauvage pokemonSauvage1);
+bool peutBouger(char charMap);

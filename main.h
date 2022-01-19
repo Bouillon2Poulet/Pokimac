@@ -43,10 +43,6 @@ static char getChar() {
 	}
 
 
-// dimensions de la map
-extern int width; 
-extern int height;
-
 ///////
 struct Attaque {
     string name;
@@ -85,14 +81,25 @@ struct PkmSauvage{
 extern Pokemon listePkm []; //Déclaration de la liste
 //extern char map[];
 
+
+// couleurs texte
 const string red = "\033[31m";
 const string green = "\033[32m";
+const string brown = "\033[33m";
 const string blue = "\033[34m";
+const string purple = "\033[35m";
 const string white = "\033[0m";
 const string grey = "\033[90m";
-const string mangenta = "\033[35m";
-const string yellow = "\033[33m";
+const string yellow = "\033[1;33m";
 const string cyan = "\033[36m";
+
+//couleurs background
+const string bgBlack = "\033[40m";
+const string bgRed = "\033[41m";
+const string bgGreen = "\033[42m";
+const string bgBrown = "\033[43m";
+const string bgBlue = "\033[44m";
+const string bgPurple = "\033[45m";
 
 const string caraFeu = red + '*' + white;
 const string caraNormal = white + '#' + white;
@@ -113,6 +120,7 @@ struct Map{
     int height;
     vector<char> Lmap;
     string adresse;
+    string bgMap;
 };
 
 

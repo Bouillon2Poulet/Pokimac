@@ -54,7 +54,14 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
     if (input=='z')
     {
-        if ((player->posy >0) && (map->Lmap.at((player->posx)+((player->posy)-1)*map->width)==' ')) 
+        if (player->posy == 1){
+            *mapy= *mapy-1;
+            player->posy = map->height-1;
+            player->posyAv = map->height-1;
+        }
+        
+        
+        if ((player->posy >0) && peutBouger(map->Lmap.at((player->posx)+((player->posy)-1)*map->width))) 
         {
             //MAJ de l'ancienne position
             player->posxAv = player->posx;
@@ -74,7 +81,7 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
             player->posxAv = map->width-1;
         }
         
-        if ((player->posx >0) && (map->Lmap.at((player->posy)*map->width+(player->posx)-1)==' ')) 
+        if ((player->posx >0) && peutBouger(map->Lmap.at((player->posy)*map->width+(player->posx)-1))) 
         {
             //MAJ de l'ancienne position
             player->posxAv = player->posx;
@@ -85,7 +92,13 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
 
     if (input=='s')
     {
-        if ((player->posy <map->height-1) && (map->Lmap.at((player->posx)+((player->posy)+1)*map->width)==' ')) 
+        if (player->posy == map->height-1){
+            *mapy= *mapy+1;
+            player->posy = 1;
+            player->posyAv = 1;
+        }
+        
+        if ((player->posy <map->height-1) && peutBouger(map->Lmap.at((player->posx)+((player->posy)+1)*map->width))) 
         {
             player->posxAv = player->posx;
             player->posyAv = player->posy;
@@ -102,7 +115,7 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
         }
         
         // déplacement si la place est libre
-        if ((player->posx <map->width-1) && (map->Lmap.at((player->posy)*map->width+(player->posx)+1)==' '))
+        if ((player->posx <map->width-1) && peutBouger(map->Lmap.at((player->posy)*map->width+(player->posx)+1)))
         {
             player->posxAv = player->posx;
             player->posyAv = player->posy;
@@ -176,22 +189,46 @@ void onMap (Player player, PkmSauvage pokemonSauvage1, int* mapx, int* mapy,int 
 void afficheCouleur(char c){
     switch (c){
 
-        case '#':
-            cout << blue << "#";
-        break;        
+        // bleu
+        case '(':
+        case ')':
+            cout << blue << c<< white;
+        break;
         
-        case '-':
+        // marron
+        case '/':
+            cout << brown << c<< white;
+        break;
+
+        // gris
         case '|':
         case '~':
-            cout << grey << c;
+            cout << grey << c<< white;
         break;
 
+        // aléatoire
         case '@':
-            cout << yellow << "@";
+        case '+':
+            
+            // couleur random de @ et + car sont des fleurs
+            int i;
+            srand (time(NULL)); // initialisation de la graine
+            i = rand() %4;
+            if (i==0) cout << yellow << c << white;
+            if (i==1) cout << blue << c<< white;
+            if (i==2) cout << purple << c<< white;
+            if (i==3) cout << cyan << c<< white;
         break;
 
+        //vert
+        case 'T':
+        case 'Y':
+            cout << green << c<< white;
+        break;
+
+        // blanc
         default:
-            cout << white << c;
+            cout << white << c<< white;
     }
 }
 
@@ -214,5 +251,25 @@ void checkIfTooClose(Player *player,PkmSauvage pokemonSauvage1){
     else
     {
         player->tooClose=0;
+    }
+}
+
+bool peutBouger(char charMap){
+    
+    
+    switch (charMap){
+        // liste des caractères sur lesquels on peut bouger
+        case ' ':
+        case '+':
+        case '@':
+        case '/':
+        case '<':
+            return true;
+        break;
+
+        default : 
+            return false;
+        break;
+
     }
 }

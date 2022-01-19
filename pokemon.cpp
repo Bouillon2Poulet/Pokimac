@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include "pokemon.h"
+#include "map.h"
 #include <time.h>
 
 using namespace std;
@@ -65,17 +66,16 @@ void copyPokemon(Pokemon source, Pokemon *destination) //Copie un pokémon sourc
 
 
 void initPokemonSauvage (Pokemon listePkm[], PkmSauvage *pokemonSauvage, Map map){
-    
+    cout << "OK5.1" << endl;
     int aleatoire;
     for (int i =0;i<20;i++)
     {
     srand (time(NULL)); // initialisation de la graine
     aleatoire = rand() % 3;
-    cout << aleatoire <<endl;
     }
-    getChar();
-    
+
     Pokemon pokeTemp;
+    cout << "OK5.2" << endl;
     copyPokemon (listePkm[aleatoire],&pokeTemp);
     pokemonSauvage->name=pokeTemp.name;
     pokemonSauvage->type=pokeTemp.type;
@@ -83,6 +83,7 @@ void initPokemonSauvage (Pokemon listePkm[], PkmSauvage *pokemonSauvage, Map map
     pokemonSauvage->dmg=pokeTemp.dmg;
     pokemonSauvage->def=pokeTemp.def;
     pokemonSauvage->cara=pokeTemp.cara;
+    cout << "OK5.3" << endl;
     for (int i=0;i<4;i++)
     {
         copyAttaque(pokeTemp.attaque[i],&pokemonSauvage->attaque[i]);
@@ -91,13 +92,15 @@ void initPokemonSauvage (Pokemon listePkm[], PkmSauvage *pokemonSauvage, Map map
     int posx = 0;
     int posy = 0;
 
-    while (map.Lmap.at(posx+map.width*posy) != ' '){
+    cout << "OK5.4" << endl;
+    while (peutBouger(map.Lmap.at(posx+map.width*posy))==false){
         srand (time(NULL)); // initialisation de la graine
         posx = rand() %map.width;
-        srand (time(NULL)); // initialisation de la graine
+        //srand (time(NULL)); // initialisation de la graine
         posy = rand() %map.height;
     }
     
+    cout << "OK5.5" << endl;
     pokemonSauvage->posx = posx;
     pokemonSauvage->posy = posy;
 }
@@ -110,7 +113,6 @@ void initAttaque(Attaque attaque[]){
         attaque[i].cara = "xxx";
         attaque[i].puissance = -1;
         attaque[i].bash = "XXX";
-        cout << "atk" << i << " : " << attaque[i].name <<endl ;    
     }
 
 }

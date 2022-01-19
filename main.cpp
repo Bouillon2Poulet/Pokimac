@@ -18,19 +18,20 @@ int main()
 {
 
     // remplissage des maps
-    Map* map = remplissageMap("./map.txt");
-    Map* map2 = remplissageMap("./map2.txt");
-    Map* map3 = remplissageMap("./map3.txt");
+    Map* mapForet = remplissageMap("./map/foret.txt");
+    Map* mapVolcan = remplissageMap("./map/volcan.txt");
+    mapVolcan->bgMap = bgBrown;
+    Map* mapRiviere = remplissageMap("./map/riviere.txt");
+    Map* mapChamps = remplissageMap("./map/champs.txt");
+    mapRiviere->bgMap = bgGreen;
 
 
-    Map* listeMap[3] = {map,map2,map3};
-    int mapwidth = 3;
+    Map* listeMap[4] = {mapVolcan,mapRiviere,mapChamps,mapForet};
+    int mapwidth = 2;
+    
+    // permet de donner la map de départ !
     int mapx = 0;
-    int mapy = 0;
-
-    // initialisation de la map sur laquelle on joue
-    /*Map* mapJeu = new Map;
-    remplaceMap(mapJeu,1,listeMap);*/
+    int mapy = 1;
 
     //Declarations
     //Joueur et Pokémon Sauvage
@@ -40,17 +41,23 @@ int main()
     Attaque listeAttaque[40];
 
     //Initialisations
+    
+    // init de la position du player de manière aléatoire
+    int posx = 5;
+    int posy = 5;
+    
     initListeAttaque (listeAttaque);
-    cout <<"OK1" << endl;
-    initPlayer (&player, 20, 20);
-    cout <<"OK2" << endl;
+    cout << "OK1" << endl;
+    initPlayer (&player, posx, posy);
+    cout << "OK2" << endl;
     initListePokemon(listePokemon,listeAttaque); //Initialise les pokémons
-    cout <<"OK3" << endl;
+    cout << "OK3" << endl;
     initInventaire(player.inv);
-    cout <<"OK4" << endl;
+    cout << "OK4" << endl;
     initEkip(&player);
-    cout <<"OK5" << endl;
-    initPokemonSauvage (listePokemon, &pokemonSauvage1, *mapJeu);
+    cout << "OK5" << endl;
+    initPokemonSauvage (listePokemon, &pokemonSauvage1, *mapChamps);
+    cout << "OK6" << endl;
 
 
     //Intro 
@@ -82,6 +89,7 @@ int main()
             if (c!='\n') inverse.push_back(c);
 
             if (c!= '\n' && ligne == false) { // saut le saut de ligne
+                //cout << c << endl;
                 width++;
             }
             else  
@@ -100,9 +108,9 @@ int main()
         interMap->width = width;
         interMap->height = height;
         interMap->adresse= adresseMap;
-        cout << endl;
+        cout << adresseMap << " // " << width << endl;
         }
-    else cout << "erreur avec le fichier" <<  endl;
+    else cout << adresseMap << " : erreur avec le fichier" <<  endl;
     return interMap;
 }
 
