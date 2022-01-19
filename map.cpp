@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 #include "map.h"
 #include "menu.h"
 #include "combat.h"

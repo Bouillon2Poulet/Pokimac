@@ -93,16 +93,16 @@ void initListeType (Type listeType[]){
     combat.name="combat";
     combat.superEfficaceContre="normal glace roche";
     combat.peuEfficaceContre="poison vol psy insecte spectre";
-    combat.cara= marron + '#' + white;
-    combat.bashCouleur=marron;
+    combat.cara= brown + '#' + white;
+    combat.bashCouleur=brown;
     listeType[6]=combat;
 
     Type poison;
     poison.name="combat";
     poison.superEfficaceContre="plante insecte";
     poison.peuEfficaceContre="poison sol roche spectre";
-    poison.cara= violet + '#' + white;
-    poison.bashCouleur=violet;
+    poison.cara= purple + '#' + white;
+    poison.bashCouleur=purple;
     listeType[7]=poison;
 
     Type sol;
@@ -141,16 +141,16 @@ void initListeType (Type listeType[]){
     roche.name="roche";
     roche.superEfficaceContre="feu glace vol insecte";
     roche.peuEfficaceContre="combat sol";
-    roche.cara= marron + '#' + white;
-    roche.bashCouleur=marron;
+    roche.cara= brown + '#' + white;
+    roche.bashCouleur=brown;
     listeType[12]=insecte;
 
     Type spectre;
     spectre.name="spectre";
     spectre.superEfficaceContre="spectre";
     spectre.peuEfficaceContre="normal psy";
-    spectre.cara= violet + '#' + white;
-    spectre.bashCouleur=violet;
+    spectre.cara= purple + '#' + white;
+    spectre.bashCouleur=purple;
     listeType[13]=spectre;
 
     Type dragon;

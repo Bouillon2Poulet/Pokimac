@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void initPokemonSauvage (Pokemon listePkm[], Pokemon *pokemonSauvage, Map map){
+void initPokemonSauvage (Pokemon listePkm[], Pokemon *pokemonSauvage, Map* map){
     
     int aleatoire;
     srand (time(NULL)); // initialisation de la graine

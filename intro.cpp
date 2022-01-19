@@ -50,6 +50,7 @@ void choixStarter (Player *player, Pokemon listePkm[])
     cout << "\n\n\n\n\n\n\n\n\n";
     cout << "---Appuies sur une touche pour continuer..." << endl;
     getChar();
+    wclear();
     return;
 }
 
