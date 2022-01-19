@@ -1,7 +1,9 @@
 #include <iostream>
 #include <stdio.h>
 
+//Headers
 #include "main.h"
+#include "initialisation.h"
 #include "combat.h"
 #include "map.h"
 #include "pokemon.h"
@@ -35,25 +37,30 @@ int main()
     //Declarations
     //Joueur et Pokémon Sauvage
     Player player;
-    PkmSauvage pokemonSauvage1;
+    Pokemon pokemonSauvage1;
     Pokemon listePokemon[40];
     Attaque listeAttaque[40];
+    Type listeType[14];
 
-    //Initialisations
-    initListeAttaque (listeAttaque);
-    initPlayer (&player, 20, 20);
-    initListePokemon(listePokemon,listeAttaque); //Initialise les pokémons
-    initInventaire(player.inv);
-    initEkip(&player);
+    //Initialisation
+    initPlayer (&player);
+    initPokemon(listePokemon,listeAttaque,listeType);
+
     initPokemonSauvage (listePokemon, &pokemonSauvage1, *map);
 
 
+
     //Intro 
+    for (int i=0;i<15;i++)
+    {
+        cout << listeType[i].name << endl;
+        cout << listeType[i].cara << endl;
+        cout << "superEfficaceContre :" << listeType[i].superEfficaceContre << endl; 
+        cout << "peuEfficaceContre :" << listeType[i].peuEfficaceContre << endl;
+        cout << "-----\n";
+    }
+    getChar();
     intro(&player,listePokemon);
-    wclear();
-    cout << "Liste attaque[0] " << listeAttaque[0].name << endl;
-    cout << "Starter attaque[0] " << player.ekip[0].attaque[0].name << endl;
-    cout << "Starter attaque[1] " << player.ekip[0].attaque[1].name << endl;
     onMap (player, pokemonSauvage1, &mapx, &mapy, mapwidth, listeMap);
     return 0;
 

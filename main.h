@@ -1,5 +1,4 @@
-#pragma once // magique ça permet de ne pas faire de redef
-// remplace ifndef
+#pragma once // Remplace ifdef
 
 #include <iostream>
 #include <vector>
@@ -42,63 +41,31 @@ static char getChar() {
 #endif
 	}
 
+//Structures
+struct Type {
+    string name;
+    string superEfficaceContre;
+    string peuEfficaceContre;
+    string cara;
+    string bashCouleur;
+};
 
-// dimensions de la map
-extern int width; 
-extern int height;
-
-///////
 struct Attaque {
     string name;
-    string type;
-    string cara;
+    Type type;
     int puissance;
-    string bash;
 };
 
 struct Pokemon{
     string name;
-    string type;
+    Type type;
     int pv;
     int dmg;
     int def;
-    string cara;
-    string bashCouleur;
-    Attaque attaque[4];
-};
-
-struct PkmSauvage{
-    string name;
-    string type;
-    int pv;
-    int dmg;
-    int def;
-    string cara;
     int posx;
     int posy;
     Attaque attaque[4];
 };
-
-
-
-
-extern Pokemon listePkm []; //Déclaration de la liste
-//extern char map[];
-
-const string red = "\033[31m";
-const string green = "\033[32m";
-const string blue = "\033[34m";
-const string white = "\033[0m";
-const string grey = "\033[90m";
-const string mangenta = "\033[35m";
-const string yellow = "\033[33m";
-const string cyan = "\033[36m";
-
-const string caraFeu = red + '*' + white;
-const string caraNormal = white + '#' + white;
-const string caraPlante = green + '&' + white;
-const string caraEau = blue + '%'+ white;
-
 
 
 struct Inventaire{
@@ -135,15 +102,24 @@ struct Player{
     Pokemon ekip[6];
 };
 
+//Constantes
+const string red = "\033[31m";
+const string green = "\033[32m";
+const string blue = "\033[34m";
+const string white = "\033[0m";
+const string grey = "\033[90m";
+const string mangenta = "\033[35m";
+const string yellow = "\033[33m";
+const string cyan = "\033[36m";
+const string marron = "\033[1;33m";
+const string violet = "\033[35m";
 
-extern Attaque listeAttaque[]; //Liste des attaques
 
+//Dimensions Map
+extern int width; 
+extern int height;
 
-
-// le prototypage
-void copyPokemon(Pokemon source, Pokemon *destination);
-void init_pokemons(Pokemon listePkm[]);
-//bool checkInput(char reponse);
+//Prototypes de fonctions
 Map* remplissageMap(string adresseMap);
 
 

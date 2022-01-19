@@ -1,13 +1,15 @@
 #include <iostream>
+#include <string>
 #include <stdlib.h>
 #include <time.h>
 #include "combat.h"
 #include "menu.h"
+
 using namespace std;
 
 bool canAttack = 1;
 
-void combat(Player *player, PkmSauvage *pokemonSauvage){
+void combat(Player *player, Pokemon *pokemonAdverse){
     wclear();
     bool combatContinue = 1;
 
@@ -15,41 +17,40 @@ void combat(Player *player, PkmSauvage *pokemonSauvage){
     {
         combatContinue=0;
     }
-    if (pokemonSauvage->pv<=0)
+    if (pokemonAdverse->pv<=0)
     {
         combatContinue=0;
     }
 
     if (combatContinue == 1)
     {
-        afficheCombat(player, pokemonSauvage);
+        afficheCombat(player, pokemonAdverse);
      
         cout << "1 - Attaque         2 - Sac" << endl;
         cout << "3 - Pokemon         4 - Fuite" << endl;
 
-        if (canAttack==0)
+        if (canAttack==0) //Le Pokemon sauvage attaque si on ne peut pas attaquer
         {
             int aleatoire = 3;
-            while (pokemonSauvage->attaque[aleatoire].name=="xxx")
+            while (pokemonAdverse->attaque[aleatoire].name=="xxx")
             {
                 srand (time(NULL)); // initialisation de la graine
                 aleatoire = rand() % 4;  // entre 0 et 3 attaques
             }
             srand (time(NULL)); // initialisation de la graine
             aleatoire = rand() % 4; 
-            cout << pokemonSauvage->name << " utilise " << pokemonSauvage->attaque[aleatoire].bash << pokemonSauvage->attaque[aleatoire].name << endl;
-            player->ekip[0].pv=player->ekip[0].pv - pokemonSauvage->attaque[aleatoire].puissance;
-            canAttack=1;           
-            getChar();
-            combat(player,pokemonSauvage);
+            cout <<" Le " << pokemonAdverse->name << " sauvage utilise " << pokemonAdverse->attaque[aleatoire].type.bashCouleur << pokemonAdverse->attaque[aleatoire].name << white << endl;
+            calcDamage(pokemonAdverse->attaque[aleatoire], &player->ekip[0]);
+            canAttack=1;
+            combat(player,pokemonAdverse);
         }
         
         switch (getChar())
         {
             case '1' :
                 wclear();
-                afficheCombat(player,pokemonSauvage);
-                attaque(player, pokemonSauvage);
+                afficheCombat(player,pokemonAdverse);
+                attaque(player, pokemonAdverse);
                 canAttack=0;
                 break;
             
@@ -71,16 +72,16 @@ void combat(Player *player, PkmSauvage *pokemonSauvage){
     else
     {
         wclear();
-        combat(player,pokemonSauvage);    
+        combat(player,pokemonAdverse);    
     }
     
 }
 
-void attaque (Player *player, PkmSauvage *pokemonSauvage)
+void attaque (Player *player, Pokemon *pokemonAdverse)
 {
     for (int i=0;player->ekip[0].attaque[i].puissance!=-1;i++)
     {
-        cout << i+1 << player->ekip[0].attaque[i].bash << player->ekip[0].attaque[i].name << endl;
+        cout << i+1 << player->ekip[0].attaque[i].type.cara << player->ekip[0].attaque[i].name << endl;
         cout << "Puissance " << player->ekip[0].attaque[i].puissance<< endl;
         cout << endl;
     }
@@ -94,27 +95,58 @@ void attaque (Player *player, PkmSauvage *pokemonSauvage)
         case '3' : i=2; break;
         case '4' : i=3; break;
     }   
-    cout << player->ekip[0].name << " utilise " << player->ekip[0].attaque[i].name;
-    pokemonSauvage->pv = pokemonSauvage->pv-player->ekip[0].attaque[i].puissance;
-    getChar();
+    cout << player->ekip[0].name << " utilise " << player->ekip[0].attaque[i].name << endl;
+    calcDamage(player->ekip[0].attaque[i], pokemonAdverse);
 }
 
-void afficheCombat (Player *player, PkmSauvage *pokemonSauvage)
+void afficheCombat (Player *player, Pokemon *pokemonAdverse)
 {
         cout << "------"<<endl;
         cout << "COMBAT" << endl;
         cout << "------"<<endl;
         cout << endl << endl;
 
-        cout << "                         " << pokemonSauvage->name << endl;
-        cout << "                         PV:" << pokemonSauvage->pv << endl;
+        cout << "                         " << pokemonAdverse->name << endl;
+        cout << "                         PV:" << pokemonAdverse->pv << endl;
         cout << endl << endl;
-        cout << "                             " << pokemonSauvage->cara << endl;
+        cout << "                             " << pokemonAdverse->type.cara << endl;
         cout << endl << endl<<endl;
         
         cout << player->ekip[0].name << endl;
         cout << "PV: " << player->ekip[0].pv << endl;
         cout << endl << endl;
-        cout << "    " << player->ekip[0].cara<<endl;
+        cout << "    " << player->ekip[0].type.cara<<endl;
         cout << endl << endl;
+}
+
+void calcDamage (Attaque attaque, Pokemon *destination){
+
+    if (attaque.type.superEfficaceContre.find(destination->type.name
+    )!= std::string::npos)
+    {
+        cout << "C'est très efficace" << endl;
+        destination->pv-=attaque.puissance*2;
+        cout << "\n\n\n\n\n\n\n";
+        cout <<" ---Appuies sur une touche pour continuer"<< endl;
+        getChar();
+        return;
+    }
+    if (attaque.type.peuEfficaceContre.find(destination->type.name
+    )!= std::string::npos)
+    {
+        cout << "C'est peu efficace" << endl;
+        destination->pv-=attaque.puissance/2;
+        cout << "\n\n\n\n\n\n\n";
+        cout <<" ---Appuies sur une touche pour continuer"<< endl;
+        getChar();
+        return;
+    }
+    else
+    {
+        destination->pv-=attaque.puissance;
+        cout << "\n\n\n\n\n\n\n";
+        cout <<" ---Appuies sur une touche pour continuer"<< endl;
+        getChar();
+        return;
+    }
 }

@@ -1,29 +1,6 @@
 #include <iostream>
 #include "menu.h"
 using namespace std;
-
-void initPlayer (Player *player, int posx, int posy){
-    player->posx = posx;
-    player->posy = posy;
-    player->tooClose=0;
-    player->posxAv =posx;
-    player->posyAv = posy;
-}
-
-void initInventaire(Inventaire inv){
-    inv.nb_pokeball = 0;
-    inv.nb_popo2 = 0;
-    inv.nb_potions = 0;
-    inv.nb_trucopif = 0;
-}
-
-void initEkip(Player *player){
-    for (int i=0; i<6; i++)
-    {
-        player->ekip[i].name="XOX";
-    }
-}
-
 void afficheMenu(const Player player){
     cout << endl << "----------" << endl << endl;
     cout << "1 : Inventaire" << endl;
@@ -52,7 +29,7 @@ void afficheEkip(Player player){
     cout << "- EKIP -" << endl << endl;
     for (int i=0;i<compteEkip(player);i++)
     {
-        cout<<i+1<<" - " <<  player.ekip[1].name << " " << player.ekip[1].cara << endl; 
+        cout<<i+1<<" - " <<  player.ekip[1].name << " " << player.ekip[1].type.cara << endl; 
     }
 
 }
@@ -63,7 +40,7 @@ void affichePlayer(Player player){
     cout << "Nombre de Pokemon > "<< compteEkip(player) << endl;
     for (int i = 0;i<compteEkip(player);i++)
     {
-        cout << player.ekip[i].cara << " ";
+        cout << player.ekip[i].type.cara << " ";
     }
 }
 
