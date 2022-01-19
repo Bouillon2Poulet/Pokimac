@@ -47,17 +47,11 @@ int main()
     int posy = 5;
     
     initListeAttaque (listeAttaque);
-    cout << "OK1" << endl;
-    initPlayer (&player, posx, posy);
-    cout << "OK2" << endl;
+    initPlayer (&player, 5, 5);
     initListePokemon(listePokemon,listeAttaque); //Initialise les pokémons
-    cout << "OK3" << endl;
     initInventaire(player.inv);
-    cout << "OK4" << endl;
     initEkip(&player);
-    cout << "OK5" << endl;
     initPokemonSauvage (listePokemon, &pokemonSauvage1, *mapChamps);
-    cout << "OK6" << endl;
 
 
     //Intro 
@@ -70,6 +64,8 @@ int main()
     return 0;
 
 }
+
+
 
  Map* remplissageMap(string adresseMap){
     ifstream monFlux(adresseMap); // récup du fichier dans monFlux
@@ -113,4 +109,3 @@ int main()
     else cout << adresseMap << " : erreur avec le fichier" <<  endl;
     return interMap;
 }
-

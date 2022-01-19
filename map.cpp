@@ -273,3 +273,4 @@ bool peutBouger(char charMap){
 
     }
 }
+

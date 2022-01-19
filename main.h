@@ -151,8 +151,8 @@ extern Attaque listeAttaque[]; //Liste des attaques
 // le prototypage
 void copyPokemon(Pokemon source, Pokemon *destination);
 void init_pokemons(Pokemon listePkm[]);
-//bool checkInput(char reponse);
 Map* remplissageMap(string adresseMap);
+//bool checkInput(char reponse);
 
 
 
