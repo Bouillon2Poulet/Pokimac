@@ -8,4 +8,4 @@ void afficheInventaire(Inventaire inv);
 void afficheEkip(Player player);
 void affichePlayer(Player player);
 
-int compteEkip(Player player);
+int compteEkip(Player *player);

@@ -111,29 +111,75 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                 switch (getChar())
                 {
                     case '1' :
-                    if (player->inv.nbPotion>0)
-                    {
-                        player->inv.nbPotion--;
-                        wclear();
-                        afficheInventaire(player->inv);
+                        if (player->inv.nbPotion>0)
+                        {
+                            player->inv.nbPotion--;
+                            wclear();
+                            afficheInventaire(player->inv);
 
-                        cout << player->pseudo << " utilise une potion sur "<<player->ekip[0].name << "\nil regagne 10PV"<<endl;
-                        cout << "\n\n\n\n\n\n\n";
-                        cout <<" ---Appuies sur une touche pour continuer"<< endl;
-                        getch();
-                        combat(player,pokemonAdverse,0);
-                    }
-                    else
-                    {
-                        cout << "vous n'avez pas de potion" << endl;
-                        cout << "\n\n\n\n\n\n\n";
-                        cout <<" ---Appuies sur une touche pour continuer"<< endl;
-                        getch();
-                        combat(player,pokemonAdverse,1);
-                    }
-                    
+                            cout << player->pseudo << " utilise une potion sur "<<player->ekip[0].name << "\nil regagne 10PV"<<endl;
+                            cout << "\n\n\n\n\n\n\n";
+                            player->inv.nbPotion--;
+                            cout <<" ---Appuies sur une touche pour continuer"<< endl;
+                            getChar();
+                            combat(player,pokemonAdverse,0);
+                        }
+                        else
+                        {
+                            cout << "vous n'avez pas de potion" << endl;
+                            cout << "\n\n\n\n\n\n\n";
+                            cout <<" ---Appuies sur une touche pour continuer"<< endl;
+                            getChar();
+                            wclear();
+                            canAttack=0;
+                        }
+                        break;
+
+                    case '2' : 
+                        wclear();
+                        if (player->inv.nbPokeball>0)
+                        {
+                            afficheCombat(player,pokemonAdverse);
+                            cout << "Vous lancez une pokeball !" << endl;
+                            if(calcCapture(pokemonAdverse)==1)
+                            {
+                                copyPokemon(pokemonAdverse,&player->ekip[compteEkip(player)]);
+                                cout << "La capture a réussi" << endl;
+                                cout << pokemonAdverse->name << " a rejoins votre équipe !"<<endl;
+                                cout << "\n\n\n\n\n\n\n";
+                                player->inv.nbPokeball--;
+                                cout <<" ---Appuies sur une touche pour continuer"<< endl;
+                                getChar();
+                                wclear();
+                                return;
+                            }
+                            else
+                            {
+                                cout << "La capture a échoué ";
+                                cout << "\n\n\n\n\n\n\n";
+                                player->inv.nbPokeball--;
+                                cout <<" ---Appuies sur une touche pour continuer"<< endl;
+                                getChar();
+                                wclear();
+                                combat(player,pokemonAdverse,0);      
+                            }
+
+                        }
+                        else
+                        {
+                            cout << "Vous n'avez pas de pokeball"<<endl;
+                            cout << "\n\n\n\n\n\n\n";
+                            cout <<" ---Appuies sur une touche pour continuer"<< endl;
+                            getChar();
+                            wclear();
+                            canAttack=0;
+                            wclear();
+                            combat(player,pokemonAdverse,1);                            
+                        }
+                        
                 }
                 break;
+                
             case '4' :
                 wclear();
                 return;
@@ -222,5 +268,20 @@ void calcDamage (Attaque attaque, Pokemon *destination){
         cout << "\n\n\n\n\n\n\n";
         cout <<" ---Appuies sur une touche pour continuer"<< endl;
         return;
+    }
+}
+
+bool calcCapture(Pokemon *pokemon){
+    int quotient = (pokemon->pvmax/pokemon->pv)*3; //+pv est petit, +quotient est grand, + de chance
+    srand (time(NULL)); //
+    int aleatoire = rand() % 10 + 0;
+    getChar();
+    if (quotient >= aleatoire)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
     }
 }

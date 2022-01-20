@@ -44,7 +44,7 @@ void choixStarter (Player *player, Pokemon listePkm[])
         case '2': b=2;break;
         case '3': b=3;break;
     }
-    copyPokemon(listePkm[b],&player->ekip[0]);
+    copyPokemon(&listePkm[b],&player->ekip[0]);
     calcPvXp(6, &player->ekip[0]);
     player->ekip[0].pv=player->ekip[0].pvmax;
     getChar();

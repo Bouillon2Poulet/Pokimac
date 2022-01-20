@@ -18,9 +18,9 @@ void afficheInventaire(Inventaire inv){
     cout << "4 Truc" << inv.nbTruc << endl << endl << endl;
 }
 
-int compteEkip(Player player){
+int compteEkip(Player *player){
     int compteur=0;
-    while (player.ekip[compteur].name!="XOX")
+    while (player->ekip[compteur].name!="XOX")
     {
         compteur++;
     }
@@ -29,9 +29,11 @@ int compteEkip(Player player){
 
 void afficheEkip(Player player){
     cout << "- EKIP -" << endl << endl;
-    for (int i=0;i<compteEkip(player);i++)
+    for (int i=0;i<compteEkip(&player);i++)
     {
-        cout<<i+1<<" - " <<  player.ekip[1].name << " " << player.ekip[1].type.cara << endl; 
+        cout<<i+1<<" - " <<  player.ekip[i].name << " " << player.ekip[i].type.cara << endl;
+        cout << "Niveau :" << player.ekip[i].niveau << endl;
+        cout << "PV :" << player.ekip[i].pv << "/" << player.ekip[i].pvmax << endl<<endl;
     }
 
 }
@@ -39,8 +41,8 @@ void affichePlayer(Player player){
     wclear();
     cout << "Dresseur.e > " << player.pseudo << endl;
     cout << "-----"<<endl;
-    cout << "Nombre de Pokemon > "<< compteEkip(player) << endl;
-    for (int i = 0;i<compteEkip(player);i++)
+    cout << "Nombre de Pokemon > "<< compteEkip(&player) << endl;
+    for (int i = 0;i<compteEkip(&player);i++)
     {
         cout << player.ekip[i].type.cara << " ";
     }

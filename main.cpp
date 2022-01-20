@@ -46,7 +46,6 @@ int main()
     //Initialisation
     initPlayer (&player);
     initPokemon(listePokemon,listeAttaque,listeType);
-
     initPokemonSauvage (listePokemon, &pokemonSauvage1, mapForet);
 
 
