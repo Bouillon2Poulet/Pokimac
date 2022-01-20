@@ -1,5 +1,4 @@
-#pragma once // magique ça permet de ne pas faire de redef
-// remplace ifndef
+#pragma once // Remplace ifdef
 
 #include <iostream>
 #include <vector>
@@ -42,34 +41,31 @@ static char getChar() {
 #endif
 	}
 
+//Structures
+struct Type {
+    string name;
+    string superEfficaceContre;
+    string peuEfficaceContre;
+    string cara;
+    string bashCouleur;
+};
 
-///////
 struct Attaque {
     string name;
-    string type;
-    string cara;
+    Type type;
     int puissance;
-    string bash;
 };
 
 struct Pokemon{
     string name;
-    string type;
+    Type type;
     int pv;
-    int dmg;
-    int def;
-    string cara;
-    string bashCouleur;
-    Attaque attaque[4];
-};
-
-struct PkmSauvage{
-    string name;
-    string type;
-    int pv;
-    int dmg;
-    int def;
-    string cara;
+    int pvmax;
+    int niveau;
+    int constpv;
+    int constatak;
+    int xp;
+    int xpmax;
     int posx;
     int posy;
     Attaque attaque[4];
@@ -82,7 +78,7 @@ extern Pokemon listePkm []; //Déclaration de la liste
 //extern char map[];
 
 
-// couleurs texte
+//Couleurs texte
 const string red = "\033[31m";
 const string green = "\033[32m";
 const string brown = "\033[33m";
@@ -100,23 +96,17 @@ const string bgGreen = "\033[42m";
 const string bgBrown = "\033[43m";
 const string bgBlue = "\033[44m";
 const string bgPurple = "\033[45m";
-const string bgCyan = "\033[46m";
-const string bgLightGrey = "\033[47m";
 
 
-const string caraFeu = red + '*' + white;
-const string caraNormal = white + '#' + white;
-const string caraPlante = green + '&' + white;
-const string caraEau = blue + '%'+ white;
 
 const string reset = "\e[0m";
 
 
 struct Inventaire{
-    int nb_potions;
-    int nb_pokeball;
-    int nb_popo2;
-    int nb_trucopif;
+    int nbPotion;
+    int nbPokeball;
+    int nbAntidote;
+    int nbTruc;
 };
 
 struct Map{
@@ -147,14 +137,14 @@ struct Player{
     Pokemon ekip[6];
 };
 
-
-extern Attaque listeAttaque[]; //Liste des attaques
-
+//Constantes
 
 
-// le prototypage
-void copyPokemon(Pokemon source, Pokemon *destination);
-void init_pokemons(Pokemon listePkm[]);
+//Dimensions Map
+extern int width; 
+extern int height;
+
+//Prototypes de fonctions
 Map* remplissageMap(string adresseMap);
 //bool checkInput(char reponse);
 

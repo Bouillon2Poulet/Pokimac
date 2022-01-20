@@ -1,29 +1,6 @@
 #include <iostream>
 #include "menu.h"
 using namespace std;
-
-void initPlayer (Player *player, int posx, int posy){
-    player->posx = posx;
-    player->posy = posy;
-    player->tooClose=0;
-    player->posxAv =posx;
-    player->posyAv = posy;
-}
-
-void initInventaire(Inventaire inv){
-    inv.nb_pokeball = 0;
-    inv.nb_popo2 = 0;
-    inv.nb_potions = 0;
-    inv.nb_trucopif = 0;
-}
-
-void initEkip(Player *player){
-    for (int i=0; i<6; i++)
-    {
-        player->ekip[i].name="XOX";
-    }
-}
-
 void afficheMenu(const Player player){
     cout << endl << "----------" << endl << endl;
     cout << "1 : Inventaire" << endl;
@@ -32,11 +9,13 @@ void afficheMenu(const Player player){
 }
 
 void afficheInventaire(Inventaire inv){
-    cout << "- INVENTAIRE -" << endl<<endl;
-    cout << "mmmmmh yeah !! " << endl;
-    cout << "ton nombre de pokeballs est : " << inv.nb_pokeball << endl;
-    cout << "ton nombre de popo2 est : " << inv.nb_popo2 << endl;
-    cout << "ton nombre de trucopif est : " << inv.nb_trucopif << endl << endl << endl;
+    cout<<"-----"<<endl;
+    cout << "- INVENTAIRE -" << endl ;
+    cout<<"-----"<<endl;
+    cout << "1 Potion : " << inv.nbPotion << endl;
+    cout << "2 Pokeball " << inv.nbPokeball << endl;
+    cout << "3 Antidote : " << inv.nbAntidote << endl;
+    cout << "4 Truc" << inv.nbTruc << endl << endl << endl;
 }
 
 int compteEkip(Player player){
@@ -52,7 +31,7 @@ void afficheEkip(Player player){
     cout << "- EKIP -" << endl << endl;
     for (int i=0;i<compteEkip(player);i++)
     {
-        cout<<i+1<<" - " <<  player.ekip[1].name << " " << player.ekip[1].cara << endl; 
+        cout<<i+1<<" - " <<  player.ekip[1].name << " " << player.ekip[1].type.cara << endl; 
     }
 
 }
@@ -63,7 +42,7 @@ void affichePlayer(Player player){
     cout << "Nombre de Pokemon > "<< compteEkip(player) << endl;
     for (int i = 0;i<compteEkip(player);i++)
     {
-        cout << player.ekip[i].cara << " ";
+        cout << player.ekip[i].type.cara << " ";
     }
 }
 

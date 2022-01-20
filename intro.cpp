@@ -1,35 +1,35 @@
 #include <iostream>
 #include "intro.h"
+#include "pokemon.h"
 using namespace std;
 
 void intro (Player *player, Pokemon listePkm[])
 {
     wclear();
+    cout << "Bienvenue dans le monde des Pokemons..." << endl;
+    cout << "\n\n\n\n\n\n\n\n\n";
+    cout << "           ---Appuies sur une touche pour continuer" << endl;
+    getChar();
     //char input;
-    cout << "Bienvenue dans le monde des Pokemons..." << endl << endl;
-    cout << "...Appuyez sur A pour commencer l'aventure"<< endl;
-    char input = 'a';
-    
-    if(getChar()=='a')
+    string input="";
+    while(input=="")
     {
         wclear();
         cout << "Comment t'appelles-tu ?" << endl;
-        cin >> player->pseudo; // Pseudo
-        wclear();
-        cout << "OK " << player->pseudo << " tu te crois capable de pouvoir être le meilleur dresseur de Pokemon ?" << endl << endl;
-
-        cout << "...Appuyez sur A si vous vous sentez prêt"<< endl;
-
-        input = getChar();
-        while (input !='a'){
-            input = getChar();
-        }
-        
-        if(input=='a')
-        {
-            choixStarter(player, listePkm);
-        }
+        cout << "\n\n\n\n\n\n\n\n\n";
+        cout << "           ---Appuies sur entree pour continuer" << endl;
+        cin >> input;
+        player->pseudo; // Pseudo
     }
+     player->pseudo=input;
+    wclear();
+    cout << "C PARTI !!!\nAlors " << player->pseudo << ", tu te crois capable de pouvoir etre le meilleur dresseur de Pokemon ?" << endl << endl;
+    cout << "\n\n\n\n\n\n\n\n\n";
+    cout << "           ---Appuies sur une touche pour continuer" << endl;
+    getChar();
+    wclear();
+    choixStarter(player, listePkm);
+    
 }
 
 ////
@@ -44,38 +44,56 @@ void choixStarter (Player *player, Pokemon listePkm[])
         case '2': b=2;break;
         case '3': b=3;break;
     }
-    copyPokemon(listePkm[b-1],&player->ekip[0]);
+    copyPokemon(listePkm[b],&player->ekip[0]);
+    calcPvXp(6, &player->ekip[0]);
+    player->ekip[0].pv=player->ekip[0].pvmax;
+    getChar();
     wclear();
-    cout << "Bonne chance avec ton " << player->ekip[0].name << " dans le monde des Pokémon !\n\n\n\n Appuyez sur A pour continuer";
-    //char reponse = 'a';
-    if(getChar()=='a')
-    {
-        return;
-    }
+    cout << "Bonne chance avec ton " << player->ekip[0].name << " dans le monde des Pokémon !\n\n";
+    cout << "\n\n\n\n\n\n\n\n\n";
+    cout << "---Appuies sur une touche pour continuer..." << endl;
+    getChar();
+    wclear();
+    return;
 }
 
 char descriptionStarter(char choix, Pokemon listePkm[]){
     wclear();
     cout << "Choix du Pokemon :" << endl;
-    cout << "\033[31m 1 - Salameche\033[0m\n";
-    cout << "\033[32m 2 - Bulbizarre\033[0m\n";
-    cout << "\033[34m 3 - Carapuce\033[0m\n";
+    for (int i =1;i<=3;i++)
+    {
+        cout << i << " " << listePkm[i].type.bashCouleur << listePkm[i].name << white << endl;
+    }
+    cout << "\n\n\n\n\n\n\n\n\n";
     switch (choix)
     {
-        case '1': cout << "\n Pokémon Salamandre\nType Feu "<<listePkm[0].cara<<endl; break;
-        case '2': cout << "\n Pokémon de merde\nType Plante "<<listePkm[1].cara<<endl; break;
-        case '3': cout << "\n Pokémon tortue\nType Eau "<<listePkm[2].cara<<endl; break;
+        case '1': cout << "\n Pokémon Salamandre\nType Feu "<<listePkm[1].type.cara<<endl; break;
+        case '2': cout << "\n Pokémon plante ?\nType Plante "<<listePkm[2].type.cara<<endl; break;
+        case '3': cout << "\n Pokémon Tortue\nType Eau "<<listePkm[3].type.cara<<endl; break;
         case 'X': cout <<"\n"; break;
     }
     cout << endl << endl << endl;
-    cout << "Appuyez sur A pour confirmer"<<endl;
-    cout << "Appuyez sur B pour retour"<<endl;
-
-    char a = getChar ();
-    if (a=='a')  
+    cout << "Appuyez sur un numero pour voir le Pokemon"<<endl;
+    cout << "Appuies sur A pour confirmer"<<endl;
+    cout << "Appuies sur autre touche pour retour"<<endl;
+    char a = getChar();
+    if (choix!='X')
     {
-        return choix;   
+        if (a=='a'||a=='A')
+        {
+            return choix;   
+        }
+
     }
-    descriptionStarter(a,listePkm);
+    if (a=='1'||a=='2'||a=='3')
+    {
+        descriptionStarter(a,listePkm);
+    }
+
+    else
+    {
+        descriptionStarter('X',listePkm);
+    }
+    
 }
 

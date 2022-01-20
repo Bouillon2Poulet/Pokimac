@@ -1,11 +1,13 @@
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 #include "map.h"
 #include "menu.h"
 #include "combat.h"
 using namespace std;
 
 
-void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player player, PkmSauvage pokemonSauvage)
+void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player player, Pokemon pokemonSauvage)
 {
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
     int nb_aff_ligne = 0;
@@ -25,14 +27,14 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
 
                 if ((h==player.posxAv && j==player.posyAv)) // Affichage Pokémon qui suit 
                 {
-                    cout << player.ekip[0].cara;
+                    cout << player.ekip[0].type.cara;
                     nb_aff_ligne ++;
                     aff_car = false;
                 }
 
                 if (h==pokemonSauvage.posx && j==pokemonSauvage.posy) // Affichage Pokémon sauvage
                 {
-                    cout << pokemonSauvage.cara;
+                    cout << pokemonSauvage.type.cara;
                     nb_aff_ligne ++;
                     h++;
                 }
@@ -157,7 +159,7 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
     
 }
 
-void onMap (Player player, PkmSauvage pokemonSauvage1, int* mapx, int* mapy,int mapwidth, Map* listeMap[])
+void onMap (Player player, Pokemon pokemonSauvage1, int* mapx, int* mapy,int mapwidth, Map* listeMap[])
 {    
     updateMap(listeMap, mapx, mapy, mapwidth, player, pokemonSauvage1);
     afficheMenu(player);
@@ -171,8 +173,12 @@ void onMap (Player player, PkmSauvage pokemonSauvage1, int* mapx, int* mapy,int 
         checkIfTooClose(&player,pokemonSauvage1);
         if (player.tooClose==1)
         {
-            combat(&player,&pokemonSauvage1);
+            srand (time(NULL)); // initialisation de la graine
+            int canAttack = rand() % 1;  // pile ou face pour commencer
+            combat(&player,&pokemonSauvage1,canAttack);
+            wclear();
             onMap(player,pokemonSauvage1,mapx, mapy,mapwidth, listeMap);
+            player.tooClose==-1;
         }
         else
         {
@@ -275,7 +281,7 @@ void afficheCouleur(char c, string bgMap){
     cout << reset;
 }
 
-void checkIfTooClose(Player *player,PkmSauvage pokemonSauvage1){
+void checkIfTooClose(Player *player,Pokemon pokemonSauvage1){
     bool tooCloseX=false;
     bool tooCloseY=false;
     if (player->posx>=pokemonSauvage1.posx-1 && player->posx<=pokemonSauvage1.posx+1)
