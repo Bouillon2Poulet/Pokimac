@@ -167,7 +167,7 @@ void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, 
 {    
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
     updateMap(listeMap, mapx, mapy, mapwidth, player, listePokemonSauvage, nbPokemonSauvage);
-    afficheMenu(player);
+    afficheMenu(&player);
     char input;
     input = getChar();
 
@@ -201,17 +201,61 @@ void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, 
         case '1':
         wclear();
         afficheInventaire(player.inv);
+        
+        cout << "Appuies sur le numéro pour utiliser" << endl;
         cout << "Appuyez sur X pour revenir sur la map" << endl;
-        if  (getChar()=='x')
+        switch (getChar())
         {
-            wclear();
+            case 'x':
+                wclear();
             onMap(player,listePokemonSauvage,nbPokemonSauvage, mapx, mapy,mapwidth, listeMap);
+                break;
+            
+            case '1':
+            if (player.inv.nbPotion>0)
+            {
+                wclear();
+                cout << "Quel pokemon voulez-vous soigner ?"<<endl;
+                afficheEkip(&player);
+                int i;
+                switch (getChar())
+                {
+                    case '1' : i=0; break;
+                    case '2' : i=1;break;
+                    case '3' : i=2; break;
+                    case '4' : i=3;break;
+                    case '5' : i=4; break;
+                    case '6' : i=5;break;
+                }
+                player.inv.nbPotion--;
+                player.ekip[i].pv+=10;
+                wclear();
+                cout << endl;
+                afficheEkip(&player);
+                cout << player.pseudo << " utilise une potion sur "<<player.ekip[i].name << "\nil regagne 10PV"<<endl;
+                cout << "\n\n\n\n\n\n\n";
+                cout <<" ---Appuies sur une touche pour continuer"<< endl;
+                getChar();
+                wclear();
+                onMap(player,listePokemonSauvage,nbPokemonSauvage, mapx, mapy,mapwidth, listeMap);
+            }
+            
+            else
+            {
+                cout << "vous n'avez pas de potion" << endl;
+                cout << "\n\n\n\n\n\n\n";
+                cout <<" ---Appuies sur une touche pour continuer"<< endl;
+                getChar();
+                wclear();
+                onMap(player,listePokemonSauvage,nbPokemonSauvage, mapx, mapy,mapwidth, listeMap);
+            }
+                
         }
         break;
 
         case '2':
         wclear();
-        afficheEkip(player);
+        afficheEkip(&player);
         cout << "Appuyez sur X pour revenir sur la map" << endl;
         if  (getChar()=='x')
         {
@@ -222,7 +266,7 @@ void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, 
         
         case '3':
         wclear();
-        affichePlayer(player);
+        affichePlayer(&player);
         cout << "\n\n\nAppuyez sur X pour revenir sur la map" << endl;
         if  (getChar()=='x')
         {

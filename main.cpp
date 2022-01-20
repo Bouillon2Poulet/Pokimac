@@ -56,7 +56,6 @@ int main()
     initPlayer (&player);
     initPokemon(listePokemon,listeAttaque,listeType);
 
-
    
     initPokemonSauvage (listePokemon, &pokemonSauvage1,mapForet);  //pokemon sauvage du champs
     initPokemonSauvage (listePokemon, &pokemonSauvage2,mapRiviere);  //pokemon sauvage du champs
