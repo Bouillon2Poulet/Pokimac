@@ -45,6 +45,9 @@ void choixStarter (Player *player, Pokemon listePkm[])
         case '3': b=3;break;
     }
     copyPokemon(listePkm[b],&player->ekip[0]);
+    calcPvXp(6, &player->ekip[0]);
+    player->ekip[0].pv=player->ekip[0].pvmax;
+    getChar();
     wclear();
     cout << "Bonne chance avec ton " << player->ekip[0].name << " dans le monde des Pokémon !\n\n";
     cout << "\n\n\n\n\n\n\n\n\n";

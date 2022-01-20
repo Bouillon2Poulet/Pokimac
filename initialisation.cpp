@@ -19,10 +19,10 @@ void initPositionPlayer (Player *player, int posx, int posy){
 }
 
 void initInventaire(Inventaire inv){
-    inv.nb_pokeball = 0;
-    inv.nb_popo2 = 0;
-    inv.nb_potions = 0;
-    inv.nb_trucopif = 0;
+    inv.nbPotion = 1;
+    inv.nbPokeball = 2;
+    inv.nbAntidote = 1;
+    inv.nbTruc = 3;
 }
 
 void initEkip(Player *player){
@@ -193,9 +193,8 @@ void initListePokemon(Pokemon listePkm[], Attaque listeAttaque[],Type listeType[
     Pokemon pikachu;
     pikachu.name = "Pikachu";
     copyType(listeType[4], &pikachu.type);
-    pikachu.pv = 39;
-    pikachu.dmg = 60;
-    pikachu.def = 60;
+    pikachu.constpv = 5;
+    pikachu.constatak = 3; //plus constatak est faible, plus les attaques du pokémon gagneront de puissance quand il lvl up
     initAttaque(pikachu.attaque);
     copyAttaque(listeAttaque[0], &pikachu.attaque[0]);
     copyAttaque(listeAttaque[1], &pikachu.attaque[1]);
@@ -205,9 +204,8 @@ void initListePokemon(Pokemon listePkm[], Attaque listeAttaque[],Type listeType[
     Pokemon salameche;
     salameche.name = "Salameche";
     copyType(listeType[1], &salameche.type);
-    salameche.pv = 39;
-    salameche.dmg = 60;
-    salameche.def = 60;
+    salameche.constpv = 4;
+    salameche.constatak = 2;
     initAttaque(salameche.attaque);
     copyAttaque(listeAttaque[0], &salameche.attaque[0]);
     copyAttaque(listeAttaque[1], &salameche.attaque[1]);
@@ -217,9 +215,8 @@ void initListePokemon(Pokemon listePkm[], Attaque listeAttaque[],Type listeType[
     Pokemon bulbizarre;
     bulbizarre.name = "Bulbizarre"; // A Changer
     copyType(listeType[3], &bulbizarre.type);
-    bulbizarre.pv = 45;
-    bulbizarre.dmg = 49;
-    bulbizarre.def = 49;
+    bulbizarre.constpv = 6;
+    bulbizarre.constatak = 4;
     initAttaque(bulbizarre.attaque);
     copyAttaque(listeAttaque[0], &bulbizarre.attaque[0]);
     copyAttaque(listeAttaque[2], &bulbizarre.attaque[1]);
@@ -228,9 +225,8 @@ void initListePokemon(Pokemon listePkm[], Attaque listeAttaque[],Type listeType[
     Pokemon carapuce;
     carapuce.name = "Carapuce"; // A Changer
     copyType(listeType[2], &carapuce.type);
-    carapuce.pv = 44;
-    carapuce.dmg = 48;
-    carapuce.def = 65;
+    carapuce.constpv = 5;
+    carapuce.constatak = 2;
     initAttaque(carapuce.attaque);
     copyAttaque(listeAttaque[0], &carapuce.attaque[0]);
     copyAttaque(listeAttaque[3], &carapuce.attaque[1]);
@@ -243,5 +239,4 @@ void initAttaque(Attaque attaque[]){
         attaque[i].name = "xxx";
         attaque[i].puissance = -1;  
     }
-
 }

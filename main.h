@@ -60,8 +60,12 @@ struct Pokemon{
     string name;
     Type type;
     int pv;
-    int dmg;
-    int def;
+    int pvmax;
+    int niveau;
+    int constpv;
+    int constatak;
+    int xp;
+    int xpmax;
     int posx;
     int posy;
     Attaque attaque[4];
@@ -69,10 +73,10 @@ struct Pokemon{
 
 
 struct Inventaire{
-    int nb_potions;
-    int nb_pokeball;
-    int nb_popo2;
-    int nb_trucopif;
+    int nbPotion;
+    int nbPokeball;
+    int nbAntidote;
+    int nbTruc;
 };
 
 struct Map{
