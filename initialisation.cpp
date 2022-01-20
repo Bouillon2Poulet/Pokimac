@@ -6,7 +6,7 @@ using namespace std;
 void initPlayer (Player *player)
 {
     initPositionPlayer (player, 20, 20);
-    initInventaire(player->inv);
+    initInventaire(&player->inv);
     initEkip(player);
 }
 
@@ -18,11 +18,11 @@ void initPositionPlayer (Player *player, int posx, int posy){
     player->posyAv = posy;
 }
 
-void initInventaire(Inventaire inv){
-    inv.nbPotion = 1;
-    inv.nbPokeball = 2;
-    inv.nbAntidote = 1;
-    inv.nbTruc = 3;
+void initInventaire(Inventaire *inv){
+    inv->nbPotion = 1;
+    inv->nbPokeball = 2;
+    inv->nbAntidote = 1;
+    inv->nbTruc = 3;
 }
 
 void initEkip(Player *player){

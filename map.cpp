@@ -142,8 +142,12 @@ void onMap (Player player, Pokemon pokemonSauvage1, int* mapx, int* mapy,int map
         checkIfTooClose(&player,pokemonSauvage1);
         if (player.tooClose==1)
         {
-            combat(&player,&pokemonSauvage1);
+            srand (time(NULL)); // initialisation de la graine
+            int canAttack = rand() % 1;  // pile ou face pour commencer
+            combat(&player,&pokemonSauvage1,canAttack);
+            wclear();
             onMap(player,pokemonSauvage1,mapx, mapy,mapwidth, listeMap);
+            player.tooClose==-1;
         }
         else
         {

@@ -6,7 +6,7 @@
 //Prototypes de fonctions
 void initPlayer (Player *player);
 void initPositionPlayer (Player *player, int posx, int posy);
-void initInventaire(Inventaire inv);
+void initInventaire(Inventaire *inv);
 void initEkip(Player *player);
 
 void initPokemon (Pokemon listePokemon[], Attaque listeAttaque[], Type listeType[]);

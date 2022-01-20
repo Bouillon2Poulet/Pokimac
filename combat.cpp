@@ -4,16 +4,13 @@
 #include <time.h>
 #include "combat.h"
 #include "menu.h"
+#include "pokemon.h"
 
 using namespace std;
 
-
-//srand (time(NULL)); // initialisation de la graine
-int canAttack = rand() % 1;  // pile ou face pour commencer
-
-void combat(Player *player, Pokemon *pokemonAdverse){
-
-
+void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
+     
+    int sortie =-1;
     if (player->ekip[0].pv<=0) //Si les PV de l'un des pokémons tombe à zéro le combat s'arrête
     {
         afficheCombat(player,pokemonAdverse);
@@ -21,7 +18,6 @@ void combat(Player *player, Pokemon *pokemonAdverse){
         cout << "\n\n\n\n\n\n\n";
         cout <<" ---Appuies sur une touche pour continuer"<< endl;
         getChar();
-        wclear();
         return;
     }
     if (pokemonAdverse->pv<=0)
@@ -32,29 +28,60 @@ void combat(Player *player, Pokemon *pokemonAdverse){
         cout <<" ---Appuies sur une touche pour continuer"<< endl;
         getChar();
         wclear();
+        player->ekip[0].xp=3*player->ekip[0].niveau;//test pour le passage de niveau;
+        player->ekip[0].xp+=player->ekip[0].niveau;
+
+        if (player->ekip[0].xp >= player->ekip[0].xpmax)
+        {
+            cout << "Votre "<<player->ekip[0].name << " monte de niveau !" << endl << endl;
+
+            cout << "-> Avant" << endl << "Niveau : " << player->ekip[0].niveau << endl << "PVmax : " << player->ekip[0].pvmax << endl << "PV : " << player->ekip[0].pv << endl;
+
+            for (int i=0;player->ekip[0].attaque[i].puissance!=-1;i++)
+            {
+                cout << "Degat de  : " << player->ekip[0].attaque[i].name << " : "<<player->ekip[0].attaque[i].puissance << endl;
+            }
+            int pvActuel=player->ekip[0].pv;
+            int pvMaxAvant=player->ekip[0].pvmax;
+            calcPvXp(player->ekip[0].niveau+1, &player->ekip[0]);
+            player->ekip[0].pv=pvActuel+player->ekip[0].pvmax-pvMaxAvant;
+
+            cout << "-> Après" << endl << "Niveau : " << player->ekip[0].niveau << endl << "PVmax : " << player->ekip[0].pvmax << endl << "PV : " << player->ekip[0].pv << endl;
+
+            for (int i=0;player->ekip[0].attaque[i].puissance!=-1;i++)
+            {
+                cout << "Degat de  : " << player->ekip[0].attaque[i].name << " : "<<player->ekip[0].attaque[i].puissance << endl;
+            }
+            cout << "\n\n\n\n\n\n\n";
+            cout <<" ---Appuies sur une touche pour continuer"<< endl;
+            getChar();
+            wclear();   
+        }
         return;
     }
 
+    if (canAttack!=-1)
+    {
+        afficheCombat(player, pokemonAdverse);
+            
+        cout << "1 - Attaque         2 - Sac" << endl;
+        cout << "3 - Pokemon         4 - Fuite" << endl;
+    }
 
-    afficheCombat(player, pokemonAdverse);
     
-    cout << "1 - Attaque         2 - Sac" << endl;
-    cout << "3 - Pokemon         4 - Fuite" << endl;
-
     if (canAttack==0) //Le Pokemon sauvage attaque si on ne peut pas attaquer
     {
-        int aleatoire;
+        int aleatoire=3;
         while (pokemonAdverse->attaque[aleatoire].name=="xxx")
         {
             srand (time(NULL)); // initialisation de la graine
-            aleatoire = rand() % 4;  // entre 0 et 3 attaques
+            aleatoire = rand() % 3 + 0;  // entre 0 et 3 attaques
         }
         cout <<" Le " << pokemonAdverse->name << " sauvage utilise " << pokemonAdverse->attaque[aleatoire].type.bashCouleur << pokemonAdverse->attaque[aleatoire].name << white << endl;
         calcDamage(pokemonAdverse->attaque[aleatoire], &player->ekip[0]);
-        canAttack=1;
         getch();
         wclear();
-        combat(player,pokemonAdverse);
+        combat(player,pokemonAdverse,1);
     }
 
     if(canAttack==1)
@@ -64,27 +91,37 @@ void combat(Player *player, Pokemon *pokemonAdverse){
             case '1' :
                 wclear();
                 afficheCombat(player,pokemonAdverse);
-                attaque(player, pokemonAdverse);
-                wclear();
-                canAttack=0;
-                combat(player,pokemonAdverse); 
+                if (attaque(player, pokemonAdverse)!=-1)
+                {
+                    wclear();
+                    combat(player,pokemonAdverse,0); 
+                }
+                else
+                {
+                    wclear();
+                    combat(player,pokemonAdverse,1); 
+                }
                 break;
             
             case '2' :
                 wclear();
                 afficheInventaire(player->inv);
+                cout << "\n\n\n\n\n\n\n";
+                cout <<" ---Appuies sur une autre touche pour sortir"<< endl;
                 switch (getChar())
                 {
                     case '1' :
                     if (player->inv.nbPotion>0)
                     {
-                        cout << player->pseudo << " utilise une potion sur "<<player->ekip[0].name << "\nil regagne 10PV"<<endl;
                         player->inv.nbPotion--;
+                        wclear();
+                        afficheInventaire(player->inv);
+
+                        cout << player->pseudo << " utilise une potion sur "<<player->ekip[0].name << "\nil regagne 10PV"<<endl;
                         cout << "\n\n\n\n\n\n\n";
                         cout <<" ---Appuies sur une touche pour continuer"<< endl;
                         getch();
-                        canAttack=0;
-                        combat(player,pokemonAdverse);
+                        combat(player,pokemonAdverse,0);
                     }
                     else
                     {
@@ -92,8 +129,7 @@ void combat(Player *player, Pokemon *pokemonAdverse){
                         cout << "\n\n\n\n\n\n\n";
                         cout <<" ---Appuies sur une touche pour continuer"<< endl;
                         getch();
-                        canAttack=1;
-                        combat(player,pokemonAdverse);
+                        combat(player,pokemonAdverse,1);
                     }
                     
                 }
@@ -104,20 +140,21 @@ void combat(Player *player, Pokemon *pokemonAdverse){
                 break;
             default:
                 wclear();
-                combat(player,pokemonAdverse);
+                combat(player,pokemonAdverse,1);
         }
     }
     
 }
 
-void attaque (Player *player, Pokemon *pokemonAdverse)
+int attaque (Player *player, Pokemon *pokemonAdverse)
 {
     for (int i=0;player->ekip[0].attaque[i].puissance!=-1;i++)
     {
         cout << i+1 << player->ekip[0].attaque[i].type.cara << player->ekip[0].attaque[i].name << endl;
-        cout << "Puissance " << player->ekip[0].attaque[i].puissance<< endl;
-        cout << endl;
+        cout << "Puissance " << player->ekip[0].attaque[i].puissance<< endl;  
     }
+    cout << "\n\n\n\n\n\n\n";
+    cout <<" ---Appuies sur une autre touche pour sortir"<< endl;
     char input;
     input = getChar();
     int i=0;
@@ -127,12 +164,14 @@ void attaque (Player *player, Pokemon *pokemonAdverse)
         case '2' : i=1; break;
         case '3' : i=2; break;
         case '4' : i=3; break;
+        default: return -1;
     }  
     wclear();
     afficheCombat(player,pokemonAdverse);
     cout << player->ekip[0].name << " utilise " << player->ekip[0].attaque[i].name << endl;
     calcDamage(player->ekip[0].attaque[i], pokemonAdverse);
     getChar();
+    return 1;
 }
 
 void afficheCombat (Player *player, Pokemon *pokemonAdverse)

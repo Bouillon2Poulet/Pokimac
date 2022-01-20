@@ -5,7 +5,7 @@
 #include "main.h"
 
 //Prototypes de fonctions
-void combat(Player *player, Pokemon *pokemonAdverse);
-void attaque (Player *player, Pokemon *pokemonAdverse);
+void combat(Player *player, Pokemon *pokemonAdverse, int canAttack);
+int attaque (Player *player, Pokemon *pokemonAdverse);
 void afficheCombat (Player *player, Pokemon *pokemonAdverse);
 void calcDamage (Attaque attaque, Pokemon *destination);

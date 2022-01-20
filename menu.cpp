@@ -9,7 +9,8 @@ void afficheMenu(const Player player){
 }
 
 void afficheInventaire(Inventaire inv){
-    cout << "- INVENTAIRE -" << endl<<endl;
+    cout<<"-----"<<endl;
+    cout << "- INVENTAIRE -" << endl ;
     cout<<"-----"<<endl;
     cout << "1 Potion : " << inv.nbPotion << endl;
     cout << "2 Pokeball " << inv.nbPokeball << endl;
