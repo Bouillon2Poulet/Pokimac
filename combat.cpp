@@ -79,7 +79,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
         }
         cout <<" Le " << pokemonAdverse->name << " sauvage utilise " << pokemonAdverse->attaque[aleatoire].type.bashCouleur << pokemonAdverse->attaque[aleatoire].name << white << endl;
         calcDamage(pokemonAdverse->attaque[aleatoire], &player->ekip[0]);
-        getch();
+        getChar();
         wclear();
         combat(player,pokemonAdverse,1);
     }
@@ -120,7 +120,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                         cout << player->pseudo << " utilise une potion sur "<<player->ekip[0].name << "\nil regagne 10PV"<<endl;
                         cout << "\n\n\n\n\n\n\n";
                         cout <<" ---Appuies sur une touche pour continuer"<< endl;
-                        getch();
+                        getChar();
                         combat(player,pokemonAdverse,0);
                     }
                     else
@@ -128,7 +128,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                         cout << "vous n'avez pas de potion" << endl;
                         cout << "\n\n\n\n\n\n\n";
                         cout <<" ---Appuies sur une touche pour continuer"<< endl;
-                        getch();
+                        getChar();
                         combat(player,pokemonAdverse,1);
                     }
                     

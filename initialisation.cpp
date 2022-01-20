@@ -5,7 +5,7 @@ using namespace std;
 
 void initPlayer (Player *player)
 {
-    initPositionPlayer (player, 20, 20);
+    initPositionPlayer (player, 5,10);
     initInventaire(&player->inv);
     initEkip(player);
 }

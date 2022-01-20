@@ -18,6 +18,9 @@ using namespace std;
 
 int main()
 {
+    // initialisation de la graine pour rand
+    time_t t;
+    srand((unsigned) time(&t));
 
     // remplissage des maps
     Map* mapForet = remplissageMap("./map/foret.txt");
@@ -42,39 +45,38 @@ int main()
     //Joueur et Pokémon Sauvage
     Player player;
     Pokemon pokemonSauvage1;
+    Pokemon pokemonSauvage2;
+    Pokemon pokemonSauvage3;
+    Pokemon pokemonSauvage4;
     Pokemon listePokemon[40];
     Attaque listeAttaque[40];
-    Type listeType[14];
+    Type listeType[15];
 
     //Initialisation
     initPlayer (&player);
     initPokemon(listePokemon,listeAttaque,listeType);
 
-    initPokemonSauvage (listePokemon, &pokemonSauvage1, mapForet);
+
+   
+    initPokemonSauvage (listePokemon, &pokemonSauvage1,mapForet);  //pokemon sauvage du champs
+    initPokemonSauvage (listePokemon, &pokemonSauvage2,mapRiviere);  //pokemon sauvage du champs
+    initPokemonSauvage (listePokemon, &pokemonSauvage3,mapChamps);  //pokemon sauvage du champs
+    initPokemonSauvage (listePokemon, &pokemonSauvage4,mapVolcan);  //pokemon sauvage du champs
+    int nbPokemonSauvage = 4;
+
+    Pokemon listePokemonSauvage [4] = {pokemonSauvage1, pokemonSauvage2, pokemonSauvage3, pokemonSauvage4};
+    
+    //debug();
+
+
 
     //Initialisations
-    
-
-    initListeAttaque (listeAttaque);
-    initPlayer (&player, 10, 10);
-    initListePokemon(listePokemon,listeAttaque); //Initialise les pokémons
-    initInventaire(player.inv);
-    initEkip(&player);
-    initPokemonSauvage (listePokemon, &pokemonSauvage1, *mapChamps);
 
 
     //Intro 
-    for (int i=0;i<15;i++)
-    {
-        cout << listeType[i].name << endl;
-        cout << listeType[i].cara << endl;
-        cout << "superEfficaceContre :" << listeType[i].superEfficaceContre << endl; 
-        cout << "peuEfficaceContre :" << listeType[i].peuEfficaceContre << endl;
-        cout << "-----\n";
-    }
-    getChar();
+
     intro(&player,listePokemon);
-    onMap (player, pokemonSauvage1, &mapx, &mapy, mapwidth, listeMap);
+    onMap (player, listePokemonSauvage, nbPokemonSauvage, &mapx, &mapy, mapwidth, listeMap);
     return 0;
 
 }
@@ -99,7 +101,6 @@ int main()
             if (c!='\n') inverse.push_back(c);
 
             if (c!= '\n' && ligne == false) { // saut le saut de ligne
-                //cout << c << endl;
                 width++;
             }
             else  
@@ -118,8 +119,14 @@ int main()
         interMap->width = width;
         interMap->height = height;
         interMap->adresse= adresseMap;
-        cout << adresseMap << " // " << width << endl;
+        //cout << adresseMap << " // " << width << endl;
         }
     else cout << adresseMap << " : erreur avec le fichier" <<  endl;
     return interMap;
+}
+
+
+void debug(){
+    int debug;
+    cin >> debug;
 }

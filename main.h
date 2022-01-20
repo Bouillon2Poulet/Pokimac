@@ -69,6 +69,9 @@ struct Pokemon{
     int posx;
     int posy;
     Attaque attaque[4];
+
+    // pour les pokemons sauvages, cela définit la map à laquelle ils appartiennent
+    string mapNom;
 };
 
 
@@ -152,3 +155,4 @@ Map* remplissageMap(string adresseMap);
 
 
 
+void debug();

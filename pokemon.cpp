@@ -9,30 +9,34 @@
 using namespace std;
 
 void initPokemonSauvage (Pokemon listePkm[], Pokemon *pokemonSauvage, Map* map){
-    
     int aleatoire;
-    srand (time(NULL)); // initialisation de la graine
+    //srand (time(NULL)); // initialisation de la graine
     aleatoire = rand() % 3;
-    copyPokemon (listePkm[aleatoire],pokemonSauvage);
-     //Prend un pokémon aléatoire dans la liste de pokémons.
-     srand (time(NULL));
+    copyPokemon (listePkm[aleatoire],pokemonSauvage); //Prend un pokémon aléatoire dans la liste de pokémons.
+    //srand (time(NULL));
     int niveau=rand()%2+5; //niveau entre 5 et 7
-    cout << niveau << endl;
 
     calcPvXp (niveau,pokemonSauvage);
     pokemonSauvage->pv=pokemonSauvage->pvmax;
 
     //Position aléatoire
-    int posx=20;
-    int posy=20;
-    /*
-    while (map->Lmap.at(posx+map.width*posy) != ' '){ 
-        srand (time(NULL)); // initialisation de la graine
-        posx = rand() %map.width;
+    
+    
+    int posx = 5;
+    int posy = 5;
+
+    pokemonSauvage->mapNom = map->adresse;
+
+    do { 
         //srand (time(NULL)); // initialisation de la graine
-        posy = rand() %map.height;
-    }
-    */
+        posx = rand() %map->width;
+        //srand (time(NULL)); // initialisation de la graine
+        posy = rand() %map->height;
+    } while (map->Lmap.at(posx+map->width*posy) != ' ');
+    
+    cout << posx << " // " << posy << endl;
+    cout << pokemonSauvage->name << endl<<endl;
+    
     pokemonSauvage->posx = posx;
     pokemonSauvage->posy = posy;
 }

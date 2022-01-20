@@ -7,7 +7,7 @@
 using namespace std;
 
 
-void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player player, Pokemon pokemonSauvage)
+void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage)
 {
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
     int nb_aff_ligne = 0;
@@ -32,11 +32,15 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
                     aff_car = false;
                 }
 
-                if (h==pokemonSauvage.posx && j==pokemonSauvage.posy) // Affichage Pokémon sauvage
+                for (int i=0; i<nbPokemonSauvage; i++)
                 {
-                    cout << pokemonSauvage.type.cara;
-                    nb_aff_ligne ++;
-                    h++;
+                    Pokemon* pokemonSauvage = &listePokemonSauvage[i];
+                    if (h==pokemonSauvage->posx && j==pokemonSauvage->posy && pokemonSauvage->mapNom == map->adresse) // Affichage Pokémon sauvage
+                    {
+                        cout << pokemonSauvage->type.cara;
+                        nb_aff_ligne ++;
+                        h++;
+                    }
                 }
                 
                 if (nb_aff_ligne<=map->width-1 && aff_car){
@@ -159,9 +163,10 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
     
 }
 
-void onMap (Player player, Pokemon pokemonSauvage1, int* mapx, int* mapy,int mapwidth, Map* listeMap[])
+void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, int* mapx, int* mapy,int mapwidth, Map* listeMap[])
 {    
-    updateMap(listeMap, mapx, mapy, mapwidth, player, pokemonSauvage1);
+    Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
+    updateMap(listeMap, mapx, mapy, mapwidth, player, listePokemonSauvage, nbPokemonSauvage);
     afficheMenu(player);
     char input;
     input = getChar();
@@ -170,19 +175,25 @@ void onMap (Player player, Pokemon pokemonSauvage1, int* mapx, int* mapy,int map
     {
         wclear();
         deplacement_perso(&player, input, mapx, mapy,mapwidth, listeMap);
-        checkIfTooClose(&player,pokemonSauvage1);
+        
+        Pokemon* pokemonSauvage = &listePokemonSauvage[0];
+        for(int i=0; i<nbPokemonSauvage && player.tooClose!=1; i++)
+        {
+            pokemonSauvage = &listePokemonSauvage[i];
+            checkIfTooClose(&player,*pokemonSauvage, map);
+        }
         if (player.tooClose==1)
         {
             srand (time(NULL)); // initialisation de la graine
             int canAttack = rand() % 1;  // pile ou face pour commencer
-            combat(&player,&pokemonSauvage1,canAttack);
+            combat(&player,pokemonSauvage,canAttack);
             wclear();
-            onMap(player,pokemonSauvage1,mapx, mapy,mapwidth, listeMap);
+            onMap(player,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth, listeMap);
             player.tooClose==-1;
         }
         else
         {
-           onMap(player,pokemonSauvage1,mapx, mapy,mapwidth, listeMap);
+           onMap(player,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth, listeMap);
         }
     }
     switch (input)
@@ -194,7 +205,7 @@ void onMap (Player player, Pokemon pokemonSauvage1, int* mapx, int* mapy,int map
         if  (getChar()=='x')
         {
             wclear();
-            onMap(player,pokemonSauvage1, mapx, mapy,mapwidth, listeMap);
+            onMap(player,listePokemonSauvage,nbPokemonSauvage, mapx, mapy,mapwidth, listeMap);
         }
         break;
 
@@ -205,7 +216,7 @@ void onMap (Player player, Pokemon pokemonSauvage1, int* mapx, int* mapy,int map
         if  (getChar()=='x')
         {
             wclear();
-            onMap(player,pokemonSauvage1, mapx, mapy,mapwidth, listeMap);
+            onMap(player,listePokemonSauvage,nbPokemonSauvage, mapx, mapy,mapwidth, listeMap);
         }
         break;
         
@@ -216,7 +227,7 @@ void onMap (Player player, Pokemon pokemonSauvage1, int* mapx, int* mapy,int map
         if  (getChar()=='x')
         {
             wclear();
-            onMap(player,pokemonSauvage1,mapx, mapy,mapwidth,listeMap);
+            onMap(player,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth,listeMap);
         }
         break;
     }
@@ -281,7 +292,14 @@ void afficheCouleur(char c, string bgMap){
     cout << reset;
 }
 
-void checkIfTooClose(Player *player,Pokemon pokemonSauvage1){
+void checkIfTooClose(Player *player,Pokemon pokemonSauvage1, Map* map){
+    if (map->adresse != pokemonSauvage1.mapNom)
+    {
+        player->tooClose = 0;
+        return;
+    }
+    
+    
     bool tooCloseX=false;
     bool tooCloseY=false;
     if (player->posx>=pokemonSauvage1.posx-1 && player->posx<=pokemonSauvage1.posx+1)
