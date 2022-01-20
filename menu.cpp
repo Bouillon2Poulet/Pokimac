@@ -1,11 +1,11 @@
 #include <iostream>
 #include "menu.h"
 using namespace std;
-void afficheMenu(const Player player){
+void afficheMenu(const Player *player){
     cout << endl << "----------" << endl << endl;
     cout << "1 : Inventaire" << endl;
     cout << "2 : Pokémons" << endl;
-    cout << "3 : "<< player.pseudo << endl;
+    cout << "3 : "<< player->pseudo << endl;
 }
 
 void afficheInventaire(Inventaire inv){
@@ -27,24 +27,24 @@ int compteEkip(Player *player){
     return compteur;
 }
 
-void afficheEkip(Player player){
+void afficheEkip(Player *player){
     cout << "- EKIP -" << endl << endl;
-    for (int i=0;i<compteEkip(&player);i++)
+    for (int i=0;i<compteEkip(player);i++)
     {
-        cout<<i+1<<" - " <<  player.ekip[i].name << " " << player.ekip[i].type.cara << endl;
-        cout << "Niveau :" << player.ekip[i].niveau << endl;
-        cout << "PV :" << player.ekip[i].pv << "/" << player.ekip[i].pvmax << endl<<endl;
+        cout<<i+1<<" - " <<  player->ekip[i].name << " " << player->ekip[i].type.cara << endl;
+        cout << "Niveau :" << player->ekip[i].niveau << endl;
+        cout << "PV :" << player->ekip[i].pv << "/" << player->ekip[i].pvmax << endl<<endl;
     }
 
 }
-void affichePlayer(Player player){
+void affichePlayer(Player *player){
     wclear();
-    cout << "Dresseur.e > " << player.pseudo << endl;
+    cout << "Dresseur.e > " << player->pseudo << endl;
     cout << "-----"<<endl;
-    cout << "Nombre de Pokemon > "<< compteEkip(&player) << endl;
-    for (int i = 0;i<compteEkip(&player);i++)
+    cout << "Nombre de Pokemon > "<< compteEkip(player) << endl;
+    for (int i = 0;i<compteEkip(player);i++)
     {
-        cout << player.ekip[i].type.cara << " ";
+        cout << player->ekip[i].type.cara << " ";
     }
 }
 

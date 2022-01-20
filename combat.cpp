@@ -121,6 +121,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                             cout << "\n\n\n\n\n\n\n";
                             player->inv.nbPotion--;
                             cout <<" ---Appuies sur une touche pour continuer"<< endl;
+                            player->ekip[0].pv+=10;
                             getChar();
                             combat(player,pokemonAdverse,0);
                         }

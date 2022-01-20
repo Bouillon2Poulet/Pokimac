@@ -127,9 +127,9 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
     
 }
 
-void onMap (Player player, Pokemon pokemonSauvage1, int* mapx, int* mapy,int mapwidth, Map* listeMap[])
+void onMap (Player *player, Pokemon pokemonSauvage1, int* mapx, int* mapy,int mapwidth, Map* listeMap[])
 {    
-    updateMap(listeMap, mapx, mapy, mapwidth, player, pokemonSauvage1);
+    updateMap(listeMap, mapx, mapy, mapwidth, *player, pokemonSauvage1);
     afficheMenu(player);
     char input;
     input = getChar();
@@ -137,18 +137,18 @@ void onMap (Player player, Pokemon pokemonSauvage1, int* mapx, int* mapy,int map
     if (input=='z'||input=='q'||input=='s'||input=='d')
     {
         wclear();
-        deplacement_perso(&player, input, mapx, mapy,mapwidth, listeMap);
+        deplacement_perso(player, input, mapx, mapy,mapwidth, listeMap);
         cout << "mapx apres le deplacement " << *mapx <<endl;
-        checkIfTooClose(&player,pokemonSauvage1);
-        if (player.tooClose==1)
+        checkIfTooClose(player,pokemonSauvage1);
+        if (player->tooClose==1)
         {
             srand (time(NULL)); // initialisation de la graine
             int canAttack = rand() % 2 + 1;  // pile ou face pour commencer
             getChar();
-            combat(&player,&pokemonSauvage1,canAttack-1);
+            combat(player,&pokemonSauvage1,canAttack-1);
             wclear();
             onMap(player,pokemonSauvage1,mapx, mapy,mapwidth, listeMap);
-            player.tooClose==-1;
+            player->tooClose==-1;
         }
         else
         {
@@ -159,12 +159,56 @@ void onMap (Player player, Pokemon pokemonSauvage1, int* mapx, int* mapy,int map
     {
         case '1':
         wclear();
-        afficheInventaire(player.inv);
+        afficheInventaire(player->inv);
+        
+        cout << "Appuies sur le numéro pour utiliser" << endl;
         cout << "Appuyez sur X pour revenir sur la map" << endl;
-        if  (getChar()=='x')
+        switch (getChar())
         {
-            wclear();
-            onMap(player,pokemonSauvage1, mapx, mapy,mapwidth, listeMap);
+            case 'x':
+                wclear();
+                onMap(player,pokemonSauvage1, mapx, mapy,mapwidth, listeMap);
+                break;
+            
+            case '1':
+            if (player->inv.nbPotion>0)
+            {
+                wclear();
+                cout << "Quel pokemon voulez-vous soigner ?"<<endl;
+                afficheEkip(player);
+                int i;
+                switch (getChar())
+                {
+                    case '1' : i=0; break;
+                    case '2' : i=1;break;
+                    case '3' : i=2; break;
+                    case '4' : i=3;break;
+                    case '5' : i=4; break;
+                    case '6' : i=5;break;
+                }
+                player->inv.nbPotion--;
+                player->ekip[i].pv+=10;
+                wclear();
+                cout << endl;
+                afficheEkip(player);
+                cout << player->pseudo << " utilise une potion sur "<<player->ekip[i].name << "\nil regagne 10PV"<<endl;
+                cout << "\n\n\n\n\n\n\n";
+                cout <<" ---Appuies sur une touche pour continuer"<< endl;
+                getChar();
+                wclear();
+                onMap(player,pokemonSauvage1,mapx, mapy,mapwidth, listeMap);
+            }
+            
+            else
+            {
+                cout << "vous n'avez pas de potion" << endl;
+                cout << "\n\n\n\n\n\n\n";
+                cout <<" ---Appuies sur une touche pour continuer"<< endl;
+                getChar();
+                wclear();
+                onMap(player,pokemonSauvage1,mapx, mapy,mapwidth, listeMap);
+            }
+                
         }
         break;
 
