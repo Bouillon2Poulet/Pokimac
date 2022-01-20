@@ -100,12 +100,16 @@ const string bgGreen = "\033[42m";
 const string bgBrown = "\033[43m";
 const string bgBlue = "\033[44m";
 const string bgPurple = "\033[45m";
+const string bgCyan = "\033[46m";
+const string bgLightGrey = "\033[47m";
+
 
 const string caraFeu = red + '*' + white;
 const string caraNormal = white + '#' + white;
 const string caraPlante = green + '&' + white;
 const string caraEau = blue + '%'+ white;
 
+const string reset = "\e[0m";
 
 
 struct Inventaire{

@@ -13,7 +13,7 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
 void deplacement_perso(Player *player, char input, int* mapx, int* mapy , int mapwidth, Map* listeMap[]);
 void onMap (Player player, PkmSauvage pokemonSauvage1, int* mapx, int* mapy, int mapwidth, Map* listeMap[]);
 void remplaceMap(Map* mapAv, int nbNext, int mapwidth, Map* listeMap[]);
-void afficheCouleur(char c);
+void afficheCouleur(char c, string bgMap);
 void checkIfTooClose(Player *player, PkmSauvage pokemonSauvage1);
 bool peutBouger(char charMap);
 

@@ -20,14 +20,17 @@ int main()
     // remplissage des maps
     Map* mapForet = remplissageMap("./map/foret.txt");
     Map* mapVolcan = remplissageMap("./map/volcan.txt");
-    mapVolcan->bgMap = bgBrown;
+    //mapVolcan->bgMap = bgBrown;
     Map* mapRiviere = remplissageMap("./map/riviere.txt");
     Map* mapChamps = remplissageMap("./map/champs.txt");
-    mapRiviere->bgMap = bgGreen;
+    //mapRiviere->bgMap = bgGreen;
+    Map* dansVolcan = remplissageMap("./map/dansVolcan.txt");
+    Map* salleBoss = remplissageMap("./map/salleBoss.txt");
 
 
-    Map* listeMap[4] = {mapVolcan,mapRiviere,mapChamps,mapForet};
+    Map* listeMap[6] = {mapVolcan,mapRiviere,mapChamps,mapForet,dansVolcan, salleBoss};
     int mapwidth = 2;
+    int mapheight = 3;
     
     // permet de donner la map de départ !
     int mapx = 0;
@@ -42,12 +45,9 @@ int main()
 
     //Initialisations
     
-    // init de la position du player de manière aléatoire
-    int posx = 5;
-    int posy = 5;
-    
+
     initListeAttaque (listeAttaque);
-    initPlayer (&player, 5, 5);
+    initPlayer (&player, 10, 10);
     initListePokemon(listePokemon,listeAttaque); //Initialise les pokémons
     initInventaire(player.inv);
     initEkip(&player);

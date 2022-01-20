@@ -38,7 +38,8 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
                 }
                 
                 if (nb_aff_ligne<=map->width-1 && aff_car){
-                    if (h+map->width*j < map->Lmap.size()) afficheCouleur(map->Lmap.at(h+map->width*j));
+                    srand (time(NULL));
+                    if (h+map->width*j < map->Lmap.size()) afficheCouleur(map->Lmap.at(h+map->width*j),map->bgMap);
                     nb_aff_ligne ++;
                 }
                 aff_car = true;
@@ -52,9 +53,40 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
 
 void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapwidth, Map* listeMap[]){
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
+    
+    // passage dans le volcan
+        if (map->Lmap.at(player->posx +(player->posy)*(map->width)+1) == '#')
+        {
+            *mapx = 0;
+            *mapy = 2;
+            player->posy = listeMap[4]->height-1;
+            player->posx = listeMap[4]->width/2;
+            player->posyAv = player->posy; 
+            player->posxAv = player->posyAv;
+            return ;
+
+        }
+
+    // passage dans la salle du boss
+    if (map->Lmap.at(player->posx +(player->posy)*(map->width)+1) == '!')
+        {
+            *mapx = 1;
+            *mapy = 2;
+            player->posy = listeMap[5]->height-1;
+            player->posx = listeMap[5]->width/2;
+            player->posyAv = player->posy; 
+            player->posxAv = player->posyAv;
+            return ;
+
+        }
+
+    
+    
     if (input=='z')
     {
-        if (player->posy == 1){
+        
+        // changement de tableau
+        if (player->posy == 1 && *mapy >=1){
             *mapy= *mapy-1;
             player->posy = map->height-1;
             player->posyAv = map->height-1;
@@ -75,7 +107,7 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
     {
 
         // est on au bout du tableau
-        if (player->posx == 1){
+        if (player->posx == 1 && *mapx>=1){
             *mapx= *mapx-1;
             player->posx = map->width-1;
             player->posxAv = map->width-1;
@@ -92,7 +124,7 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
 
     if (input=='s')
     {
-        if (player->posy == map->height-1){
+        if (player->posy == map->height-1 && *mapy < mapwidth-1){
             *mapy= *mapy+1;
             player->posy = 1;
             player->posyAv = 1;
@@ -108,14 +140,14 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
     if (input=='d')
     {
         // est on au bout du tableau
-        if (player->posx == map->width-1){
+        if (player->posx == map->width-1 && *mapx < mapwidth-1){
             *mapx= *mapx+1;
             player->posx = 1;
             player->posxAv = 1;
         }
         
         // déplacement si la place est libre
-        if ((player->posx <map->width-1) && peutBouger(map->Lmap.at((player->posy)*map->width+(player->posx)+1)))
+        if ((player->posx < map->width-1) && peutBouger(map->Lmap.at((player->posy)*map->width+(player->posx)+1)))
         {
             player->posxAv = player->posx;
             player->posyAv = player->posy;
@@ -136,7 +168,6 @@ void onMap (Player player, PkmSauvage pokemonSauvage1, int* mapx, int* mapy,int 
     {
         wclear();
         deplacement_perso(&player, input, mapx, mapy,mapwidth, listeMap);
-        cout << "mapx apres le deplacement " << *mapx <<endl;
         checkIfTooClose(&player,pokemonSauvage1);
         if (player.tooClose==1)
         {
@@ -186,7 +217,10 @@ void onMap (Player player, PkmSauvage pokemonSauvage1, int* mapx, int* mapy,int 
 }
 
 
-void afficheCouleur(char c){
+void afficheCouleur(char c, string bgMap){
+    
+    // on met la couleur du bg de la map
+    //cout << bgMap;
     switch (c){
 
         // bleu
@@ -197,13 +231,19 @@ void afficheCouleur(char c){
         
         // marron
         case '/':
-            cout << brown << c<< white;
+            cout << yellow << c<< white; // marron c jaune pour le moment
+        break;
+
+        // rouge
+        case '.':
+            cout << red << c; // marron c jaune pour le moment
         break;
 
         // gris
         case '|':
         case '~':
-            cout << grey << c<< white;
+        case '*':
+            cout << grey << c;
         break;
 
         // aléatoire
@@ -212,7 +252,7 @@ void afficheCouleur(char c){
             
             // couleur random de @ et + car sont des fleurs
             int i;
-            srand (time(NULL)); // initialisation de la graine
+            // initialisation de la graine --> marche mal pour le moment
             i = rand() %4;
             if (i==0) cout << yellow << c << white;
             if (i==1) cout << blue << c<< white;
@@ -229,7 +269,10 @@ void afficheCouleur(char c){
         // blanc
         default:
             cout << white << c<< white;
+        
     }
+    // on réinitialise la couleur du bg
+    cout << reset;
 }
 
 void checkIfTooClose(Player *player,PkmSauvage pokemonSauvage1){
@@ -264,9 +307,16 @@ bool peutBouger(char charMap){
         case '@':
         case '/':
         case '<':
+        case 'v':
+        case '>':
+        case '^':
+        case '#':
+        case '.':
+        case '!':
             return true;
         break;
 
+        // les autres qui sont bloquants
         default : 
             return false;
         break;
