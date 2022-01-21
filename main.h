@@ -156,3 +156,4 @@ Map* remplissageMap(string adresseMap);
 
 
 void debug();
+void delay(int secondes);

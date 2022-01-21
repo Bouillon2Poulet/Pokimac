@@ -35,7 +35,7 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
                 for (int i=0; i<nbPokemonSauvage; i++)
                 {
                     Pokemon* pokemonSauvage = &listePokemonSauvage[i];
-                    if (h==pokemonSauvage->posx && j==pokemonSauvage->posy && pokemonSauvage->mapNom == map->adresse) // Affichage Pokémon sauvage
+                    if (h==pokemonSauvage->posx && j==pokemonSauvage->posy && pokemonSauvage->mapNom == map->adresse && pokemonSauvage->pv >0) // Affichage Pokémon sauvage
                     {
                         cout << pokemonSauvage->type.cara;
                         nb_aff_ligne ++;
@@ -45,7 +45,7 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
                 
                 if (nb_aff_ligne<=map->width-1 && aff_car){
                     srand (time(NULL));
-                    if (h+map->width*j < map->Lmap.size()) afficheCouleur(map->Lmap.at(h+map->width*j),map->bgMap);
+                    if (h+map->width*j < map->Lmap.size()) afficheCouleur(map->Lmap.at(h+map->width*j),map->bgMap,h, j);
                     nb_aff_ligne ++;
                 }
                 aff_car = true;
@@ -59,6 +59,8 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
 
 void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapwidth, Map* listeMap[]){
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
+    
+    
     
     // passage dans le volcan
         if (map->Lmap.at(player->posx +(player->posy)*(map->width)+1) == '#')
@@ -165,7 +167,25 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
 
 void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, int* mapx, int* mapy,int mapwidth, Map* listeMap[])
 {    
+    cout << player.tooClose << endl;
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
+    
+    // faire bouger le pokemon sauvage
+    /*time_t timer;
+    time(&timer); // regarde l'heure
+    cout << (int)timer << endl;
+    if (timer%3 ==0){
+        Pokemon* pokemonSauvage1 = &listePokemonSauvage[0];
+        for (int i=0; i<nbPokemonSauvage; i++){
+            pokemonSauvage1 = &listePokemonSauvage[i];
+            if (map->adresse == pokemonSauvage1->mapNom && pokemonSauvage1->pv >0) 
+            {
+                deplacementPokemonSauvage(map,pokemonSauvage1);
+            }
+        }
+    }*/
+    
+    
     updateMap(listeMap, mapx, mapy, mapwidth, player, listePokemonSauvage, nbPokemonSauvage);
     afficheMenu(&player);
     char input;
@@ -174,6 +194,16 @@ void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, 
     if (input=='z'||input=='q'||input=='s'||input=='d')
     {
         wclear();
+        // déplacement des pokémons sauvages
+        Pokemon* pokemonSauvage1 = &listePokemonSauvage[0];
+        for (int i=0; i<nbPokemonSauvage; i++){
+            pokemonSauvage1 = &listePokemonSauvage[i];
+            if (map->adresse == pokemonSauvage1->mapNom && pokemonSauvage1->pv >0) 
+            {
+                deplacementPokemonSauvage(map,pokemonSauvage1);
+            }
+        }
+        // déplacement du perso
         deplacement_perso(&player, input, mapx, mapy,mapwidth, listeMap);
         
         Pokemon* pokemonSauvage = &listePokemonSauvage[0];
@@ -188,8 +218,8 @@ void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, 
             int canAttack = rand() % 1;  // pile ou face pour commencer
             combat(&player,pokemonSauvage,canAttack);
             wclear();
-            onMap(player,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth, listeMap);
-            player.tooClose==-1;
+            player.tooClose=0;
+            onMap(player,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth, listeMap);            
         }
         else
         {
@@ -278,7 +308,10 @@ void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, 
 }
 
 
-void afficheCouleur(char c, string bgMap){
+void afficheCouleur(char c, string bgMap, int x, int y){
+    
+    // nb random pour la couleur des fleurs
+    int i = x+y;
     
     // on met la couleur du bg de la map
     //cout << bgMap;
@@ -311,14 +344,11 @@ void afficheCouleur(char c, string bgMap){
         case '@':
         case '+':
             
-            // couleur random de @ et + car sont des fleurs
-            int i;
-            // initialisation de la graine --> marche mal pour le moment
-            i = rand() %4;
-            if (i==0) cout << yellow << c << white;
-            if (i==1) cout << blue << c<< white;
-            if (i==2) cout << purple << c<< white;
-            if (i==3) cout << cyan << c<< white;
+
+            if (i%4==0) cout << yellow << c << white;
+            if (i%4==1) cout << blue << c<< white;
+            if (i%4==2) cout << purple << c<< white;
+            if (i%4==3) cout << cyan << c<< white;
         break;
 
         //vert
@@ -338,6 +368,11 @@ void afficheCouleur(char c, string bgMap){
 
 void checkIfTooClose(Player *player,Pokemon pokemonSauvage1, Map* map){
     if (map->adresse != pokemonSauvage1.mapNom)
+    {
+        player->tooClose = 0;
+        return;
+    }
+    if (pokemonSauvage1.pv <=0)
     {
         player->tooClose = 0;
         return;
@@ -392,3 +427,27 @@ bool peutBouger(char charMap){
     }
 }
 
+void deplacementPokemonSauvage (Map* map, Pokemon* pokemonSauvage){
+    
+    // déplacement aléatoire de -1 à 1 en x ou y 
+    int dx =  1-rand() % 5; // 5 pour rendre le déplacement moins fréquent
+    int dy = 1- rand() % 3;
+
+    if (dx < -1) {
+        dx = 0;
+        dy = 0;
+    }
+
+    // si le déplacement est possible sur la map
+
+   if (pokemonSauvage->posx+dx<map->width-1 && pokemonSauvage->posx+dx>1 && pokemonSauvage->posy+dy<map->height-1 && pokemonSauvage->posy+dy>1)
+    {
+        if (peutBouger(map->Lmap.at(pokemonSauvage->posx+dx + (pokemonSauvage->posy+dy)*map->width)))
+        {
+            pokemonSauvage->posx = pokemonSauvage->posx+dx;
+            pokemonSauvage->posy = pokemonSauvage->posy+dy;
+        }
+    
+    }
+
+}

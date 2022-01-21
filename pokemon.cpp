@@ -28,12 +28,11 @@ void initPokemonSauvage (Pokemon listePkm[], Pokemon *pokemonSauvage, Map* map){
     pokemonSauvage->mapNom = map->adresse;
 
     do { 
-        //srand (time(NULL)); // initialisation de la graine
         posx = rand() %map->width;
-        //srand (time(NULL)); // initialisation de la graine
         posy = rand() %map->height;
-    } while (map->Lmap.at(posx+map->width*posy) != ' ');
-    
+    } while (posx > 1 && posx < map->width-1 && posy > 1 && posy < map->height-1 && map->Lmap.at(posx+map->width*posy) != ' ');
+    // pour ne pas les faire spawn au bord des tableaux (c'est chiant)
+
     cout << posx << " // " << posy << endl;
     cout << pokemonSauvage->name << endl<<endl;
     

@@ -129,3 +129,17 @@ void debug(){
     int debug;
     cin >> debug;
 }
+
+void delay(int secondes){
+    time_t timer;
+    time(&timer);
+
+    time_t timer2;
+    time(&timer2);
+
+    while (timer2-timer < secondes){
+        time(&timer2);
+    }
+    return;
+
+}
