@@ -82,7 +82,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
             calcPvXp(player->ekip[0].niveau+1, &player->ekip[0]);
             player->ekip[0].pv=pvActuel+player->ekip[0].pvmax-pvMaxAvant;
 
-            cout << "-> Après" << endl << "Niveau : " << player->ekip[0].niveau << endl << "PVmax : " << player->ekip[0].pvmax << endl << "PV : " << player->ekip[0].pv << endl;
+            cout << endl << endl << "-> Après" << endl << "Niveau : " << player->ekip[0].niveau << endl << "PVmax : " << player->ekip[0].pvmax << endl << "PV : " << player->ekip[0].pv << endl;
 
             for (int i=0;player->ekip[0].attaque[i].puissance!=-1;i++)
             {

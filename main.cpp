@@ -48,6 +48,11 @@ int main()
     Pokemon pokemonSauvage2;
     Pokemon pokemonSauvage3;
     Pokemon pokemonSauvage4;
+    Pokemon pokemonSauvage5;
+    Pokemon pokemonSauvage6;
+    Pokemon pokemonSauvage7;
+    Pokemon pokemonSauvage8;
+
     Pokemon listePokemon[40];
     Attaque listeAttaque[40];
     Type listeType[15];
@@ -61,9 +66,14 @@ int main()
     initPokemonSauvage (listePokemon, &pokemonSauvage2,mapRiviere);  //pokemon sauvage du champs
     initPokemonSauvage (listePokemon, &pokemonSauvage3,mapChamps);  //pokemon sauvage du champs
     initPokemonSauvage (listePokemon, &pokemonSauvage4,mapVolcan);  //pokemon sauvage du champs
-    int nbPokemonSauvage = 4;
+    initPokemonSauvage (listePokemon, &pokemonSauvage5,mapForet);  //pokemon sauvage du champs
+    initPokemonSauvage (listePokemon, &pokemonSauvage6,mapRiviere);  //pokemon sauvage du champs
+    initPokemonSauvage (listePokemon, &pokemonSauvage7,mapChamps);  //pokemon sauvage du champs
+    initPokemonSauvage (listePokemon, &pokemonSauvage8,mapVolcan);  //pokemon sauvage du champs
+    
+    int nbPokemonSauvage = 8;
 
-    Pokemon listePokemonSauvage [4] = {pokemonSauvage1, pokemonSauvage2, pokemonSauvage3, pokemonSauvage4};
+    Pokemon listePokemonSauvage [8] = {pokemonSauvage1, pokemonSauvage2, pokemonSauvage3, pokemonSauvage4, pokemonSauvage5, pokemonSauvage6, pokemonSauvage7, pokemonSauvage8};
     
     //debug();
 
@@ -118,7 +128,6 @@ int main()
         interMap->width = width;
         interMap->height = height;
         interMap->adresse= adresseMap;
-        //cout << adresseMap << " // " << width << endl;
         }
     else cout << adresseMap << " : erreur avec le fichier" <<  endl;
     return interMap;

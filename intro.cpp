@@ -23,6 +23,9 @@ void intro (Player *player, Pokemon listePkm[])
     }
      player->pseudo=input;
     wclear();
+    
+    choixCaraPlayer(player);
+
     cout << "C PARTI !!!\nAlors " << player->pseudo << ", tu te crois capable de pouvoir etre le meilleur dresseur de Pokemon ?" << endl << endl;
     cout << "\n\n\n\n\n\n\n\n\n";
     cout << "           ---Appuies sur une touche pour continuer" << endl;
@@ -54,6 +57,36 @@ void choixStarter (Player *player, Pokemon listePkm[])
     getChar();
     wclear();
     return;
+}
+
+void choixCaraPlayer(Player* player){
+    wclear();
+    char input = 'X';
+    
+    cout << "Choisis maintenant ton avatar parmi ces  3 :" << endl << endl << endl;
+    cout << "1: 1" << endl << "2: 2" << endl << "3: 3" << endl;
+    
+    do {// demande le choix du caractère
+        input = getChar();
+        if (input == '1') player->cara = '1';
+        if (input == '2') player->cara = '2';
+        if (input == '3') player->cara = '3';
+    }while (input != '1' && input != '2' && input != '3');
+    
+    // demande sa confirmation
+    cout << "Ton avatar est : " << player->cara << endl << endl;
+    cout << "Appuies sur A pour continuer " <<endl;
+    cout << "Appuies sur E pour changer ton avatar" << endl;
+    
+    do {
+        input = getChar();
+        if (input == 'a' || input == 'A') {
+            wclear();
+            return;
+        }
+        if (input == 'e' || input == 'E') choixCaraPlayer(player);
+    }while (input != 'a' && input != 'A' && input != 'e' && input != 'E');
+    
 }
 
 char descriptionStarter(char choix, Pokemon listePkm[]){

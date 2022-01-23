@@ -20,7 +20,7 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
 
                 if (h==player.posx && j==player.posy) // Affichage joueur
                 {
-                    cout << white << 1;
+                    cout << white << player.cara;
                     nb_aff_ligne ++;
                     h++;
                 }
@@ -318,7 +318,7 @@ void afficheCouleur(char c, string bgMap, int x, int y){
 
         // rouge
         case '.':
-            cout << red << c; // marron c jaune pour le moment
+            cout << red << c;
         break;
 
         // gris
@@ -342,6 +342,7 @@ void afficheCouleur(char c, string bgMap, int x, int y){
         //vert
         case 'T':
         case 'Y':
+        case 'w':
             cout << green << c<< white;
         break;
 
@@ -404,6 +405,7 @@ bool peutBouger(char charMap){
         case '#':
         case '.':
         case '!':
+        case 'w':
             return true;
         break;
 
