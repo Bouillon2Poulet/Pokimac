@@ -47,7 +47,6 @@ void choixStarter (Player *player, Pokemon listePkm[])
     copyPokemon(&listePkm[b],&player->ekip[0]);
     calcPvXp(6, &player->ekip[0]);
     player->ekip[0].pv=player->ekip[0].pvmax;
-    getChar();
     wclear();
     cout << "Bonne chance avec ton " << player->ekip[0].name << " dans le monde des Pokémon !\n\n";
     cout << "\n\n\n\n\n\n\n\n\n";
@@ -67,13 +66,13 @@ char descriptionStarter(char choix, Pokemon listePkm[]){
     cout << "\n\n\n\n\n\n\n\n\n";
     switch (choix)
     {
-        case '1': cout << "\n Pokémon Salamandre\nType Feu "<<listePkm[1].type.cara<<endl; break;
-        case '2': cout << "\n Pokémon plante ?\nType Plante "<<listePkm[2].type.cara<<endl; break;
-        case '3': cout << "\n Pokémon Tortue\nType Eau "<<listePkm[3].type.cara<<endl; break;
+        case '1': cout << "\n Pokémon Salamèche\nType Feu "<<listePkm[1].type.cara<<endl; break;
+        case '2': cout << "\n Pokémon Bulbizarre\nType Plante "<<listePkm[2].type.cara<<endl; break;
+        case '3': cout << "\n Pokémon Carapuce\nType Eau "<<listePkm[3].type.cara<<endl; break;
         case 'X': cout <<"\n"; break;
     }
     cout << endl << endl << endl;
-    cout << "Appuyez sur un numero pour voir le Pokemon"<<endl;
+    cout << "Appuyes sur un numero pour voir le Pokemon"<<endl;
     cout << "Appuies sur A pour confirmer"<<endl;
     cout << "Appuies sur autre touche pour retour"<<endl;
     char a = getChar();
