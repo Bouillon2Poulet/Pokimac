@@ -87,7 +87,7 @@ int main()
     //Intro 
 
     intro(&player,listePokemon);
-    onMap (player, listePokemonSauvage, nbPokemonSauvage, &mapx, &mapy, mapwidth, listeMap);
+    onMap (&player, listePokemonSauvage, nbPokemonSauvage, &mapx, &mapy, mapwidth, listeMap);
     return 0;
 
 }
