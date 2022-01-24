@@ -26,7 +26,7 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player *play
 
         getChar();
         cout << "Appuie sur une touche pour continuer l'aventure !" << endl;
-        player->posy = listeMap[6]->height/2;
+        player->posy = listeMap[6]->height-3;
         player->posx = listeMap[6]->width/2;
         player->posyAv = player->posy;
         player->posxAv = player->posyAv;

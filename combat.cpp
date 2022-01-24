@@ -194,27 +194,12 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
         cout << "3 - Pokemon         4 - Fuite" << endl;
     }
 
-    
-    if (canAttack==0) //Le Pokemon sauvage attaque si on ne peut pas attaquer
-    {
-        int aleatoire=3;
-        while (pokemonAdverse->attaque[aleatoire].name=="xxx")
-        {
-            srand (time(NULL)); // initialisation de la graine
-            aleatoire = rand() % 3 + 0;  // entre 0 et 3 attaques
-        }
-        cout <<" Le " << pokemonAdverse->name << " sauvage utilise " << pokemonAdverse->attaque[aleatoire].type.bashCouleur << pokemonAdverse->attaque[aleatoire].name << white << endl;
-        calcDamage(pokemonAdverse->attaque[aleatoire], &player->ekip[0]);
-        getChar();
-        wclear();
-        combat(player,pokemonAdverse,1);
-    }
 
-    if(canAttack==1)
+    switch (getChar())
     {
-        switch (getChar())
-        {
-            case '1' :
+        case '1' :
+            if(canAttack==1)
+            {
                 wclear();
                 afficheCombat(player,pokemonAdverse);
                 if (attaque(player, pokemonAdverse)!=-1)
@@ -227,9 +212,12 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                     wclear();
                     combat(player,pokemonAdverse,1); 
                 }
-            break;
-            
-            case '2' :
+            }
+        break;
+        
+        case '2' :
+            if(canAttack==1)
+            {
                 wclear();
                 afficheInventaire(player->inv);
                 cout << "\n\n\n\n\n\n\n";
@@ -260,6 +248,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                             wclear();
                             canAttack=0;
                         }
+                        
                     break;
 
                     case '2' : 
@@ -306,9 +295,12 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                         }
                     break;
                 }
-            break;
-                
-            case '3' :
+            }
+        break;
+            
+        case '3' :
+            if(canAttack==1)
+            {    
                 wclear();
                 cout << "Quel pokemon voulez-vous envoyer au combat ?" << endl << endl;
                 afficheEkip(player);
@@ -344,21 +336,37 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                 else
                 {
                     combat(player,pokemonAdverse,1);  
-                }                   
-            break;
+                }
+            }                   
+        break;
 
-            case '4' :
-                wclear();
-                return;
-            break;
+        case '4' :
+            wclear();
+            return;
+        break;
 
-            default:
-                wclear();
-                combat(player,pokemonAdverse,1);
+        default:
+            wclear();
+            combat(player,pokemonAdverse,1);
+    }
+
+
+    if (canAttack==0) //Le Pokemon sauvage attaque si on ne peut pas attaquer
+    {
+        int aleatoire=3;
+        while (pokemonAdverse->attaque[aleatoire].name=="xxx")
+        {
+            srand (time(NULL)); // initialisation de la graine
+            aleatoire = rand() % 3 + 0;  // entre 0 et 3 attaques
         }
+        cout <<" Le " << pokemonAdverse->name << " sauvage utilise " << pokemonAdverse->attaque[aleatoire].type.bashCouleur << pokemonAdverse->attaque[aleatoire].name << white << endl;
+        calcDamage(pokemonAdverse->attaque[aleatoire], &player->ekip[0]);
+        getChar();
+        wclear();
+        combat(player,pokemonAdverse,1);
     }
 }
-    
+
 
 
 int attaque (Player *player, Pokemon *pokemonAdverse)
