@@ -10,7 +10,6 @@ using namespace std;
 
 void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
      
-    int sortie =-1;
     int k = 0;
     
     if (player->ekip[0].pv<=0) //Si les PV de l'un des pokémons tombe à zéro
@@ -21,13 +20,13 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
 
         
         // on regarde si on a d'autre pokémon avec de la vie
-        while (k<5 && (player->ekip[k].name == "XOX" || player->ekip[k].pv == 0)){
-            cout << player->ekip[k].name << endl;
+        while (k<5 && (player->ekip[k].name == "XOX" || player->ekip[k].pv == 0))
+        {
             k++;
         }
         if (k==5)
         {
-            cout << "Tous tes Pokemons n'ont plus de vie !" << endl << endl;
+            cout << "Tes Pokemons n'ont plus de vie !" << endl << endl;
             cout << "----   Fin du combat   ----" ;
             cout << "\n\n\n\n\n\n\n";
             cout <<" ---Appuies sur une touche pour continuer"<< endl;
@@ -60,12 +59,14 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
         pokemonAdverse->pv =0;
         afficheCombat(player,pokemonAdverse);
         cout << "Tu as vaincu le pokemon adverse" << endl;
+        srand (time(NULL)); // initialisation de la graine
+        int aleatoire = rand() % 500 + 200;  // entre 0 et 3 attaques
+        cout << "Vous gagnez " << aleatoire << " $ !";
+        player->inv.argent+=aleatoire;
         cout << "\n\n\n\n\n\n\n";
         cout <<" ---Appuies sur une touche pour continuer"<< endl;
         getChar();
         wclear();
-        player->ekip[0].xp=3*player->ekip[0].niveau;//test pour le passage de niveau;
-        player->ekip[0].xp+=player->ekip[0].niveau;
 
         if (player->ekip[0].xp >= player->ekip[0].xpmax)
         {
@@ -137,7 +138,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                     wclear();
                     combat(player,pokemonAdverse,1); 
                 }
-                break;
+            break;
             
             case '2' :
                 wclear();
@@ -170,7 +171,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                             wclear();
                             canAttack=0;
                         }
-                        break;
+                    break;
 
                     case '2' : 
                         wclear();
@@ -214,21 +215,61 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                             wclear();
                             combat(player,pokemonAdverse,1);                            
                         }
-                        
+                    break;
                 }
-                break;
+            break;
                 
+            case '3' :
+                wclear();
+                cout << "Quel pokemon voulez-vous envoyer au combat ?" << endl << endl;
+                afficheEkip(player);
+                char input;
+                input = getChar();
+                int i;
+                
+                switch (input)
+                {
+                    case '1': i = 0; break;
+                    case '2': i = 1; break;
+                    case '3': i = 2; break;
+                    case '4': i = 3; break;
+                    case '5': i = 4; break;
+                    case '6': i = 5; break;
+                    default : i=-1;
+                }
+                if (i!=-1)
+                {
+                    Pokemon *poketemp = new Pokemon;
+                    copyPokemon(&player->ekip[i], poketemp);
+                    copyPokemon(&player->ekip[0], &player->ekip[i]);
+                    copyPokemon(poketemp, &player->ekip[0]);
+                    delete poketemp;
+                    afficheCombat(player,pokemonAdverse);
+                    cout << player->ekip[i].name << " reviens !" << endl;
+                    cout << player->ekip[0].name << ", à ton tour !!!" << endl;
+                    getChar();
+                    wclear();
+                    combat(player,pokemonAdverse,0);  
+                }
+                else
+                {
+                    combat(player,pokemonAdverse,1);  
+                }                   
+            break;
+
             case '4' :
                 wclear();
                 return;
-                break;
+            break;
+
             default:
                 wclear();
                 combat(player,pokemonAdverse,1);
         }
     }
-    
 }
+    
+
 
 int attaque (Player *player, Pokemon *pokemonAdverse)
 {

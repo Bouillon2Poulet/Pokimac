@@ -110,6 +110,7 @@ struct Inventaire{
     int nbPokeball;
     int nbAntidote;
     int nbTruc;
+    int argent;
 };
 
 struct Map{

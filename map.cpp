@@ -24,7 +24,10 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
                     nb_aff_ligne ++;
                     h++;
                 }
-
+                if (map->Lmap.at(player.posx +map->width*player.posy) == 'C')
+                {
+                    centrePokemon(&player,'x');
+                }
                 if ((h==player.posxAv && j==player.posyAv)) // Affichage Pokémon qui suit 
                 {
                     cout << player.ekip[0].type.cara;
@@ -59,7 +62,7 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
 
 void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapwidth, Map* listeMap[]){
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
-    
+        
     
     
     // passage dans le volcan
@@ -74,6 +77,7 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
             return ;
 
         }
+    
 
     // passage dans la salle du boss
     if (map->Lmap.at(player->posx +(player->posy)*(map->width)+1) == '!')
@@ -395,6 +399,7 @@ bool peutBouger(char charMap){
     switch (charMap){
         // liste des caractères sur lesquels on peut bouger
         case ' ':
+        case 'C':
         case '+':
         case '@':
         case '/':
@@ -439,5 +444,126 @@ void deplacementPokemonSauvage (Map* map, Pokemon* pokemonSauvage){
         }
     
     }
+}
+
+void centrePokemon(Player *player, char entree){
+    if (entree=='x')
+    {
+        cout << "Bienvenue au PokeCentre !!!" << endl;
+        cout << "Nous faisons PokeBoutique aussi !" << endl;
+        cout << "Que puis-je faire pour vous ?" << endl;
+        cout << "1 - Soigner mes Pokemons" << endl;
+        cout << "2 - PokeBoutique" << endl;
+        cout << "\n\n\n\n\n";
+        cout << "Appuyez sur une touche pour retour" << endl;
+        entree = getChar();
+    }
+    switch (entree)
+    {
+        case '1':
+            wclear();
+            afficheEkip(player);
+            cout << "Je vais soigner vos pokémons" << endl;
+            for (int i=0;i<compteEkip(player);i++)
+            {
+                player->ekip[i].pv=player->ekip[i].pvmax;
+            }
+            getChar();
+            wclear();
+            afficheEkip(player);
+            cout << "\n\n\n\n\n";
+            cout << "Appuyez sur une touche pour retour" << endl;
+            getChar();
+            wclear();
+            centrePokemon(player, 'x');
+        break;
+        
+        case '2' :
+            wclear();
+            cout << "Que souhaitez-vous acheter ?" << endl;
+            cout << "1 - Pokeball                100$" << endl;
+            cout << "2 - Potion                  200$" << endl;
+            cout << "3 - Antidote                300$" << endl;
+            cout << "\n\n\n\n\n";
+            cout << "Appuyez sur une touche pour choisir" << endl;
+            cout << "Appuyez sur une autre touche pour retour" << endl;
+            switch (getChar())
+            {
+                case '1' :
+                    if (player->inv.argent>=100)
+                    {
+                        player->inv.nbPokeball++;
+                        player->inv.argent-=100;
+                        cout << "Vous venez d'acheter 1 Pokeball " << endl;
+                        cout << "\n\n\n\n\n";
+                        cout << "Appuyez sur une touche pour retour" << endl;
+                        getChar();
+                        wclear();
+                        centrePokemon(player, 'x');
+                    }
+                    else
+                    {
+                        cout << endl << endl << "Vous n'avez pas assez d'argent monsieur !" << endl;
+                        cout << "\n\n\n\n\n";
+                        cout << "Appuyez sur une touche pour retour" << endl;
+                        getChar();
+                        wclear();
+                        centrePokemon(player, '2');
+                    }
+                break;
+
+                case '2' :
+                    if (player->inv.argent>=200)
+                    {
+                        player->inv.nbPotion++;
+                        player->inv.argent-=200;
+                        cout << "Vous venez d'acheter 1 Potion " << endl;
+                        cout << "\n\n\n\n\n";
+                        cout << "Appuyez sur une touche pour retour" << endl;
+                        getChar();
+                        wclear();
+                        centrePokemon(player, 'x');
+                    }
+                    else
+                    {
+                        cout << endl << endl << "Vous n'avez pas assez d'argent monsieur !" << endl;
+                        cout << "\n\n\n\n\n";
+                        cout << "Appuyez sur une touche pour retour" << endl;
+                        getChar();
+                        wclear();
+                        centrePokemon(player, '2');
+                    }
+                break;
+
+                case '3' :
+                    if (player->inv.argent>=300)
+                    {
+                        player->inv.nbAntidote++;
+                        player->inv.argent-=300;
+                        cout << "Vous venez d'acheter 1 Antidote " << endl;
+                        cout << "\n\n\n\n\n";
+                        cout << "Appuyez sur une touche pour retour" << endl;
+                        getChar();
+                        centrePokemon(player, 'x');
+                    }
+                    else
+                    {
+                        cout << endl << endl << "Vous n'avez pas assez d'argent monsieur !" << endl;
+                        cout << "\n\n\n\n\n";
+                        cout << "Appuyez sur une touche pour retour" << endl;
+                        getChar();
+                        centrePokemon(player, '2');
+                    }
+                break;
+                default : centrePokemon(player,'x');
+            }   
+        
+        
+        default :
+            player->posx++;
+            wclear();
+            return;
+    }
+
 
 }

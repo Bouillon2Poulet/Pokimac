@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <time.h>
-#include <stdlib>
+#include <stdlib.h>
 
 //Headers
 #include "main.h"

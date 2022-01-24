@@ -14,3 +14,4 @@ void afficheCouleur(char c, string bgMap, int x, int y);
 void checkIfTooClose(Player *player, Pokemon pokemonSauvage1, Map* map);
 bool peutBouger(char charMap);
 void deplacementPokemonSauvage (Map* map, Pokemon* pokemonSauvage);
+void centrePokemon(Player *player, char entree);
