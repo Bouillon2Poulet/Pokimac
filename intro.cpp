@@ -61,8 +61,8 @@ void intro (Player *player, Pokemon listePkm[], Type listeType[])
     cout << "           ---Appuies sur une touche pour continuer" << endl;
     getChar();
     wclear();
-    cout << "Appuies sur ZQSD pour te deplacer" << player->ekip[0].name << " dans le monde des Pokemons !\n\n";
-    cout << "Sois prudent, tu risques de croiser des Pokemons sauvages sur ta route..." << player->ekip[0].name << " dans le monde des Pokemons !\n\n";
+    cout << "Appuies sur ZQSD pour te deplacer dans le monde des Pokemons !\n\n";
+    cout << "Sois prudent, tu risques de croiser des Pokemons sauvages sur ta route...";
     cout << "... et peut etre d'autres dresseurs...\n\n";
     cout << "Bonne chance !!!";
     cout << "\n\n\n\n\n\n\n\n\n";
@@ -87,7 +87,7 @@ void choixStarter (Player *player, Pokemon listePkm[])
     calcPvXp(6, &player->ekip[0]);
     player->ekip[0].pv=player->ekip[0].pvmax;
     wclear();
-    cout << "Bonne chance avec ton " << player->ekip[0].name << " dans le monde des Pokemon !\n\n";
+    cout << "Bonne chance avec ton " << player->ekip[0].name << " dans le monde des Pokemons !\n\n";
     cout << "\n\n\n\n\n\n\n\n\n";
     cout << "---Appuies sur une touche pour continuer..." << endl;
     getChar();
