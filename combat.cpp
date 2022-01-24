@@ -50,7 +50,7 @@ void combatBoss (Player* player, Player* boss){//Similaire à combat mais contre
         cout << "Mister X envoie : " << boss->ekip[0].type.cara << " " << boss->ekip[0].name << endl << endl;
         
         combat (player, &boss->ekip[0],pileFace, false);
-        player->ekip[0].pv = player->ekip[0].pvmax;
+        //player->ekip[0].pv = player->ekip[0].pvmax;
         
         if (boss->ekip[0].pv == 0) // Si j'ai battu le pokémon du boss
         {
