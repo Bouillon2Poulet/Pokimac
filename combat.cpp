@@ -51,6 +51,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
         cout <<" ---Appuies sur une touche pour continuer"<< endl;
         getChar();
         delay(1);
+        wclear();
 
         combat(player, pokemonAdverse, canAttack);
     }
@@ -229,7 +230,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                 
                 switch (input)
                 {
-                    case '1': i = 0; break;
+                    case '1': i = -1; break;
                     case '2': i = 1; break;
                     case '3': i = 2; break;
                     case '4': i = 3; break;
@@ -237,7 +238,8 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                     case '6': i = 5; break;
                     default : i=-1;
                 }
-                if (i!=-1)
+                wclear();
+                if (i!=-1&&player->ekip[i].name!="xox")
                 {
                     Pokemon *poketemp = new Pokemon;
                     copyPokemon(&player->ekip[i], poketemp);
@@ -246,7 +248,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                     delete poketemp;
                     afficheCombat(player,pokemonAdverse);
                     cout << player->ekip[i].name << " reviens !" << endl;
-                    cout << player->ekip[0].name << ", à ton tour !!!" << endl;
+                    cout << player->ekip[0].name << ", a ton tour !!!" << endl;
                     getChar();
                     wclear();
                     combat(player,pokemonAdverse,0);  

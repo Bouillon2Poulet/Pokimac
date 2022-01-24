@@ -3,14 +3,14 @@
 #include "pokemon.h"
 using namespace std;
 
-void intro (Player *player, Pokemon listePkm[])
+void intro (Player *player, Pokemon listePkm[], Type listeType[])
 {
     wclear();
     cout << "Bienvenue dans le monde des Pokemons..." << endl;
     cout << "\n\n\n\n\n\n\n\n\n";
     cout << "           ---Appuies sur une touche pour continuer" << endl;
     getChar();
-    //char input;
+    wclear();
     string input="";
     while(input=="")
     {
@@ -21,7 +21,7 @@ void intro (Player *player, Pokemon listePkm[])
         cin >> input;
         player->pseudo; // Pseudo
     }
-     player->pseudo=input;
+    player->pseudo=input;
     wclear();
     
     choixCaraPlayer(player, 'x');
@@ -32,7 +32,43 @@ void intro (Player *player, Pokemon listePkm[])
     getChar();
     wclear();
     choixStarter(player, listePkm);
-    
+
+    cout << "Les Pokemons sont des creatures merveilleuses," << endl;
+    cout << "qui peuplent le monde que tu t'appretes a parcourir..." << endl;
+    cout << endl;
+    cout << "Chaque Pokemon a un type :\n" << endl;
+    for (int i=0;i<15;i++)
+    {
+        if (i==5)
+        {
+            cout << "\n(\n";
+        }
+        cout <<"    - " << listeType[i].name << " " << listeType[i].cara;
+        cout << endl;
+        if (i==14)
+        {
+            cout << "                  ) -> a implementer";
+        }
+    }
+    cout << "\n\nC'est par le symbole associe a leurs types qu'ils sont representes sur la carte" << endl;
+    cout << "\n\n\n\n\n\n\n\n\n";
+    cout << "           ---Appuies sur une touche pour continuer" << endl;
+    getChar();
+    wclear();
+    cout << "Attention :\nsi les pv de tes pokemons tombent a zero,\ntu dois te rendre au PokeCentre indique par un C sur la carte" << endl;
+    cout << "Tu pourras aussi y acheter des potions et des Pokeball pour continuer l'aventure" << endl;
+    cout << "\n\n\n\n\n\n\n\n\n";
+    cout << "           ---Appuies sur une touche pour continuer" << endl;
+    getChar();
+    wclear();
+    cout << "Appuies sur ZQSD pour te deplacer" << player->ekip[0].name << " dans le monde des Pokemons !\n\n";
+    cout << "Sois prudent, tu risques de croiser des Pokemons sauvages sur ta route..." << player->ekip[0].name << " dans le monde des Pokemons !\n\n";
+    cout << "... et peut etre d'autres dresseurs...\n\n";
+    cout << "Bonne chance !!!";
+    cout << "\n\n\n\n\n\n\n\n\n";
+    cout << "           ---Appuies sur une touche pour continuer" << endl;
+    getChar();
+    wclear();
 }
 
 ////
@@ -51,7 +87,7 @@ void choixStarter (Player *player, Pokemon listePkm[])
     calcPvXp(6, &player->ekip[0]);
     player->ekip[0].pv=player->ekip[0].pvmax;
     wclear();
-    cout << "Bonne chance avec ton " << player->ekip[0].name << " dans le monde des Pokémon !\n\n";
+    cout << "Bonne chance avec ton " << player->ekip[0].name << " dans le monde des Pokemon !\n\n";
     cout << "\n\n\n\n\n\n\n\n\n";
     cout << "---Appuies sur une touche pour continuer..." << endl;
     getChar();
@@ -66,15 +102,15 @@ void choixCaraPlayer(Player* player, char entree){
     switch (entree)
     {
         case 'x' : cara = '0'; break;
-        case '1': cara = '1'; break;
-        case '2': cara = '2'; break;
-        case '3': cara = '3'; break;
+        case '1': cara = 'Q'; break;
+        case '2': cara = 'P'; break;
+        case '3': cara = 'B'; break;
     }
 
     if (cara =='0')
     {
-        cout << "Choisis maintenant ton avatar parmi ces  3 :" << endl << endl << endl;
-        cout << "1: 1" << endl << "2: 2" << endl << "3: 3" << endl;
+        cout << "A quoi ressembles-tu ?:" << endl << endl << endl;
+        cout << "1: Q" << endl << "2: P" << endl << "3: B" << endl << endl;
         entree = getChar();
         if (entree!='1' && entree!='2' && entree!='3')
         {
@@ -88,11 +124,11 @@ void choixCaraPlayer(Player* player, char entree){
 
     if (cara!='0')
     {
-        cout << "Choisis maintenant ton avatar parmi ces  3 :" << endl << endl << endl;
-        cout << "1: 1" << endl << "2: 2" << endl << "3: 3" << endl;
+        cout << "A quoi ressembles-tu ?:" << endl << endl << endl;
+        cout << "1: Q" << endl << "2: P" << endl << "3: B" << endl << endl;
         cout << "Ton avatar est : " << cara << endl << endl;
         cout << "Appuies sur A pour confirmer " <<endl;
-        cout << "Appuies sur un autre numéro pour changer d'avatar" << endl;
+        cout << "Appuies sur un autre numero pour changer d'avatar" << endl;
         char confirmation = getChar();
         switch (confirmation)
         {
@@ -117,9 +153,9 @@ char descriptionStarter(char choix, Pokemon listePkm[]){
     cout << "\n\n\n\n\n\n\n\n\n";
     switch (choix)
     {
-        case '1': cout << "\n Pokémon Salamèche\nType Feu "<<listePkm[1].type.cara<<endl; break;
-        case '2': cout << "\n Pokémon Bulbizarre\nType Plante "<<listePkm[2].type.cara<<endl; break;
-        case '3': cout << "\n Pokémon Carapuce\nType Eau "<<listePkm[3].type.cara<<endl; break;
+        case '1': cout << "\n Pokemon Salamèche\nType Feu "<<listePkm[1].type.cara<<endl; break;
+        case '2': cout << "\n Pokemon Bulbizarre\nType Plante "<<listePkm[2].type.cara<<endl; break;
+        case '3': cout << "\n Pokemon Carapuce\nType Eau "<<listePkm[3].type.cara<<endl; break;
         case 'X': cout <<"\n"; break;
     }
     cout << endl << endl << endl;

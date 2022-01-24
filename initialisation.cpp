@@ -144,7 +144,7 @@ void initListeType (Type listeType[]){
     roche.peuEfficaceContre="combat sol";
     roche.cara= brown + '#' + white;
     roche.bashCouleur=brown;
-    listeType[12]=insecte;
+    listeType[12]=roche;
 
     Type spectre;
     spectre.name="spectre";
