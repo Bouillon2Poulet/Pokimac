@@ -27,7 +27,6 @@ int main()
     // remplissage des maps
     Map* mapForet = remplissageMap("./map/foret.txt");
     Map* mapVolcan = remplissageMap("./map/volcan.txt");
-    //mapVolcan->bgMap = bgBrown;
     Map* mapRiviere = remplissageMap("./map/riviere.txt");
     Map* mapChamps = remplissageMap("./map/champs.txt");
     Map* dansVolcan = remplissageMap("./map/dansVolcan.txt");
@@ -39,7 +38,7 @@ int main()
     int mapwidth = 2;
     int mapheight = 4;
     
-    // permet de donner la map de départ !
+    //Map de départ
     int mapx = 0;
     int mapy = 1;
 
@@ -67,13 +66,13 @@ int main()
     boss.cara = 'X';
     initPokemon(listePokemon,listeAttaque,listeType);
 
-    // initialisation de l'ékip du boss
-    copyPokemon(&listePokemon[0], &boss.ekip[0]); // pika
-    copyPokemon(&listePokemon[1], &boss.ekip[1]); // jsp
-    copyPokemon(&listePokemon[2], &boss.ekip[2]); // jsp
-    copyPokemon(&listePokemon[1], &boss.ekip[3]); // jsp
-    copyPokemon(&listePokemon[2], &boss.ekip[4]); // jsp
-    copyPokemon(&listePokemon[0], &boss.ekip[5]); // jsp
+    //Initialisation de l'ékip du boss
+    copyPokemon(&listePokemon[0], &boss.ekip[0]);
+    copyPokemon(&listePokemon[1], &boss.ekip[1]);
+    copyPokemon(&listePokemon[2], &boss.ekip[2]);
+    copyPokemon(&listePokemon[1], &boss.ekip[3]);
+    copyPokemon(&listePokemon[2], &boss.ekip[4]);
+    copyPokemon(&listePokemon[0], &boss.ekip[5]);
 
 
     boss.ekip[0].pv = 36;
@@ -91,38 +90,32 @@ int main()
     boss.ekip[5].niveau = 25;
 
 
-   
-    initPokemonSauvage (listePokemon, &pokemonSauvage1,mapForet);  //pokemon sauvage du champs
-    initPokemonSauvage (listePokemon, &pokemonSauvage2,mapRiviere);  //pokemon sauvage du champs
-    initPokemonSauvage (listePokemon, &pokemonSauvage3,mapChamps);  //pokemon sauvage du champs
-    initPokemonSauvage (listePokemon, &pokemonSauvage4,mapVolcan);  //pokemon sauvage du champs
-    initPokemonSauvage (listePokemon, &pokemonSauvage5,mapForet);  //pokemon sauvage du champs
-    initPokemonSauvage (listePokemon, &pokemonSauvage6,mapRiviere);  //pokemon sauvage du champs
-    initPokemonSauvage (listePokemon, &pokemonSauvage7,mapChamps);  //pokemon sauvage du champs
-    initPokemonSauvage (listePokemon, &pokemonSauvage8,mapVolcan);  //pokemon sauvage du champs
+    //Initialisation des Pokemons sauvages sur les cartes
+    initPokemonSauvage (listePokemon, &pokemonSauvage1,mapForet);
+    initPokemonSauvage (listePokemon, &pokemonSauvage2,mapRiviere);
+    initPokemonSauvage (listePokemon, &pokemonSauvage3,mapChamps);
+    initPokemonSauvage (listePokemon, &pokemonSauvage4,mapVolcan);
+    initPokemonSauvage (listePokemon, &pokemonSauvage5,mapForet);
+    initPokemonSauvage (listePokemon, &pokemonSauvage6,mapRiviere);
+    initPokemonSauvage (listePokemon, &pokemonSauvage7,mapChamps);
+    initPokemonSauvage (listePokemon, &pokemonSauvage8,mapVolcan);
     
     int nbPokemonSauvage = 8;
 
     Pokemon listePokemonSauvage [8] = {pokemonSauvage1, pokemonSauvage2, pokemonSauvage3, pokemonSauvage4, pokemonSauvage5, pokemonSauvage6, pokemonSauvage7, pokemonSauvage8};
-    
-    //debug();
 
-
-
-    //Initialisations
-
-
-    //Intro 
-
+    //JEU
     intro(&player,listePokemon,listeType);
+
     onMap (&player,&boss, listePokemonSauvage, nbPokemonSauvage, &mapx, &mapy, mapwidth, listeMap);
+
     return 0;
 
 }
 
 
-
- Map* remplissageMap(string adresseMap){
+//Définition de fonction
+ Map* remplissageMap(string adresseMap){ //Remplie les maps à partir des .txt de ./map
     ifstream monFlux(adresseMap); // récup du fichier dans monFlux
     Map* interMap = new Map;
     vector<char> inverse;
@@ -169,7 +162,7 @@ void debug(){
     cin >> debug;
 }
 
-void delay(int secondes){
+void delay(int secondes){ //Fais une pause dans l'execution du programme
     time_t timer;
     time(&timer);
 

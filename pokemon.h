@@ -3,8 +3,13 @@
 #include "main.h"
 
 //Prototypes de fonctions
+//Initialisation
 void initPokemonSauvage (Pokemon listePkm[], Pokemon *pokemonSauvage, Map *map);
-void copyPokemon(Pokemon *source, Pokemon *destination); //Copie un pokémon source vers un pokémon cible pour résoudre le problème des strings qui se copient mal
+
+//Clonage
+void copyPokemon(Pokemon *source, Pokemon *destination); 
 void copyAttaque(Attaque source, Attaque *destination);
 void copyType (Type source, Type *destination);
+
+//Autre
 void calcPvXp(int niveau, Pokemon *pokemon);

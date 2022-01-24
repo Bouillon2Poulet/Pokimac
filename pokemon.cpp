@@ -70,8 +70,8 @@ void copyType (Type source, Type *destination){
     destination->bashCouleur=source.bashCouleur;
 }
 
-void calcPvXp(int niveau, Pokemon *pokemon){//Quand on initialise un pokémon
-    pokemon->niveau=niveau; //La recette pour construire un pokémon
+void calcPvXp(int niveau, Pokemon *pokemon){//La recette pour calculer les pv, xpmax, et dégats d'un pokemon en fonction de son niveau 
+    pokemon->niveau=niveau; 
     pokemon->xp=0;
     pokemon->xpmax=4*niveau;
     pokemon->pvmax=6*niveau + pokemon->constpv;

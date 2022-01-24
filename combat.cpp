@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void introCombatBoss (){
+void introCombatBoss (){ //Intro Boss
     cout << "vous avez atteint la dernière étape de votre voyage !! " << endl << endl;
     cout << "Vous allez devoir combattre votre ennemi de toujours !!" << endl << endl;
     delay(2);
@@ -21,7 +21,7 @@ void introCombatBoss (){
     return;
 }
 
-bool unPerdant (Player* player, Player* boss){
+bool unPerdant (Player* player, Player* boss){ //Vérifie si l'un des deux est perdant
     bool playerPerdant = true;
     bool bossPerdant = true;
     
@@ -41,8 +41,8 @@ bool unPerdant (Player* player, Player* boss){
     return false;
 }
 
-void combatBoss (Player* player, Player* boss){
-    int pileFace = random() % 2;
+void combatBoss (Player* player, Player* boss){//Similaire à combat mais contre un type Player
+    int pileFace = rand() % 2;
     int k = 0;
     
     while (unPerdant(player,boss)==false){
@@ -71,9 +71,7 @@ void combatBoss (Player* player, Player* boss){
                 cout << "Et mainenant MISTER X envoie son dernier atout, le plus puissant !! " << endl;
                 cout << "Son fameux pikachu survolté !!!";
             }
-
         }
-
     }
 
     cout << "le combat est fini" << endl;
@@ -87,9 +85,6 @@ void combatBoss (Player* player, Player* boss){
             fin = getChar();
         }while (fin !='a' && fin != 'A');
 
-
-        player->ekip[0].name = "WINNER";
-        cout << player->ekip[0].name << endl;
         wclear();
         return;
     }
@@ -97,22 +92,21 @@ void combatBoss (Player* player, Player* boss){
         // si on arrive là c'est qu'on a perdu contre lui
     cout << "c'est la looooooooose :(" << endl;
     return;
-
 }
 
 
-void combat(Player *player, Pokemon *pokemonAdverse, int canAttack, bool sauvage){
+void combat(Player *player, Pokemon *pokemonAdverse, int canAttack, bool sauvage){ //Combat entre player et un pokemon
      
     int k = 0;
     
-    if (player->ekip[0].pv<=0) //Si les PV de l'un des pokémons tombe à zéro
+    if (player->ekip[0].pv<=0) //Vérifie si les PV de l'un des pokémons tombe à zéro
     {
         player->ekip[0].pv = 0;
         afficheCombat(player,pokemonAdverse);
         cout << "Ton pokemon " << player->ekip[0].name << " n'a plus de pv" << endl << endl;
 
         
-        // on regarde si on a d'autre pokémon avec de la vie
+        //Vérifie si les autres  Pokemon de l'équipe ont des pv
         while (k<5 && (player->ekip[k].name == "XOX" || player->ekip[k].pv == 0))
         {
             k++;
@@ -128,9 +122,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack, bool sauvage
             return;
         }
         
-        // si on a au moins un autre pokemon avc de la vie
-        // on échange les 2 pokémons
-        // il n'y a pas de choix du suivant
+        //Le Pokemon actif est changé avec le prochain Pokemon de l'équipe qui a des pv
         Pokemon * poketemp = new Pokemon;
         copyPokemon(&player->ekip[k], poketemp);
         copyPokemon(&player->ekip[0], &player->ekip[k]);
@@ -148,21 +140,23 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack, bool sauvage
 
         combat(player, pokemonAdverse, canAttack,sauvage);
     }
-    if (pokemonAdverse->pv<=0)
+    if (pokemonAdverse->pv<=0) //On gagne si le pokemon adverse n'a plus de pv
     {
         pokemonAdverse->pv =0;
         afficheCombat(player,pokemonAdverse);
         cout << "Tu as vaincu le pokemon adverse" << endl;
         srand (time(NULL)); // initialisation de la graine
-        int aleatoire = rand() % 500 + 200;  // entre 0 et 3 attaques
+        int aleatoire = rand() % 500 + 200;  // 700 et 200$
         cout << "Vous gagnez " << aleatoire << " $ !";
         player->inv.argent+=aleatoire;
+        cout << "Votre " << player->ekip[0].name << " a gagne " << player->ekip[0].niveau << " xp !";
+        player->ekip[0].xp+=player->ekip[0].niveau;
         cout << "\n\n\n\n\n\n\n";
         cout <<" ---Appuies sur une touche pour continuer"<< endl;
         getChar();
         wclear();
 
-        if (player->ekip[0].xp >= player->ekip[0].xpmax)
+        if (player->ekip[0].xp >= player->ekip[0].xpmax) //Monter de niveau si xp>=xpmax
         {
             cout << "Votre "<<player->ekip[0].name << " monte de niveau !" << endl << endl;
 
@@ -191,7 +185,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack, bool sauvage
         return;
     }
 
-    if (canAttack!=-1)
+    if (canAttack!=-1) //Premier tour
     {
         afficheCombat(player, pokemonAdverse);
             
@@ -200,10 +194,10 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack, bool sauvage
     }
 
 
-    switch (getChar())
+    switch (getChar()) //Input clavier du joueur
     {
         case '1' :
-            if(canAttack==1)
+            if(canAttack==1) //Attaque
             {
                 wclear();
                 afficheCombat(player,pokemonAdverse);
@@ -220,7 +214,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack, bool sauvage
             }
         break;
         
-        case '2' :
+        case '2' : //Inventaire
             if(canAttack==1)
             {
                 wclear();
@@ -303,7 +297,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack, bool sauvage
             }
         break;
             
-        case '3' :
+        case '3' ://Pokemon
             if(canAttack==1)
             {    
                 wclear();
@@ -345,7 +339,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack, bool sauvage
             }                   
         break;
 
-        case '4' :
+        case '4' ://Fuite (prioritaire sur l'attaque du Pokemon adverse)
             wclear();
             if (sauvage == true) return;
 
@@ -383,9 +377,9 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack, bool sauvage
 
 
 
-int attaque (Player *player, Pokemon *pokemonAdverse)
+int attaque (Player *player, Pokemon *pokemonAdverse) //Gère les attaques pendant le combat
 {
-    for (int i=0;player->ekip[0].attaque[i].puissance!=-1;i++)
+    for (int i=0;player->ekip[0].attaque[i].puissance!=-1;i++)//Affichage des attaques du Pokemon
     {
         cout << " " << i+1 << " " << player->ekip[0].attaque[i].type.cara << player->ekip[0].attaque[i].name << endl;
         cout << "Puissance " << player->ekip[0].attaque[i].puissance<< endl << endl;  
@@ -395,7 +389,7 @@ int attaque (Player *player, Pokemon *pokemonAdverse)
     char input;
     input = getChar();
     int i=0;
-    switch (input)
+    switch (input) //Choix attaque
     {
         case '1' : i=0; break;
         case '2' : i=1; break;
@@ -406,12 +400,12 @@ int attaque (Player *player, Pokemon *pokemonAdverse)
     wclear();
     afficheCombat(player,pokemonAdverse);
     cout << player->ekip[0].name << " utilise " << player->ekip[0].attaque[i].name << endl;
-    calcDamage(player->ekip[0].attaque[i], pokemonAdverse);
+    calcDamage(player->ekip[0].attaque[i], pokemonAdverse); //Calcul des dégats en fonction des types
     getChar();
     return 1;
 }
 
-void afficheCombat (Player *player, Pokemon *pokemonAdverse)
+void afficheCombat (Player *player, Pokemon *pokemonAdverse) //Affiche les deux Pokemons et leur pv
 {
         cout << "------"<<endl;
         cout << "COMBAT" << endl;
@@ -433,9 +427,9 @@ void afficheCombat (Player *player, Pokemon *pokemonAdverse)
         cout << endl << endl;
 }
 
-void calcDamage (Attaque attaque, Pokemon *destination){
+void calcDamage (Attaque attaque, Pokemon *destination){//Calcul des dégats en fonction des types
 
-    if (attaque.type.superEfficaceContre.find(destination->type.name
+    if (attaque.type.superEfficaceContre.find(destination->type.name //Si le type du Pokemon qui reçoit l'attaque est trouvée dans superEfficaceContre du type de l'attaque envoyée
     )!= std::string::npos)
     {
         cout << "C'est très efficace" << endl;
@@ -444,7 +438,7 @@ void calcDamage (Attaque attaque, Pokemon *destination){
         cout <<" ---Appuies sur une touche pour continuer"<< endl;     
         return;
     }
-    if (attaque.type.peuEfficaceContre.find(destination->type.name
+    if (attaque.type.peuEfficaceContre.find(destination->type.name //Si le type du Pokemon qui reçoit l'attaque est trouvée dans peuEfficaceContre du type de l'attaque envoyée
     )!= std::string::npos)
     {
         cout << "C'est peu efficace" << endl;
@@ -453,7 +447,7 @@ void calcDamage (Attaque attaque, Pokemon *destination){
         cout <<" ---Appuies sur une touche pour continuer"<< endl;
         return;
     }
-    else
+    else //Autre
     {
         destination->pv-=attaque.puissance;
         cout << "\n\n\n\n\n\n\n";
@@ -462,10 +456,10 @@ void calcDamage (Attaque attaque, Pokemon *destination){
     }
 }
 
-bool calcCapture(Pokemon *pokemon){
+bool calcCapture(Pokemon *pokemon){ //L'IA détermine si la capture est possible
     int quotient = (pokemon->pvmax/pokemon->pv)*3; //+pv est petit, +quotient est grand, + de chance
-    srand (time(NULL)); //
-    int aleatoire = rand() % 10 + 0;
+    srand (time(NULL));
+    int aleatoire = rand() % 10 + 0;//Tire un nombre entre 0 et 10;
     getChar();
     if (quotient >= aleatoire)
     {

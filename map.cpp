@@ -7,7 +7,7 @@
 using namespace std;
 
 
-void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player *player, Player *boss, Pokemon listePokemonSauvage[], int nbPokemonSauvage)
+void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player *player, Player *boss, Pokemon listePokemonSauvage[], int nbPokemonSauvage) //Actualise l'affichage de la map
 {
 
     int x = 0;
@@ -68,7 +68,7 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player *play
         centrePokemon(player, 'x');
     }
 
-    //MAJ de la map si besoins
+    //MAJ de la map si besoin
     map = listeMap[(*mapx)+mapwidth*(*mapy)];
 
     int nb_aff_ligne = 0;
@@ -95,7 +95,7 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player *play
                     h++;
 
                 }
-                // lancement du fight du boss
+                // Lancement du fight du boss
                 if (player->posx == boss->posx && player->posy == boss->posy && map->adresse == "./map/salleBoss.txt" && boss->ekip[0].pv >0){ 
                     introCombatBoss();
                     combatBoss(player, boss);
@@ -136,7 +136,7 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player *play
 
 
 void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapwidth, Map* listeMap[]){
-    Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
+    Map* map = listeMap[(*mapx)+mapwidth*(*mapy)]; //Gère les inputs de déplacement et d'interactions
         
     
     
@@ -166,8 +166,7 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
             return ;
 
         }
-
-    
+  
     
     if (input=='z')
     {
@@ -244,10 +243,8 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
     
 }
 
-void onMap (Player *player, Player *boss, Pokemon listePokemonSauvage[], int nbPokemonSauvage, int* mapx, int* mapy,int mapwidth, Map* listeMap[])
+void onMap (Player *player, Player *boss, Pokemon listePokemonSauvage[], int nbPokemonSauvage, int* mapx, int* mapy,int mapwidth, Map* listeMap[]) //Gestion du jeu sur la carte
 {    
-    if (player->ekip[0].name == "WINNER") return; // si on a gagné on arrête le jeu
-    
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
     
     updateMap(listeMap, mapx, mapy, mapwidth, player, boss,listePokemonSauvage, nbPokemonSauvage);
@@ -294,7 +291,7 @@ void onMap (Player *player, Player *boss, Pokemon listePokemonSauvage[], int nbP
            onMap(player,boss,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth, listeMap);
         }
     }
-    switch (input)
+    switch (input) //Input pour le menu
     {
         case '1':
         wclear();
@@ -372,13 +369,8 @@ void onMap (Player *player, Player *boss, Pokemon listePokemonSauvage[], int nbP
 }
 
 
-void afficheCouleur(char c, string bgMap, int x, int y){
-    
-    // nb random pour la couleur des fleurs
-    int i = x+y;
-    
-    // on met la couleur du bg de la map
-    //cout << bgMap;
+void afficheCouleur(char c, string bgMap, int x, int y){ //Quel caractère est affichée en quelle couleur
+
     switch (c){
 
         // bleu
@@ -387,10 +379,10 @@ void afficheCouleur(char c, string bgMap, int x, int y){
             cout << blue << c<< white;
         break;
         
-        // marron
+        // jaune
         case '\\':
         case '/':
-            cout << yellow << c<< white; // marron c jaune pour le moment
+            cout << yellow << c<< white;
         break;
 
         // rouge
@@ -406,16 +398,6 @@ void afficheCouleur(char c, string bgMap, int x, int y){
             cout << grey << c;
         break;
 
-        // aléatoire
-        case '@':
-        case '+':
-            
-
-            if (i%4==0) cout << yellow << c << white;
-            if (i%4==1) cout << blue << c<< white;
-            if (i%4==2) cout << purple << c<< white;
-            if (i%4==3) cout << cyan << c<< white;
-        break;
 
         //vert
         case 'T':
@@ -429,12 +411,11 @@ void afficheCouleur(char c, string bgMap, int x, int y){
             cout << white << c<< white;
         
     }
-    // on réinitialise la couleur du bg
-    cout << reset;
+    cout << reset; // reset de la couleur
 }
 
-void checkIfTooClose(Player *player,Pokemon pokemonSauvage1, Map* map){
-    if (map->adresse != pokemonSauvage1.mapNom)
+void checkIfTooClose(Player *player,Pokemon pokemonSauvage1, Map* map){ // vérfie si on est proche d'une case d'un pokémon et change la valeur de player.tooClose
+    if (map->adresse != pokemonSauvage1.mapNom) // effectue le test sur les pokémons de la map actuelle
     {
         player->tooClose = 0;
         return;
@@ -443,16 +424,17 @@ void checkIfTooClose(Player *player,Pokemon pokemonSauvage1, Map* map){
     
     bool tooCloseX=false;
     bool tooCloseY=false;
-    if (player->posx>=pokemonSauvage1.posx-1 && player->posx<=pokemonSauvage1.posx+1)
+
+    if (player->posx>=pokemonSauvage1.posx-1 && player->posx<=pokemonSauvage1.posx+1) // en X
     {
         tooCloseX=true;
     }
 
-    if (player->posy>=pokemonSauvage1.posy-1 && player->posy<=pokemonSauvage1.posy+1)
+    if (player->posy>=pokemonSauvage1.posy-1 && player->posy<=pokemonSauvage1.posy+1)//en Y
     {
         tooCloseY=true;
     }
-    if (tooCloseX==true && tooCloseY==true)
+    if (tooCloseX==true && tooCloseY==true) // resultat final
     {
         player->tooClose=1;
     }
@@ -462,11 +444,10 @@ void checkIfTooClose(Player *player,Pokemon pokemonSauvage1, Map* map){
     }
 }
 
-bool peutBouger(char charMap){
+bool peutBouger(char charMap){// liste des caractères sur lesquels on peut bouger
     
     
     switch (charMap){
-        // liste des caractères sur lesquels on peut bouger
         case ' ':
         case 'C':
         case '+':
@@ -506,19 +487,18 @@ void deplacementPokemonSauvage (Map* map, Pokemon* pokemonSauvage){
     }
 
     // si le déplacement est possible sur la map
-
    if (pokemonSauvage->posx+dx<map->width-1 && pokemonSauvage->posx+dx>1 && pokemonSauvage->posy+dy<map->height-1 && pokemonSauvage->posy+dy>1)
     {
         if (peutBouger(map->Lmap.at(pokemonSauvage->posx+dx + (pokemonSauvage->posy+dy)*map->width)))
         {
             pokemonSauvage->posx = pokemonSauvage->posx+dx;
-            pokemonSauvage->posy = pokemonSauvage->posy+dy;
+            pokemonSauvage->posy = pokemonSauvage->posy+dy; // MAJ des positions
         }
     
     }
 }
 
-void centrePokemon(Player *player, char entree){
+void centrePokemon(Player *player, char entree){ // interactions dans le centre pokemon
     if (entree=='x')
     {
         cout << "Bienvenue au PokeCentre !!!" << endl;
@@ -532,7 +512,7 @@ void centrePokemon(Player *player, char entree){
     }
     switch (entree)
     {
-        case '1':
+        case '1': // SOIN
             wclear();
             afficheEkip(player);
             cout << "Je vais soigner vos Pokemons" << endl;
@@ -550,7 +530,7 @@ void centrePokemon(Player *player, char entree){
             centrePokemon(player, 'x');
         break;
         
-        case '2' :
+        case '2' : // BOUTIQUE
             wclear();
             cout << "Que souhaitez-vous acheter ?" << endl;
             cout << "1 - Pokeball                100$" << endl;
@@ -562,7 +542,7 @@ void centrePokemon(Player *player, char entree){
             switch (getChar())
             {
                 case '1' :
-                    if (player->inv.argent>=100)
+                    if (player->inv.argent>=100)//Vérifie si le joueur a assez d'argent
                     {
                         player->inv.nbPokeball++;
                         player->inv.argent-=100;
@@ -585,7 +565,7 @@ void centrePokemon(Player *player, char entree){
                 break;
 
                 case '2' :
-                    if (player->inv.argent>=200)
+                    if (player->inv.argent>=200) //Vérifie si le joueur a assez d'argent
                     {
                         player->inv.nbPotion++;
                         player->inv.argent-=200;
@@ -608,7 +588,7 @@ void centrePokemon(Player *player, char entree){
                 break;
 
                 case '3' :
-                    if (player->inv.argent>=300)
+                    if (player->inv.argent>=300)//Vérifie si le joueur a assez d'argent
                     {
                         player->inv.nbAntidote++;
                         player->inv.argent-=300;

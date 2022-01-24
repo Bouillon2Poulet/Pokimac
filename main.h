@@ -69,40 +69,8 @@ struct Pokemon{
     int posx;
     int posy;
     Attaque attaque[4];
-
-    // pour les pokemons sauvages, cela définit la map à laquelle ils appartiennent
     string mapNom;
 };
-
-
-
-
-extern Pokemon listePkm []; //Déclaration de la liste
-//extern char map[];
-
-
-//Couleurs texte
-const string red = "\033[31m";
-const string green = "\033[32m";
-const string brown = "\033[1;33m";
-const string blue = "\033[34m";
-const string purple = "\033[35m";
-const string white = "\033[0m";
-const string grey = "\033[90m";
-const string yellow = "\033[33m";
-const string cyan = "\033[36m";
-
-//couleurs background
-const string bgBlack = "\033[40m";
-const string bgRed = "\033[41m";
-const string bgGreen = "\033[42m";
-const string bgBrown = "\033[43m";
-const string bgBlue = "\033[44m";
-const string bgPurple = "\033[45m";
-
-
-
-const string reset = "\e[0m";
 
 
 struct Inventaire{
@@ -142,20 +110,34 @@ struct Player{
     char cara;
 };
 
-//Constantes
+
+extern Pokemon listePkm []; //Déclaration de la liste
+//extern char map[];
 
 
-//Dimensions Map
-extern int width;
-extern int height;
+//Couleurs texte
+const string red = "\033[31m";
+const string green = "\033[32m";
+const string brown = "\033[1;33m";
+const string blue = "\033[34m";
+const string purple = "\033[35m";
+const string white = "\033[0m";
+const string grey = "\033[90m";
+const string yellow = "\033[33m";
+const string cyan = "\033[36m";
+
+//couleurs background
+const string bgBlack = "\033[40m";
+const string bgRed = "\033[41m";
+const string bgGreen = "\033[42m";
+const string bgBrown = "\033[43m";
+const string bgBlue = "\033[44m";
+const string bgPurple = "\033[45m";
+
+const string reset = "\e[0m";
+
 
 //Prototypes de fonctions
 Map* remplissageMap(string adresseMap);
-//bool checkInput(char reponse);
-
-
-
-
-
 void debug();
 void delay(int secondes);

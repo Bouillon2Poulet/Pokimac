@@ -3,14 +3,14 @@
 #include "pokemon.h"
 using namespace std;
 
-void initPlayer (Player *player)
+void initPlayer (Player *player) //Initialise le joueur
 {
     initPositionPlayer (player, 5,10);
     initInventaire(&player->inv);
     initEkip(player);
 }
 
-void initPositionPlayer (Player *player, int posx, int posy){
+void initPositionPlayer (Player *player, int posx, int posy){ //Initialise la position du joueur
     player->posx = posx;
     player->posy = posy;
     player->tooClose=0;
@@ -18,7 +18,7 @@ void initPositionPlayer (Player *player, int posx, int posy){
     player->posyAv = posy;
 }
 
-void initInventaire(Inventaire *inv){
+void initInventaire(Inventaire *inv){ //Initialise l'inventaire du joueur
     inv->nbPotion = 3;
     inv->nbPokeball = 2;
     inv->nbAntidote = 1;
@@ -26,7 +26,7 @@ void initInventaire(Inventaire *inv){
     inv->argent = 1000;
 }
 
-void initEkip(Player *player){
+void initEkip(Player *player){ //Initialise l'équipe du joueur
     for (int i=0; i<6; i++)
     {
         player->ekip[i].name="XOX";
@@ -34,14 +34,14 @@ void initEkip(Player *player){
     }
 }
 
-void initPokemon (Pokemon listePokemon[], Attaque listeAttaque[], Type listeType[])
+void initPokemon (Pokemon listePokemon[], Attaque listeAttaque[], Type listeType[]) //Initialise tous les Pokemons
 {
     initListeType (listeType);
     initListeAttaque (listeAttaque, listeType);
     initListePokemon(listePokemon,listeAttaque,listeType); 
 }
 
-void initListeType (Type listeType[]){
+void initListeType (Type listeType[]){ //Initialise les Types
 
     Type normal;
     normal.name="normal";
@@ -163,7 +163,7 @@ void initListeType (Type listeType[]){
     dragon.bashCouleur=blue;
     listeType[14]=dragon;
 }
-void initListeAttaque(Attaque listeAttaque[],Type listeType[]){
+void initListeAttaque(Attaque listeAttaque[],Type listeType[]){//Initialise les Attaques
     Attaque griffe;
     griffe.name= "griffe"+white;
     griffe.type=listeType[0];
@@ -196,16 +196,15 @@ void initListeAttaque(Attaque listeAttaque[],Type listeType[]){
 
 }
 
-void initListePokemon(Pokemon listePkm[], Attaque listeAttaque[],Type listeType[])
+void initListePokemon(Pokemon listePkm[], Attaque listeAttaque[],Type listeType[]) //Initialise la liste des Pokemons, leurs attaques et types
 {
     Pokemon pikachu;
     pikachu.name = "Pikachu";
     copyType(listeType[4], &pikachu.type);
     pikachu.constpv = 5;
-    pikachu.constatak = 3; //plus constatak est faible, plus les attaques du pokémon gagneront de puissance quand il lvl up
+    pikachu.constatak = 3;
     initAttaque(pikachu.attaque);
     copyAttaque(listeAttaque[0], &pikachu.attaque[0]);
-    //copyAttaque(listeAttaque[1], &pikachu.attaque[1]);
     copyAttaque(listeAttaque[4], &pikachu.attaque[2]);
     listePkm[0] = pikachu;
 
@@ -241,7 +240,7 @@ void initListePokemon(Pokemon listePkm[], Attaque listeAttaque[],Type listeType[
     listePkm[3] = carapuce;
 }
 
-void initAttaque(Attaque attaque[]){
+void initAttaque(Attaque attaque[]){ //Initialise toutes les attaques d'un Pokemon avant copyAttaque
     for (int i=0;i<4;i++)
     {
         attaque[i].name = "xxx";

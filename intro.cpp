@@ -3,7 +3,7 @@
 #include "pokemon.h"
 using namespace std;
 
-void intro (Player *player, Pokemon listePkm[], Type listeType[])
+void intro (Player *player, Pokemon listePkm[], Type listeType[]) //Intro partie 1
 {
     wclear();
     cout << "Bienvenue dans le monde des Pokemons..." << endl;
@@ -24,14 +24,14 @@ void intro (Player *player, Pokemon listePkm[], Type listeType[])
     player->pseudo=input;
     wclear();
     
-    choixCaraPlayer(player, 'x');
+    choixCaraPlayer(player, 'x'); //Choix du caractère représentant le joueur
 
     cout << "C PARTI !!!\nAlors " << player->pseudo << ", tu te crois capable de pouvoir etre le meilleur dresseur de Pokemon ?" << endl << endl;
     cout << "\n\n\n\n\n\n\n\n\n";
     cout << "           ---Appuies sur une touche pour continuer" << endl;
     getChar();
     wclear();
-    choixStarter(player, listePkm);
+    choixStarter(player, listePkm); //Choix du starter
 
     cout << "Les Pokemons sont des creatures merveilleuses," << endl;
     cout << "qui peuplent le monde que tu t'appretes a parcourir..." << endl;
@@ -71,9 +71,8 @@ void intro (Player *player, Pokemon listePkm[], Type listeType[])
     wclear();
 }
 
-////
 
-void choixStarter (Player *player, Pokemon listePkm[])
+void choixStarter (Player *player, Pokemon listePkm[]) //Choix du starter
 {
     char a='X';
     int b;
@@ -95,7 +94,7 @@ void choixStarter (Player *player, Pokemon listePkm[])
     return;
 }
 
-void choixCaraPlayer(Player* player, char entree){
+void choixCaraPlayer(Player* player, char entree){ //Choix du caractère représentant le joueur
     wclear(); 
 
     char cara;
@@ -143,7 +142,7 @@ void choixCaraPlayer(Player* player, char entree){
     }
 }
 
-char descriptionStarter(char choix, Pokemon listePkm[]){
+char descriptionStarter(char choix, Pokemon listePkm[]){ //Affiche la description des Starters
     wclear();
     cout << "Choix du Pokemon :" << endl;
     for (int i =1;i<=3;i++)

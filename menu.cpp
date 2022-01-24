@@ -1,7 +1,7 @@
 #include <iostream>
 #include "menu.h"
 using namespace std;
-void afficheMenu(const Player *player){
+void afficheMenu(const Player *player){ 
     cout << endl << "----------" << endl << endl;
     cout << "1 : Inventaire" << endl;
     cout << "2 : Pokemons" << endl;
@@ -19,7 +19,7 @@ void afficheInventaire(Inventaire inv){
     cout << "Argent : " << inv.argent << endl << endl << endl;
 }
 
-int compteEkip(Player *player){
+int compteEkip(Player *player){ //retourne le nombre de Pokemon dans l'équipe du joueur
     int compteur=0;
     while (player->ekip[compteur].name!="XOX")
     {
