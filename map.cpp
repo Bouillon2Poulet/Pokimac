@@ -98,9 +98,28 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player *play
                 // Lancement du fight du boss
                 if (player->posx == boss->posx && player->posy == boss->posy && map->adresse == "./map/salleBoss.txt" && boss->ekip[0].pv >0){ 
                     introCombatBoss();
-                    combatBoss(player, boss);
-                    exit(0);
-                }
+                    if (combatBoss(player, boss)==true) exit(0); //true = victoire ace au boss
+
+                    
+                    // sinon retour au centre pokemon
+                    *mapx = 0;
+                    *mapy = 3;
+
+                    cout << "Tous tes pokemons n'ont plus de PV !!" << endl<< endl;
+                    cout << "Tu te rends au Centre Pokemon pour les soigner !" << endl << endl;
+
+                    cout << "Appuie sur une touche pour continuer l'aventure !" << endl;
+                    getChar();
+                    player->posy = listeMap[6]->height-3;
+                    player->posx = listeMap[6]->width/2;
+                    player->posyAv = player->posy;
+                    player->posxAv = player->posyAv;
+
+                    // le soin des pokémons
+                    for (int i = 0;i<5; i++){
+                        player->ekip[i].pv = player->ekip[i].pvmax;
+                    }
+                            }
 
                 
                 if ((h==player->posxAv && j==player->posyAv)) // Affichage Pokémon qui suit 

@@ -15,4 +15,4 @@ bool calcCapture(Pokemon *pokemon);
 //BOSS Fight
 bool unPerdant (Player *player, Player* boss);
 void introCombatBoss ();
-void combatBoss (Player* player, Player* boss);
+bool combatBoss (Player* player, Player* boss);

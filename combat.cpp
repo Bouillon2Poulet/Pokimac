@@ -9,7 +9,7 @@
 using namespace std;
 
 void introCombatBoss (){ //Intro Boss
-    cout << "vous avez atteint la dernière étape de votre voyage !! " << endl << endl;
+    cout << "vous avez atteint la dernière etape de votre voyage !! " << endl << endl;
     cout << "Vous allez devoir combattre votre ennemi de toujours !!" << endl << endl;
     delay(2);
     cout << "MIS"; 
@@ -41,7 +41,7 @@ bool unPerdant (Player* player, Player* boss){ //Vérifie si l'un des deux est p
     return false;
 }
 
-void combatBoss (Player* player, Player* boss){//Similaire à combat mais contre un type Player
+bool combatBoss (Player* player, Player* boss){//Similaire à combat mais contre un type Player
     int pileFace = rand() % 2;
     int k = 0;
     
@@ -86,12 +86,12 @@ void combatBoss (Player* player, Player* boss){//Similaire à combat mais contre
         }while (fin !='a' && fin != 'A');
 
         wclear();
-        return;
+        return true;
     }
 
         // si on arrive là c'est qu'on a perdu contre lui
     cout << "c'est la looooooooose :(" << endl;
-    return;
+    return false;
 }
 
 
@@ -235,6 +235,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack, bool sauvage
                             player->inv.nbPotion--;
                             cout <<" ---Appuies sur une touche pour continuer"<< endl;
                             player->ekip[0].pv+=10;
+                            wclear();
                             getChar();
                             combat(player,pokemonAdverse,0,sauvage);
                         }
