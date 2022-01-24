@@ -4,18 +4,19 @@ using namespace std;
 void afficheMenu(const Player *player){
     cout << endl << "----------" << endl << endl;
     cout << "1 : Inventaire" << endl;
-    cout << "2 : Pokémons" << endl;
+    cout << "2 : Pokemons" << endl;
     cout << "3 : "<< player->pseudo << endl;
 }
 
 void afficheInventaire(Inventaire inv){
-    cout<<"-----"<<endl;
+    cout<< endl;
     cout << "- INVENTAIRE -" << endl ;
-    cout<<"-----"<<endl;
+    cout<< endl;
     cout << "1 Potion : " << inv.nbPotion << endl;
     cout << "2 Pokeball " << inv.nbPokeball << endl;
     cout << "3 Antidote : " << inv.nbAntidote << endl;
-    cout << "4 Argent : " << inv.argent << endl << endl << endl;
+    cout << endl << endl << endl;
+    cout << "Argent : " << inv.argent << endl << endl << endl;
 }
 
 int compteEkip(Player *player){
@@ -39,9 +40,10 @@ void afficheEkip(Player *player){
 }
 void affichePlayer(Player *player){
     wclear();
-    cout << "Dresseur.e > " << player->pseudo << endl;
+    cout << "Dresseur.e :" << endl;
+    cout << "\nPseudo :" << player->pseudo << endl;
     cout << "-----"<<endl;
-    cout << "Nombre de Pokemon > "<< compteEkip(player) << endl;
+    cout << "Nombre de Pokemon : "<< compteEkip(player) << endl;
     for (int i = 0;i<compteEkip(player);i++)
     {
         cout << player->ekip[i].type.cara << " ";

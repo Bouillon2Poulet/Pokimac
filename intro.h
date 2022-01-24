@@ -2,7 +2,7 @@
 #include <iostream>
 #include "main.h"
 
-void intro (Player *player, Pokemon listePokemon[]);
+void intro (Player *player, Pokemon listePokemon[], Type listeType[]);
 void choixStarter (Player *player, Pokemon listePkm[]);
 char descriptionStarter(char a, Pokemon listePkm[]);
 bool starterText (int input);

@@ -280,7 +280,7 @@ void onMap (Player *player, Player *boss, Pokemon listePokemonSauvage[], int nbP
             pokemonSauvage = &listePokemonSauvage[i];
             checkIfTooClose(player,*pokemonSauvage, map);
         }
-        if (player->tooClose==1)
+        if (player->tooClose==1 && player->ekip[0].pv>0)
         {
             srand (time(NULL)); // initialisation de la graine
             int canAttack = rand() % 1;  // pile ou face pour commencer
@@ -300,7 +300,7 @@ void onMap (Player *player, Player *boss, Pokemon listePokemonSauvage[], int nbP
         wclear();
         afficheInventaire(player->inv);
         
-        cout << "Appuies sur le numéro pour utiliser" << endl;
+        cout << "Appuies sur le numero pour utiliser" << endl;
         cout << "Appuyez sur X pour revenir sur la map" << endl;
         switch (getChar())
         {
@@ -354,23 +354,19 @@ void onMap (Player *player, Player *boss, Pokemon listePokemonSauvage[], int nbP
         case '2':
         wclear();
         afficheEkip(player);
-        cout << "Appuyez sur X pour revenir sur la map" << endl;
-        if  (getChar()=='x')
-        {
-            wclear();
-            onMap(player,boss,listePokemonSauvage,nbPokemonSauvage, mapx, mapy,mapwidth, listeMap);
-        }
+        cout << "\n\n\nAppuyez sur une touche pour revenir sur la map" << endl;
+        getChar();
+        wclear();
+        onMap(player,boss,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth,listeMap);    
         break;
         
         case '3':
         wclear();
         affichePlayer(player);
-        cout << "\n\n\nAppuyez sur X pour revenir sur la map" << endl;
-        if  (getChar()=='x')
-        {
-            wclear();
-            onMap(player,boss,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth,listeMap);
-        }
+        cout << "\n\n\nAppuyez sur une touche pour revenir sur la map" << endl;
+        getChar();
+        wclear();
+        onMap(player,boss, listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth,listeMap);     
         break;
     }
 }
@@ -392,11 +388,13 @@ void afficheCouleur(char c, string bgMap, int x, int y){
         break;
         
         // marron
+        case '\\':
         case '/':
             cout << yellow << c<< white; // marron c jaune pour le moment
         break;
 
         // rouge
+        case 'C':
         case '.':
             cout << red << c;
         break;
@@ -441,11 +439,6 @@ void checkIfTooClose(Player *player,Pokemon pokemonSauvage1, Map* map){
         player->tooClose = 0;
         return;
     }
-    if (pokemonSauvage1.pv <=0)
-    {
-        player->tooClose = 0;
-        return;
-    }
     
     
     bool tooCloseX=false;
@@ -462,10 +455,6 @@ void checkIfTooClose(Player *player,Pokemon pokemonSauvage1, Map* map){
     if (tooCloseX==true && tooCloseY==true)
     {
         player->tooClose=1;
-    }
-    if (player->ekip[0].pv<=0)
-    {
-        player->tooClose=0;
     }
     else
     {
@@ -546,7 +535,7 @@ void centrePokemon(Player *player, char entree){
         case '1':
             wclear();
             afficheEkip(player);
-            cout << "Je vais soigner vos pokémons" << endl;
+            cout << "Je vais soigner vos Pokemons" << endl;
             for (int i=0;i<compteEkip(player);i++)
             {
                 player->ekip[i].pv=player->ekip[i].pvmax;

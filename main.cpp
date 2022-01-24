@@ -106,7 +106,7 @@ int main()
 
     //Intro 
 
-    intro(&player,listePokemon);
+    intro(&player,listePokemon,listeType);
     onMap (&player,&boss, listePokemonSauvage, nbPokemonSauvage, &mapx, &mapy, mapwidth, listeMap);
     return 0;
 
