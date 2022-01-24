@@ -49,7 +49,7 @@ void combatBoss (Player* player, Player* boss){
         wclear();
         cout << "Mister X envoie : " << boss->ekip[0].type.cara << " " << boss->ekip[0].name << endl << endl;
         
-        combat (player, &boss->ekip[0],pileFace);
+        combat (player, &boss->ekip[0],pileFace, false);
         player->ekip[0].pv = player->ekip[0].pvmax;
         
         if (boss->ekip[0].pv == 0) // Si j'ai battu le pokémon du boss
@@ -96,7 +96,7 @@ void combatBoss (Player* player, Player* boss){
 }
 
 
-void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
+void combat(Player *player, Pokemon *pokemonAdverse, int canAttack, bool sauvage){
      
     int k = 0;
     
@@ -141,7 +141,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
         delay(1);
         wclear();
 
-        combat(player, pokemonAdverse, canAttack);
+        combat(player, pokemonAdverse, canAttack,sauvage);
     }
     if (pokemonAdverse->pv<=0)
     {
@@ -205,12 +205,12 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                 if (attaque(player, pokemonAdverse)!=-1)
                 {
                     wclear();
-                    combat(player,pokemonAdverse,0); 
+                    combat(player,pokemonAdverse,0,sauvage); 
                 }
                 else
                 {
                     wclear();
-                    combat(player,pokemonAdverse,1); 
+                    combat(player,pokemonAdverse,1,sauvage); 
                 }
             }
         break;
@@ -237,7 +237,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                             cout <<" ---Appuies sur une touche pour continuer"<< endl;
                             player->ekip[0].pv+=10;
                             getChar();
-                            combat(player,pokemonAdverse,0);
+                            combat(player,pokemonAdverse,0,sauvage);
                         }
                         else
                         {
@@ -253,7 +253,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
 
                     case '2' : 
                         wclear();
-                        if (player->inv.nbPokeball>0)
+                        if (player->inv.nbPokeball>0 && sauvage == true)
                         {
                             afficheCombat(player,pokemonAdverse);
                             cout << "Vous lancez une pokeball !" << endl;
@@ -278,7 +278,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                                 cout <<" ---Appuies sur une touche pour continuer"<< endl;
                                 getChar();
                                 wclear();
-                                combat(player,pokemonAdverse,0);      
+                                combat(player,pokemonAdverse,0,sauvage);      
                             }
 
                         }
@@ -291,7 +291,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                             wclear();
                             canAttack=0;
                             wclear();
-                            combat(player,pokemonAdverse,1);                            
+                            combat(player,pokemonAdverse,1, sauvage);                            
                         }
                     break;
                 }
@@ -331,11 +331,11 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                     cout << player->ekip[0].name << ", a ton tour !!!" << endl;
                     getChar();
                     wclear();
-                    combat(player,pokemonAdverse,0);  
+                    combat(player,pokemonAdverse,0,sauvage);  
                 }
                 else
                 {
-                    combat(player,pokemonAdverse,1);  
+                    combat(player,pokemonAdverse,1,sauvage);  
                 }
             }                   
         break;
@@ -347,7 +347,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
 
         default:
             wclear();
-            combat(player,pokemonAdverse,1);
+            combat(player,pokemonAdverse,1,sauvage);
     }
 
 
@@ -363,7 +363,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
         calcDamage(pokemonAdverse->attaque[aleatoire], &player->ekip[0]);
         getChar();
         wclear();
-        combat(player,pokemonAdverse,1);
+        combat(player,pokemonAdverse,1,sauvage);
     }
 }
 

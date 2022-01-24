@@ -25,7 +25,7 @@ int compteEkip(Player *player){
     {
         compteur++;
     }
-    return compteur;
+    return compteur;<< player->ekip[i].pv << "/" << player->ekip[i].pvmax << endl<<endl;
 }
 
 void afficheEkip(Player *player){
@@ -34,7 +34,9 @@ void afficheEkip(Player *player){
     {
         cout<<i+1<<" - " <<  player->ekip[i].name << " " << player->ekip[i].type.cara << endl;
         cout << "Niveau :" << player->ekip[i].niveau << endl;
+        cout << "XP : " << player->ekip[i].xp << "/" << player->ekip[i].xpmax << endl<<endl;
         cout << "PV :" << player->ekip[i].pv << "/" << player->ekip[i].pvmax << endl<<endl;
+
     }
 
 }
@@ -49,4 +51,3 @@ void affichePlayer(Player *player){
         cout << player->ekip[i].type.cara << " ";
     }
 }
-

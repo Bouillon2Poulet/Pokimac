@@ -173,7 +173,7 @@ void initListeAttaque(Attaque listeAttaque[],Type listeType[]){
     Attaque flameche;
     flameche.name="flameche"+white;
     flameche.type=listeType[1];
-    flameche.puissance=20;
+    flameche.puissance=17;
     listeAttaque[1]=flameche;
 
     Attaque fouet_liane;
@@ -188,6 +188,12 @@ void initListeAttaque(Attaque listeAttaque[],Type listeType[]){
     pistolet_a_o.puissance=18;
     listeAttaque[3]=pistolet_a_o;
 
+    Attaque eclair;
+    eclair.name="eclair"+white;
+    eclair.type=listeType[4];;
+    eclair.puissance=19;
+    listeAttaque[4]=eclair;
+
 }
 
 void initListePokemon(Pokemon listePkm[], Attaque listeAttaque[],Type listeType[])
@@ -199,8 +205,8 @@ void initListePokemon(Pokemon listePkm[], Attaque listeAttaque[],Type listeType[
     pikachu.constatak = 3; //plus constatak est faible, plus les attaques du pokémon gagneront de puissance quand il lvl up
     initAttaque(pikachu.attaque);
     copyAttaque(listeAttaque[0], &pikachu.attaque[0]);
-    copyAttaque(listeAttaque[1], &pikachu.attaque[1]);
-    copyAttaque(listeAttaque[2], &pikachu.attaque[2]);
+    //copyAttaque(listeAttaque[1], &pikachu.attaque[1]);
+    copyAttaque(listeAttaque[4], &pikachu.attaque[2]);
     listePkm[0] = pikachu;
 
     Pokemon salameche;
@@ -211,7 +217,7 @@ void initListePokemon(Pokemon listePkm[], Attaque listeAttaque[],Type listeType[
     initAttaque(salameche.attaque);
     copyAttaque(listeAttaque[0], &salameche.attaque[0]);
     copyAttaque(listeAttaque[1], &salameche.attaque[1]);
-    copyAttaque(listeAttaque[2], &salameche.attaque[2]);
+    //copyAttaque(listeAttaque[2], &salameche.attaque[2]);
     listePkm[1] = salameche;
 
     Pokemon bulbizarre;

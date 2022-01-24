@@ -284,7 +284,7 @@ void onMap (Player *player, Player *boss, Pokemon listePokemonSauvage[], int nbP
         {
             srand (time(NULL)); // initialisation de la graine
             int canAttack = rand() % 1;  // pile ou face pour commencer
-            combat(player,pokemonSauvage,canAttack);
+            combat(player,pokemonSauvage,canAttack, true);
             wclear();
             player->tooClose=0;
             onMap(player,boss, listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth, listeMap);            
