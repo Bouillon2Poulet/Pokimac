@@ -42,8 +42,9 @@ int main()
     int mapy = 1;
 
     //Declarations
-    //Joueur et Pokémon Sauvage
+    //Joueur, le Boss et Pokémon Sauvage
     Player player;
+    Player boss;
     Pokemon pokemonSauvage1;
     Pokemon pokemonSauvage2;
     Pokemon pokemonSauvage3;
@@ -59,7 +60,26 @@ int main()
 
     //Initialisation
     initPlayer (&player);
+    initPlayer (&boss);
+    initPositionPlayer(&boss, 9, 3); // la position du boss dans la salle du boss
+    boss.cara = 'X';
     initPokemon(listePokemon,listeAttaque,listeType);
+
+    // initialisation de l'ékip du boss
+    copyPokemon(&listePokemon[0], &boss.ekip[0]); // pika
+    copyPokemon(&listePokemon[1], &boss.ekip[1]); // jsp
+    copyPokemon(&listePokemon[2], &boss.ekip[2]); // jsp
+    copyPokemon(&listePokemon[2], &boss.ekip[3]); // jsp
+    copyPokemon(&listePokemon[2], &boss.ekip[4]); // jsp
+    copyPokemon(&listePokemon[2], &boss.ekip[5]); // jsp
+
+
+    boss.ekip[0].pv = 10;
+    boss.ekip[1].pv = 10;
+    boss.ekip[2].pv = 10;
+    boss.ekip[3].pv = 10;
+    boss.ekip[4].pv = 10;
+    boss.ekip[5].pv = 10;
 
    
     initPokemonSauvage (listePokemon, &pokemonSauvage1,mapForet);  //pokemon sauvage du champs
@@ -85,7 +105,7 @@ int main()
     //Intro 
 
     intro(&player,listePokemon);
-    onMap (player, listePokemonSauvage, nbPokemonSauvage, &mapx, &mapy, mapwidth, listeMap);
+    onMap (player,boss, listePokemonSauvage, nbPokemonSauvage, &mapx, &mapy, mapwidth, listeMap);
     return 0;
 
 }

@@ -8,6 +8,85 @@
 
 using namespace std;
 
+void introCombatBoss (){
+    cout << "vous avez atteint la dernière étape de votre voyage !! " << endl << endl;
+    cout << "Vous allez devoir combattre votre ennemi de toujours !!" << endl << endl;
+    delay(2);
+    cout << "MIS"; 
+    cout << "TER ";
+    cout << " X" << endl << endl;
+    delay (2);
+    cout << "Appuies sur une touche pour continuer ";
+    getChar();
+    return;
+}
+
+bool unPerdant (Player* player, Player* boss){
+    bool playerPerdant = true;
+    bool bossPerdant = true;
+    
+    // player perdant ?
+    for (int i = 0; i<6; i++){
+        if (player->ekip[i].pv>0) playerPerdant = false;
+    }
+
+    // boss perdant ?
+    for (int i = 0; i<6; i++){
+        if (boss->ekip[i].pv>0) bossPerdant = false;
+    }
+    if (playerPerdant || bossPerdant == true) {
+        return true;
+    }
+
+    return false;
+}
+
+void combatBoss (Player* player, Player* boss){
+    int pileFace = random() % 2;
+    int k = 0;
+    
+    while (unPerdant(player,boss)==false){
+        wclear();
+        cout << "Mister X envoie : " << boss->ekip[0].type.cara << " " << boss->ekip[0].name << endl << endl;
+        
+        combat (player, &boss->ekip[0],pileFace);
+        player->ekip[0].pv = player->ekip[0].pvmax;
+        
+        if (boss->ekip[0].pv == 0) // Si j'ai battu le pokémon du boss
+        {
+            k =1;
+            for (int i=0; i<5;i++){ // on récup son premier pokémon qui a de la vie
+                if (k < 5 && boss->ekip[k].pv == 0) k++; // sécurité
+            }
+            
+            // on échange les 2 pokémons !!
+            Pokemon * poketemp = new Pokemon;
+            copyPokemon(&boss->ekip[k], poketemp);
+            copyPokemon(&boss->ekip[0], &boss->ekip[k]);
+            copyPokemon(poketemp, &boss->ekip[0]);
+            
+            delete poketemp;
+
+        }
+
+    }
+
+    cout << "le combat est fini" << endl;
+
+    if (k==5) { // tous ses pokémons n'ont plus de pv -> C'EST LA WIN
+        cout << "GGGGGGGGGGGGGGGGGGGGGG tu as ez win" << endl << endl;
+        player->ekip[0].name = "WINNER";
+        cout << player->ekip[0].name << endl;
+        return;
+    }
+
+        // si on arrive là c'est qu'on a perdu contre lui
+    cout << "c'est la looooooooose :(" << endl;
+    return;
+
+}
+
+
 void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
      
     int sortie =-1;

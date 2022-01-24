@@ -7,11 +7,14 @@
 using namespace std;
 
 
-void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage)
+void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player player, Player boss, Pokemon listePokemonSauvage[], int nbPokemonSauvage)
 {
+
+    
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
     int nb_aff_ligne = 0;
     bool aff_car = true;
+
 
     for (int j=0; j<map->height; j++)
         {
@@ -23,6 +26,20 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
                     cout << white << player.cara;
                     nb_aff_ligne ++;
                     h++;
+                }
+                
+
+
+                if (map->adresse == "./map/salleBoss.txt" && h==boss.posx && j==boss.posy){ // Affichage du boss
+                    cout << white << boss.cara;
+                    nb_aff_ligne ++;
+                    h++;
+
+                }
+                if (player.posx == boss.posx && player.posy == boss.posy && map->adresse == "./map/salleBoss.txt" && boss.ekip[0].pv >0){ // lancement du fight du boss
+                    introCombatBoss();
+                    combatBoss(&player, &boss);
+                    exit(0);
                 }
 
                 if ((h==player.posxAv && j==player.posyAv)) // Affichage Pokémon qui suit 
@@ -165,12 +182,13 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
     
 }
 
-void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, int* mapx, int* mapy,int mapwidth, Map* listeMap[])
+void onMap (Player player,Player boss, Pokemon listePokemonSauvage[], int nbPokemonSauvage, int* mapx, int* mapy,int mapwidth, Map* listeMap[])
 {    
+    if (player.ekip[0].name == "WINNER") return; // si on a gagné on arrête le jeu
+    
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
     
-    
-    updateMap(listeMap, mapx, mapy, mapwidth, player, listePokemonSauvage, nbPokemonSauvage);
+    updateMap(listeMap, mapx, mapy, mapwidth, player,boss, listePokemonSauvage, nbPokemonSauvage);
     afficheMenu(&player);
     char input;
     
@@ -207,11 +225,11 @@ void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, 
             combat(&player,pokemonSauvage,canAttack);
             wclear();
             player.tooClose=0;
-            onMap(player,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth, listeMap);            
+            onMap(player,boss,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth, listeMap);            
         }
         else
         {
-           onMap(player,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth, listeMap);
+           onMap(player,boss,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth, listeMap);
         }
     }
     switch (input)
@@ -226,7 +244,7 @@ void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, 
         {
             case 'x':
                 wclear();
-            onMap(player,listePokemonSauvage,nbPokemonSauvage, mapx, mapy,mapwidth, listeMap);
+            onMap(player,boss,listePokemonSauvage,nbPokemonSauvage, mapx, mapy,mapwidth, listeMap);
                 break;
             
             case '1':
@@ -255,7 +273,7 @@ void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, 
                 cout <<" ---Appuies sur une touche pour continuer"<< endl;
                 getChar();
                 wclear();
-                onMap(player,listePokemonSauvage,nbPokemonSauvage, mapx, mapy,mapwidth, listeMap);
+                onMap(player,boss,listePokemonSauvage,nbPokemonSauvage, mapx, mapy,mapwidth, listeMap);
             }
             
             else
@@ -265,7 +283,7 @@ void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, 
                 cout <<" ---Appuies sur une touche pour continuer"<< endl;
                 getChar();
                 wclear();
-                onMap(player,listePokemonSauvage,nbPokemonSauvage, mapx, mapy,mapwidth, listeMap);
+                onMap(player,boss,listePokemonSauvage,nbPokemonSauvage, mapx, mapy,mapwidth, listeMap);
             }
                 
         }
@@ -278,7 +296,7 @@ void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, 
         if  (getChar()=='x')
         {
             wclear();
-            onMap(player,listePokemonSauvage,nbPokemonSauvage, mapx, mapy,mapwidth, listeMap);
+            onMap(player,boss,listePokemonSauvage,nbPokemonSauvage, mapx, mapy,mapwidth, listeMap);
         }
         break;
         
@@ -289,7 +307,7 @@ void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, 
         if  (getChar()=='x')
         {
             wclear();
-            onMap(player,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth,listeMap);
+            onMap(player,boss,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth,listeMap);
         }
         break;
     }
@@ -408,6 +426,7 @@ bool peutBouger(char charMap){
         case 'w':
             return true;
         break;
+
 
         // les autres qui sont bloquants
         default : 

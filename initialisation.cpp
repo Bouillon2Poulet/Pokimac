@@ -29,6 +29,7 @@ void initEkip(Player *player){
     for (int i=0; i<6; i++)
     {
         player->ekip[i].name="XOX";
+        player->ekip[i].pv = 0;
     }
 }
 
