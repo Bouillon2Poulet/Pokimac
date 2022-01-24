@@ -1,5 +1,7 @@
 #include <iostream>
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
 //Headers
 #include "main.h"
@@ -28,14 +30,14 @@ int main()
     //mapVolcan->bgMap = bgBrown;
     Map* mapRiviere = remplissageMap("./map/riviere.txt");
     Map* mapChamps = remplissageMap("./map/champs.txt");
-    //mapRiviere->bgMap = bgGreen;
     Map* dansVolcan = remplissageMap("./map/dansVolcan.txt");
     Map* salleBoss = remplissageMap("./map/salleBoss.txt");
+    Map* centrePokemon = remplissageMap("./map/centrePokemon.txt");
 
 
-    Map* listeMap[6] = {mapVolcan,mapRiviere,mapChamps,mapForet,dansVolcan, salleBoss};
+    Map* listeMap[7] = {mapVolcan,mapRiviere,mapChamps,mapForet,dansVolcan, salleBoss, centrePokemon};
     int mapwidth = 2;
-    int mapheight = 3;
+    int mapheight = 4;
     
     // permet de donner la map de départ !
     int mapx = 0;
@@ -105,7 +107,7 @@ int main()
     //Intro 
 
     intro(&player,listePokemon);
-    onMap (player,boss, listePokemonSauvage, nbPokemonSauvage, &mapx, &mapy, mapwidth, listeMap);
+    onMap (&player,&boss, listePokemonSauvage, nbPokemonSauvage, &mapx, &mapy, mapwidth, listeMap);
     return 0;
 
 }

@@ -7,11 +7,70 @@
 using namespace std;
 
 
-void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player player, Player boss, Pokemon listePokemonSauvage[], int nbPokemonSauvage)
+void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player *player, Player *boss, Pokemon listePokemonSauvage[], int nbPokemonSauvage)
 {
 
-    
+    int x = 0;
+    // on vérifie quele joueur a bien tous ses pokémons avec de la vie
+    for (int i = 0; i<5; i++){
+        if (player->ekip[i].pv == 0) x++;
+    }
+
+    // si ce n'est pas le cas,on le renvoie dans le centre pokémon où tous ses pokémons seront soigné
+    if (x == 5){
+        *mapx = 0;
+        *mapy = 3;
+
+        cout << "Tous tes pokémons n'ont plus de PV !!" << endl<< endl;
+        cout << "Tu te rends au Centre Pokémon pour les soigner !" << endl << endl;
+
+        getChar();
+        cout << "Appuie sur une touche pour continuer l'aventure !" << endl;
+        player->posy = listeMap[6]->height/2;
+        player->posx = listeMap[6]->width/2;
+        player->posyAv = player->posy;
+        player->posxAv = player->posyAv;
+
+        // le soin des pokémons
+        for (int i = 0;i<5; i++){
+            player->ekip[i].pv = player->ekip[i].pvmax;
+        }
+
+    }
+
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
+
+        // entrée pour le centre pokémon
+    if (map->Lmap.at(player->posx +map->width*player->posy) == 'C') 
+    {
+        *mapx = 0;
+        *mapy = 3;
+        player->posy = listeMap[6]->height-1;
+        player->posx = listeMap[6]->width/2;
+        player->posyAv = player->posy;
+        player->posxAv = player->posyAv;
+
+    }
+
+    // sortie du centre pokemon
+    if (map->Lmap.at(player->posx +map->width*player->posy) == 'S') 
+    {
+        *mapx = 0;
+        *mapy = 1;
+        /*player->posy = 11;
+        player->posx = 13;
+        player->posyAv = player->posy; 
+        player->posxAv = player->posyAv;*/
+
+    }
+
+    if (map->Lmap.at(player->posx+map->width*player->posy) == 'x'){
+        centrePokemon(player, 'x');
+    }
+
+    //MAJ de la map si besoins
+    map = listeMap[(*mapx)+mapwidth*(*mapy)];
+
     int nb_aff_ligne = 0;
     bool aff_car = true;
 
@@ -21,30 +80,32 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
             for (int h=0; h<map->width; h++)
             {
 
-                if (h==player.posx && j==player.posy) // Affichage joueur
+                if (h==player->posx && j==player->posy) // Affichage joueur
                 {
-                    cout << white << player.cara;
+                    cout << white << player->cara;
                     nb_aff_ligne ++;
                     h++;
                 }
                 
 
-
-                if (map->adresse == "./map/salleBoss.txt" && h==boss.posx && j==boss.posy){ // Affichage du boss
-                    cout << white << boss.cara;
+                // Affichage du boss
+                if (map->adresse == "./map/salleBoss.txt" && h==boss->posx && j==boss->posy){ 
+                    cout << white << boss->cara;
                     nb_aff_ligne ++;
                     h++;
 
                 }
-                if (player.posx == boss.posx && player.posy == boss.posy && map->adresse == "./map/salleBoss.txt" && boss.ekip[0].pv >0){ // lancement du fight du boss
+                // lancement du fight du boss
+                if (player->posx == boss->posx && player->posy == boss->posy && map->adresse == "./map/salleBoss.txt" && boss->ekip[0].pv >0){ 
                     introCombatBoss();
-                    combatBoss(&player, &boss);
+                    combatBoss(player, boss);
                     exit(0);
                 }
 
-                if ((h==player.posxAv && j==player.posyAv)) // Affichage Pokémon qui suit 
+                
+                if ((h==player->posxAv && j==player->posyAv)) // Affichage Pokémon qui suit 
                 {
-                    cout << player.ekip[0].type.cara;
+                    cout << player->ekip[0].type.cara;
                     nb_aff_ligne ++;
                     aff_car = false;
                 }
@@ -76,7 +137,7 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
 
 void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapwidth, Map* listeMap[]){
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
-    
+        
     
     
     // passage dans le volcan
@@ -91,6 +152,7 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
             return ;
 
         }
+    
 
     // passage dans la salle du boss
     if (map->Lmap.at(player->posx +(player->posy)*(map->width)+1) == '!')
@@ -182,14 +244,14 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
     
 }
 
-void onMap (Player player,Player boss, Pokemon listePokemonSauvage[], int nbPokemonSauvage, int* mapx, int* mapy,int mapwidth, Map* listeMap[])
+void onMap (Player *player, Player *boss, Pokemon listePokemonSauvage[], int nbPokemonSauvage, int* mapx, int* mapy,int mapwidth, Map* listeMap[])
 {    
-    if (player.ekip[0].name == "WINNER") return; // si on a gagné on arrête le jeu
+    if (player->ekip[0].name == "WINNER") return; // si on a gagné on arrête le jeu
     
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
     
-    updateMap(listeMap, mapx, mapy, mapwidth, player,boss, listePokemonSauvage, nbPokemonSauvage);
-    afficheMenu(&player);
+    updateMap(listeMap, mapx, mapy, mapwidth, player, boss,listePokemonSauvage, nbPokemonSauvage);
+    afficheMenu(player);
     char input;
     
     do // éviter fin du jeu si mauvaise input
@@ -210,22 +272,22 @@ void onMap (Player player,Player boss, Pokemon listePokemonSauvage[], int nbPoke
             }
         }
         // déplacement du perso
-        deplacement_perso(&player, input, mapx, mapy,mapwidth, listeMap);
+        deplacement_perso(player, input, mapx, mapy,mapwidth, listeMap);
         
         Pokemon* pokemonSauvage = &listePokemonSauvage[0];
-        for(int i=0; i<nbPokemonSauvage && player.tooClose!=1; i++)
+        for(int i=0; i<nbPokemonSauvage && player->tooClose!=1; i++)
         {
             pokemonSauvage = &listePokemonSauvage[i];
-            checkIfTooClose(&player,*pokemonSauvage, map);
+            checkIfTooClose(player,*pokemonSauvage, map);
         }
-        if (player.tooClose==1)
+        if (player->tooClose==1)
         {
             srand (time(NULL)); // initialisation de la graine
             int canAttack = rand() % 1;  // pile ou face pour commencer
-            combat(&player,pokemonSauvage,canAttack);
+            combat(player,pokemonSauvage,canAttack);
             wclear();
-            player.tooClose=0;
-            onMap(player,boss,listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth, listeMap);            
+            player->tooClose=0;
+            onMap(player,boss, listePokemonSauvage,nbPokemonSauvage,mapx, mapy,mapwidth, listeMap);            
         }
         else
         {
@@ -236,7 +298,7 @@ void onMap (Player player,Player boss, Pokemon listePokemonSauvage[], int nbPoke
     {
         case '1':
         wclear();
-        afficheInventaire(player.inv);
+        afficheInventaire(player->inv);
         
         cout << "Appuies sur le numéro pour utiliser" << endl;
         cout << "Appuyez sur X pour revenir sur la map" << endl;
@@ -248,11 +310,11 @@ void onMap (Player player,Player boss, Pokemon listePokemonSauvage[], int nbPoke
                 break;
             
             case '1':
-            if (player.inv.nbPotion>0)
+            if (player->inv.nbPotion>0)
             {
                 wclear();
                 cout << "Quel pokemon voulez-vous soigner ?"<<endl;
-                afficheEkip(&player);
+                afficheEkip(player);
                 int i;
                 switch (getChar())
                 {
@@ -263,12 +325,12 @@ void onMap (Player player,Player boss, Pokemon listePokemonSauvage[], int nbPoke
                     case '5' : i=4; break;
                     case '6' : i=5;break;
                 }
-                player.inv.nbPotion--;
-                player.ekip[i].pv+=10;
+                player->inv.nbPotion--;
+                player->ekip[i].pv+=10;
                 wclear();
                 cout << endl;
-                afficheEkip(&player);
-                cout << player.pseudo << " utilise une potion sur "<<player.ekip[i].name << "\nil regagne 10PV"<<endl;
+                afficheEkip(player);
+                cout << player->pseudo << " utilise une potion sur "<<player->ekip[i].name << "\nil regagne 10PV"<<endl;
                 cout << "\n\n\n\n\n\n\n";
                 cout <<" ---Appuies sur une touche pour continuer"<< endl;
                 getChar();
@@ -291,7 +353,7 @@ void onMap (Player player,Player boss, Pokemon listePokemonSauvage[], int nbPoke
 
         case '2':
         wclear();
-        afficheEkip(&player);
+        afficheEkip(player);
         cout << "Appuyez sur X pour revenir sur la map" << endl;
         if  (getChar()=='x')
         {
@@ -302,7 +364,7 @@ void onMap (Player player,Player boss, Pokemon listePokemonSauvage[], int nbPoke
         
         case '3':
         wclear();
-        affichePlayer(&player);
+        affichePlayer(player);
         cout << "\n\n\nAppuyez sur X pour revenir sur la map" << endl;
         if  (getChar()=='x')
         {
@@ -401,6 +463,10 @@ void checkIfTooClose(Player *player,Pokemon pokemonSauvage1, Map* map){
     {
         player->tooClose=1;
     }
+    if (player->ekip[0].pv<=0)
+    {
+        player->tooClose=0;
+    }
     else
     {
         player->tooClose=0;
@@ -413,6 +479,7 @@ bool peutBouger(char charMap){
     switch (charMap){
         // liste des caractères sur lesquels on peut bouger
         case ' ':
+        case 'C':
         case '+':
         case '@':
         case '/':
@@ -424,6 +491,8 @@ bool peutBouger(char charMap){
         case '.':
         case '!':
         case 'w':
+        case 'x':
+        case 'S':
             return true;
         break;
 
@@ -458,5 +527,126 @@ void deplacementPokemonSauvage (Map* map, Pokemon* pokemonSauvage){
         }
     
     }
+}
+
+void centrePokemon(Player *player, char entree){
+    if (entree=='x')
+    {
+        cout << "Bienvenue au PokeCentre !!!" << endl;
+        cout << "Nous faisons PokeBoutique aussi !" << endl;
+        cout << "Que puis-je faire pour vous ?" << endl << endl;
+        cout << "1 - Soigner mes Pokemons" << endl;
+        cout << "2 - PokeBoutique" << endl;
+        cout << "\n\n\n\n\n";
+        cout << "Appuyez sur une touche pour retour" << endl;
+        entree = getChar();
+    }
+    switch (entree)
+    {
+        case '1':
+            wclear();
+            afficheEkip(player);
+            cout << "Je vais soigner vos pokémons" << endl;
+            for (int i=0;i<compteEkip(player);i++)
+            {
+                player->ekip[i].pv=player->ekip[i].pvmax;
+            }
+            getChar();
+            wclear();
+            afficheEkip(player);
+            cout << "\n\n\n\n\n";
+            cout << "Appuyez sur une touche pour retour" << endl;
+            getChar();
+            wclear();
+            centrePokemon(player, 'x');
+        break;
+        
+        case '2' :
+            wclear();
+            cout << "Que souhaitez-vous acheter ?" << endl;
+            cout << "1 - Pokeball                100$" << endl;
+            cout << "2 - Potion                  200$" << endl;
+            cout << "3 - Antidote                300$" << endl;
+            cout << "\n\n\n\n\n";
+            cout << "Appuyez sur une touche pour choisir" << endl;
+            cout << "Appuyez sur une autre touche pour retour" << endl;
+            switch (getChar())
+            {
+                case '1' :
+                    if (player->inv.argent>=100)
+                    {
+                        player->inv.nbPokeball++;
+                        player->inv.argent-=100;
+                        cout << "Vous venez d'acheter 1 Pokeball " << endl;
+                        cout << "\n\n\n\n\n";
+                        cout << "Appuyez sur une touche pour retour" << endl;
+                        getChar();
+                        wclear();
+                        centrePokemon(player, 'x');
+                    }
+                    else
+                    {
+                        cout << endl << endl << "Vous n'avez pas assez d'argent monsieur !" << endl;
+                        cout << "\n\n\n\n\n";
+                        cout << "Appuyez sur une touche pour retour" << endl;
+                        getChar();
+                        wclear();
+                        centrePokemon(player, '2');
+                    }
+                break;
+
+                case '2' :
+                    if (player->inv.argent>=200)
+                    {
+                        player->inv.nbPotion++;
+                        player->inv.argent-=200;
+                        cout << "Vous venez d'acheter 1 Potion " << endl;
+                        cout << "\n\n\n\n\n";
+                        cout << "Appuyez sur une touche pour retour" << endl;
+                        getChar();
+                        wclear();
+                        centrePokemon(player, 'x');
+                    }
+                    else
+                    {
+                        cout << endl << endl << "Vous n'avez pas assez d'argent monsieur !" << endl;
+                        cout << "\n\n\n\n\n";
+                        cout << "Appuyez sur une touche pour retour" << endl;
+                        getChar();
+                        wclear();
+                        centrePokemon(player, '2');
+                    }
+                break;
+
+                case '3' :
+                    if (player->inv.argent>=300)
+                    {
+                        player->inv.nbAntidote++;
+                        player->inv.argent-=300;
+                        cout << "Vous venez d'acheter 1 Antidote " << endl;
+                        cout << "\n\n\n\n\n";
+                        cout << "Appuyez sur une touche pour retour" << endl;
+                        getChar();
+                        centrePokemon(player, 'x');
+                    }
+                    else
+                    {
+                        cout << endl << endl << "Vous n'avez pas assez d'argent monsieur !" << endl;
+                        cout << "\n\n\n\n\n";
+                        cout << "Appuyez sur une touche pour retour" << endl;
+                        getChar();
+                        centrePokemon(player, '2');
+                    }
+                break;
+                default : centrePokemon(player,'x');
+            }   
+        
+        
+        default :
+            player->posx++;
+            wclear();
+            return;
+    }
+
 
 }

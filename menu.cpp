@@ -15,7 +15,7 @@ void afficheInventaire(Inventaire inv){
     cout << "1 Potion : " << inv.nbPotion << endl;
     cout << "2 Pokeball " << inv.nbPokeball << endl;
     cout << "3 Antidote : " << inv.nbAntidote << endl;
-    cout << "4 Truc" << inv.nbTruc << endl << endl << endl;
+    cout << "4 Argent : " << inv.argent << endl << endl << endl;
 }
 
 int compteEkip(Player *player){

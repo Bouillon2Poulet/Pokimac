@@ -23,6 +23,7 @@ void initInventaire(Inventaire *inv){
     inv->nbPokeball = 2;
     inv->nbAntidote = 1;
     inv->nbTruc = 3;
+    inv->argent = 1000;
 }
 
 void initEkip(Player *player){
