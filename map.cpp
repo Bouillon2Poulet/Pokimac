@@ -387,6 +387,10 @@ void checkIfTooClose(Player *player,Pokemon pokemonSauvage1, Map* map){
     {
         player->tooClose=1;
     }
+    if (player->ekip[0].pv<=0)
+    {
+        player->tooClose=0;
+    }
     else
     {
         player->tooClose=0;
