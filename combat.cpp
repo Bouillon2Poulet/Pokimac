@@ -67,6 +67,11 @@ void combatBoss (Player* player, Player* boss){
             
             delete poketemp;
 
+            if (k==5){
+                cout << "Et mainenant MISTER X envoie son dernier atout, le plus puissant !! " << endl;
+                cout << "Son fameux pikachu survolté !!!";
+            }
+
         }
 
     }
@@ -342,7 +347,16 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack, bool sauvage
 
         case '4' :
             wclear();
-            return;
+            if (sauvage == true) return;
+
+            cout << "ON NE FUIT PAS DEVANT MISTER X NON NON"<< endl;
+            cout << "ON L'AFFRONTE JUSQU'AU BOUT !!" << endl << endl << endl;
+            cout << "Appuies sur A pour continuer le combat" << endl;
+            char suite; 
+            do {
+                suite = getChar();
+            }while (suite != 'a' && suite != 'A');
+            wclear();
         break;
 
         default:

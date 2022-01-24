@@ -13,7 +13,7 @@ void afficheInventaire(Inventaire inv){
     cout << "- INVENTAIRE -" << endl ;
     cout<< endl;
     cout << "1 Potion : " << inv.nbPotion << endl;
-    cout << "2 Pokeball " << inv.nbPokeball << endl;
+    cout << "2 Pokeball :1 " << inv.nbPokeball << endl;
     cout << "3 Antidote : " << inv.nbAntidote << endl;
     cout << endl << endl << endl;
     cout << "Argent : " << inv.argent << endl << endl << endl;
@@ -25,7 +25,7 @@ int compteEkip(Player *player){
     {
         compteur++;
     }
-    return compteur;<< player->ekip[i].pv << "/" << player->ekip[i].pvmax << endl<<endl;
+    return compteur;
 }
 
 void afficheEkip(Player *player){
