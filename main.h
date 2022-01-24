@@ -84,12 +84,12 @@ extern Pokemon listePkm []; //Déclaration de la liste
 //Couleurs texte
 const string red = "\033[31m";
 const string green = "\033[32m";
-const string brown = "\033[33m";
+const string brown = "\033[1;33m";
 const string blue = "\033[34m";
 const string purple = "\033[35m";
 const string white = "\033[0m";
 const string grey = "\033[90m";
-const string yellow = "\033[1;33m";
+const string yellow = "\033[33m";
 const string cyan = "\033[36m";
 
 //couleurs background
@@ -138,13 +138,14 @@ struct Player{
     string pseudo;
     Inventaire inv;
     Pokemon ekip[6];
+    char cara;
 };
 
 //Constantes
 
 
 //Dimensions Map
-extern int width; 
+extern int width;
 extern int height;
 
 //Prototypes de fonctions

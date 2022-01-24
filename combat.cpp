@@ -11,19 +11,55 @@ using namespace std;
 void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
      
     int sortie =-1;
-    if (player->ekip[0].pv<=0) //Si les PV de l'un des pokémons tombe à zéro le combat s'arrête
+    int k = 0;
+    
+    if (player->ekip[0].pv<=0) //Si les PV de l'un des pokémons tombe à zéro
     {
+        player->ekip[0].pv = 0;
         afficheCombat(player,pokemonAdverse);
-        cout << "Votre pokemon n'a plus de pv" << endl;
+        cout << "Ton pokemon " << player->ekip[0].name << " n'a plus de pv" << endl << endl;
+
+        
+        // on regarde si on a d'autre pokémon avec de la vie
+        while (k<5 && (player->ekip[k].name == "XOX" || player->ekip[k].pv == 0)){
+            cout << player->ekip[k].name << endl;
+            k++;
+        }
+        if (k==5)
+        {
+            cout << "Tous tes Pokemons n'ont plus de vie !" << endl << endl;
+            cout << "----   Fin du combat   ----" ;
+            cout << "\n\n\n\n\n\n\n";
+            cout <<" ---Appuies sur une touche pour continuer"<< endl;
+            getChar();
+            wclear();
+            return;
+        }
+        
+        // si on a au moins un autre pokemon avc de la vie
+        // on échange les 2 pokémons
+        // il n'y a pas de choix du suivant
+        Pokemon * poketemp = new Pokemon;
+        copyPokemon(&player->ekip[k], poketemp);
+        copyPokemon(&player->ekip[0], &player->ekip[k]);
+        copyPokemon(poketemp, &player->ekip[0]);
+        
+        delete poketemp;
+
+        cout <<  player->ekip[0].name << " entre en jeu !!" << endl;
+        
         cout << "\n\n\n\n\n\n\n";
         cout <<" ---Appuies sur une touche pour continuer"<< endl;
         getChar();
-        return;
+        delay(1);
+
+        combat(player, pokemonAdverse, canAttack);
     }
     if (pokemonAdverse->pv<=0)
     {
+        pokemonAdverse->pv =0;
         afficheCombat(player,pokemonAdverse);
-        cout << "Vous avez vaincu le pokemon adverse" << endl;
+        cout << "Tu as vaincu le pokemon adverse" << endl;
         cout << "\n\n\n\n\n\n\n";
         cout <<" ---Appuies sur une touche pour continuer"<< endl;
         getChar();
@@ -46,7 +82,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
             calcPvXp(player->ekip[0].niveau+1, &player->ekip[0]);
             player->ekip[0].pv=pvActuel+player->ekip[0].pvmax-pvMaxAvant;
 
-            cout << "-> Après" << endl << "Niveau : " << player->ekip[0].niveau << endl << "PVmax : " << player->ekip[0].pvmax << endl << "PV : " << player->ekip[0].pv << endl;
+            cout << endl << endl << "-> Après" << endl << "Niveau : " << player->ekip[0].niveau << endl << "PVmax : " << player->ekip[0].pvmax << endl << "PV : " << player->ekip[0].pv << endl;
 
             for (int i=0;player->ekip[0].attaque[i].puissance!=-1;i++)
             {
@@ -152,6 +188,7 @@ void combat(Player *player, Pokemon *pokemonAdverse, int canAttack){
                                 cout <<" ---Appuies sur une touche pour continuer"<< endl;
                                 getChar();
                                 wclear();
+                                pokemonAdverse->pv = 0; // pour faire u en sorte qu'il disparaisse
                                 return;
                             }
                             else
@@ -197,8 +234,8 @@ int attaque (Player *player, Pokemon *pokemonAdverse)
 {
     for (int i=0;player->ekip[0].attaque[i].puissance!=-1;i++)
     {
-        cout << i+1 << player->ekip[0].attaque[i].type.cara << player->ekip[0].attaque[i].name << endl;
-        cout << "Puissance " << player->ekip[0].attaque[i].puissance<< endl;  
+        cout << " " << i+1 << " " << player->ekip[0].attaque[i].type.cara << player->ekip[0].attaque[i].name << endl;
+        cout << "Puissance " << player->ekip[0].attaque[i].puissance<< endl << endl;  
     }
     cout << "\n\n\n\n\n\n\n";
     cout <<" ---Appuies sur une autre touche pour sortir"<< endl;

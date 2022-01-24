@@ -19,7 +19,7 @@ void initPositionPlayer (Player *player, int posx, int posy){
 }
 
 void initInventaire(Inventaire *inv){
-    inv->nbPotion = 1;
+    inv->nbPotion = 3;
     inv->nbPokeball = 2;
     inv->nbAntidote = 1;
     inv->nbTruc = 3;

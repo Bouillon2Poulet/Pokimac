@@ -20,7 +20,7 @@ void updateMap(Map* listeMap[], int* mapx, int* mapy, int mapwidth, Player playe
 
                 if (h==player.posx && j==player.posy) // Affichage joueur
                 {
-                    cout << white << 1;
+                    cout << white << player.cara;
                     nb_aff_ligne ++;
                     h++;
                 }
@@ -167,29 +167,17 @@ void deplacement_perso(Player *player, char input, int* mapx, int* mapy,int mapw
 
 void onMap (Player player, Pokemon listePokemonSauvage[], int nbPokemonSauvage, int* mapx, int* mapy,int mapwidth, Map* listeMap[])
 {    
-    cout << player.tooClose << endl;
     Map* map = listeMap[(*mapx)+mapwidth*(*mapy)];
-    
-    // faire bouger le pokemon sauvage
-    /*time_t timer;
-    time(&timer); // regarde l'heure
-    cout << (int)timer << endl;
-    if (timer%3 ==0){
-        Pokemon* pokemonSauvage1 = &listePokemonSauvage[0];
-        for (int i=0; i<nbPokemonSauvage; i++){
-            pokemonSauvage1 = &listePokemonSauvage[i];
-            if (map->adresse == pokemonSauvage1->mapNom && pokemonSauvage1->pv >0) 
-            {
-                deplacementPokemonSauvage(map,pokemonSauvage1);
-            }
-        }
-    }*/
     
     
     updateMap(listeMap, mapx, mapy, mapwidth, player, listePokemonSauvage, nbPokemonSauvage);
     afficheMenu(&player);
     char input;
-    input = getChar();
+    
+    do // éviter fin du jeu si mauvaise input
+    {
+        input = getChar();
+    }while (input !='z' && input !='q' && input !='s' && input !='d' && input !='1' && input !='2' && input !='3' && input !='4');
 
     if (input=='z'||input=='q'||input=='s'||input=='d')
     {
@@ -330,7 +318,7 @@ void afficheCouleur(char c, string bgMap, int x, int y){
 
         // rouge
         case '.':
-            cout << red << c; // marron c jaune pour le moment
+            cout << red << c;
         break;
 
         // gris
@@ -354,6 +342,7 @@ void afficheCouleur(char c, string bgMap, int x, int y){
         //vert
         case 'T':
         case 'Y':
+        case 'w':
             cout << green << c<< white;
         break;
 
@@ -416,6 +405,7 @@ bool peutBouger(char charMap){
         case '#':
         case '.':
         case '!':
+        case 'w':
             return true;
         break;
 
